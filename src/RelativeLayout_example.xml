@@ -1,0 +1,22 @@
+<android.widget.RelativeLayout index="0" class="android.widget.RelativeLayout" text="" bounds="[26,417][1414,673]" layout_width="fill_parent" layout_height="fill_parent" type="RelativeLayout" isMerged="row_story_headline.xml">
+    <android.widget.ImageView index="0" class="android.widget.ImageView" text="" resource-id="com.workingagenda.democracydroid:id/row_image"
+                              bounds="[26,417][481,673]" id="@id/row_image" layout_width="130.0dip" layout_height="73.0dip"
+                              scaleType="fitCenter" type="com.facebook.drawee.view.SimpleDraweeView" isMerged="row_story.xml"/>
+    <android.widget.TextView index="1" class="android.widget.TextView" text="Headlines for March 25, 2024; span class capsISIS-K Claims Credit After 137 Killed in Moscow Concert Attack; Russia Tries to Blame Ukraine; As Israel Blocks More U.N. Aid, Gaza Is on the Brink of Most Intense Famine Since WW2; World Ignores Sudan Hunger Crisis; 230,000 Children and Mothers Could Die in Coming Months"
+                             resource-id="com.workingagenda.democracydroid:id/row_tag" bounds="[509,431][1302,586]" textSize="12.0sp" textStyle="bold"
+                             textColor="@color/black" id="@id/row_tag" layout_width="wrap_content"
+                             layout_height="wrap_content" layout_marginLeft="8.0dip" layout_marginTop="4.0dip" layout_marginRight="4.0dip"
+                             layout_marginBottom="4.0dip" maxLines="3" minLines="1" layout_toLeftOf="@id/row_options" layout_toRightOf="@id/row_image"
+                             type="TextView" isMerged="row_episodes.xml"/>
+    <android.widget.ImageView index="2" class="android.widget.ImageView" text="" resource-id="com.workingagenda.democracydroid:id/row_options" bounds="[1330,431][1414,543]"
+                              id="@id/row_options" layout_width="wrap_content" layout_height="32.0dip" layout_marginTop="4.0dip"
+                              layout_marginBottom="4.0dip" src="@drawable/ic_more_vert_black_24dp" layout_alignParentRight="true" />
+    <android.widget.TextView index="3" class="android.widget.TextView" text="2024-03-25 Monday" resource-id="com.workingagenda.democracydroid:id/row_title"
+                             bounds="[509,602][1316,659]" textSize="12.0sp" textStyle="italic" id="@id/row_title" layout_width="wrap_content" layout_height="wrap_content"
+                             :layout_marginLeft="8.0dip" layout_marginTop="4.0dip" layout_marginRight="4.0dip" layout_marginBottom="4.0dip" maxLines="1"
+                             layout_toLeftOf="@id/row_options" layout_toRightOf="@id/row_image" layout_alignBottom="@id/row_image"/>
+    <android.widget.ImageView index="4" class="android.widget.ImageView" text="" resource-id="com.workingagenda.democracydroid:id/row_download"
+                              bounds="[1330,533][1414,659]" id="@id/row_download" layout_width="wrap_content"
+                              layout_height="36.0dip" layout_marginTop="4.0dip" layout_marginBottom="4.0dip" src="@drawable/ic_file_download_black_24dp"
+                              layout_toRightOf="@id/row_title" layout_alignBottom="@id/row_image" type="ImageView" isMerged="row_episodes.xml"/>
+</android.widget.RelativeLayout>

@@ -1,0 +1,289 @@
+package view;
+
+import util.BugReporter;
+import util.DimenVaule;
+import util.MeasureSpec;
+import util.Spec;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+public class ViewGroup extends View{
+    public String view_type = "view group";
+    List<View> Children;
+    public ViewGroup(int width, int height){
+        Children = new ArrayList<>();
+//        this.Height = height;
+//        this.Width = width;
+    }
+
+    public ViewGroup(HashMap<String, String> attrMap){
+        initialBasicAttrs(attrMap);
+        Children = new ArrayList<>();
+    }
+
+    public ViewGroup() {
+    }
+
+    public void addChild(View view){
+        //todo
+        this.Children.add(view);
+    }
+
+    public List<View> getChildren(){
+        return this.Children;
+    }
+
+    // TODO: 2024/6/13 计算子组件的放置位置
+    void onLayout(){
+
+    }
+
+
+    /**
+     * Does the hard part of measureChildren: figuring out the MeasureSpec to
+     * pass to a particular child. This method figures out the right MeasureSpec
+     * for one dimension (height or width) of one child view.
+     *
+     * The goal is to combine information from our MeasureSpec with the
+     * LayoutParams of the child to get the best possible results. For example,
+     * if the this view knows its size (because its MeasureSpec has a mode of
+     * EXACTLY), and the child has indicated in its LayoutParams that it wants
+     * to be the same size as the parent, the parent should ask the child to
+     * layout given an exact size.
+     *
+     * 修改自Android.ViewGroup.getChildMeasureSpec
+     *
+     * @param specSize The requirements for this view
+     * @param specMode The requirements for this view
+     * @param padding The padding of this view for the current dimension and margins, if applicable
+     * @param childDimension How big the child wants to be in the current dimension
+     * @return a MeasureSpec integer for the child
+     */
+    public static Spec getChildMeasureSpec(int specMode, int specSize, int padding, int childDimension) {
+
+        int size = Math.max(0, specSize - padding);
+
+        int resultSize = 0;
+        int resultMode = 0;
+
+        switch (specMode) {
+            // Parent has imposed an exact size on us
+            case MeasureSpec.EXACTLY -> {
+                if (childDimension >= 0) {
+                    resultSize = childDimension;
+                    resultMode = MeasureSpec.EXACTLY;
+                } else if (childDimension == LinearLayout.LayoutParams.MATCH_PARENT) {
+                    // Child wants to be our size. So be it.
+                    resultSize = size;
+                    resultMode = MeasureSpec.EXACTLY;
+                } else if (childDimension == LinearLayout.LayoutParams.WRAP_CONTENT) {
+                    // Child wants to determine its own size. It can't be bigger than us.
+                    resultSize = size;
+                    resultMode = MeasureSpec.AT_MOST;
+                }
+            }
+
+            // Parent has imposed a maximum size on us
+            case MeasureSpec.AT_MOST -> {
+                if (childDimension >= 0) {
+                    // Child wants a specific size... so be it
+                    resultSize = childDimension;
+                    resultMode = MeasureSpec.EXACTLY;
+                } else if (childDimension == LinearLayout.LayoutParams.MATCH_PARENT) {
+                    // Child wants to be our size, but our size is not fixed. Constrain child to not be bigger than us.
+                    resultSize = size;
+                    resultMode = MeasureSpec.AT_MOST;
+                } else if (childDimension == LinearLayout.LayoutParams.WRAP_CONTENT) {
+                    // Child wants to determine its own size. It can't be bigger than us.
+                    resultSize = size;
+                    resultMode = MeasureSpec.AT_MOST;
+
+                }
+            }
+
+            // 尽量避免UNSPECIFIED的出现，可滑动的组件设置为(AT_MOST, Integer.MIN_VALUE)
+            case MeasureSpec.UNSPECIFIED -> {
+                if (childDimension >= 0) {
+                    // Child wants a specific size... let him have it
+                    resultSize = childDimension;
+                    resultMode = MeasureSpec.EXACTLY;
+                }else{
+                    System.err.println("UNSPECIFIED view");
+                }
+            }
+        }
+
+        return new Spec(resultMode, resultSize);
+    }
+
+
+    void measureChild(View child, int wSpecMode, int wSpecSize, int hSpecMode, int hSpecSize){
+//        System.out.println("ViewGroup measureChild Params: wSpecMode = " + wSpecMode + "; wSpecSize = " + wSpecSize +
+//                "; hSpecMode = " + hSpecMode + "; hSpecSize = " + hSpecSize);
+
+        LayoutParams lp = child.mLayoutParams;
+
+        // 水平方向
+        int horizontal_padding =  this.paddingLeft + this.paddingRight + lp.leftMargin + lp.rightMargin;
+        Spec cWidthSpec = MeasureSpec.getChildMeasureSpec(wSpecMode, wSpecSize, horizontal_padding, lp.width);
+
+        // 垂直方向
+        int vertical_padding = this.paddingTop + this.paddingBottom + lp.topMargin + lp.bottomMargin;
+
+        Spec cHeightSpec = MeasureSpec.getChildMeasureSpec(hSpecMode, hSpecSize, vertical_padding, lp.height);
+
+        child.onMeasure(cWidthSpec.mode, cWidthSpec.size, cHeightSpec.mode, cHeightSpec.size);
+    }
+
+    void checkOutOfParentBounds(){
+        for(View child : this.getChildren()){
+            boolean isReported = false;
+            // 当子组件不是可横向滑动的组件时，子组件的左边界不应该超过0，子组件的右边界不应该超过父组件的右边界
+            if(child.left < 0 && !(child instanceof HorizontalView)){
+                BugReporter.writeViewBug(View.packageName, BugReporter.VIEW_INCOMPLETE, child, null);
+                BugReporter.writeInReport("left side out of boundary");
+            }
+            if(child.right + this.left > this.right && !(child instanceof HorizontalView)){
+                if(!isReported){
+                    BugReporter.writeViewBug(View.packageName, BugReporter.VIEW_INCOMPLETE, child, null);
+                }
+                BugReporter.writeInReport("right side out of boundary");
+            }
+            // 当子组件不是可竖向滑动的组件时，子组件的上边界不应该小于0，子组件的下边界不应该超过父组件的下边界
+            if(child.top < 0 && !(child instanceof ScrollView)){
+                if(!isReported){
+                    BugReporter.writeViewBug(View.packageName, BugReporter.VIEW_INCOMPLETE, child, null);
+                }
+                BugReporter.writeInReport("top side out of boundary");
+            }
+            if(child.bottom + this.top < this.bottom && !(child instanceof ScrollView)){
+                if(!isReported){
+                    BugReporter.writeViewBug(View.packageName, BugReporter.VIEW_INCOMPLETE, child, null);
+                }
+                BugReporter.writeInReport("bottom side out of boundary");
+            }
+
+        }
+    }
+
+    public void showAllAttrs(){
+        super.showAllAttrs();
+        System.out.println("Children number: " + Children.size());
+    }
+
+    public void printClassName(){
+        System.out.println("ViewGroup");
+    }
+
+    @Override
+    public void checkView() throws IOException {
+        int n = this.getChildren().size();
+        for (int i = 0; i < n; i++) {
+            View child = this.getChildren().get(i);
+            child.checkView();
+        }
+    }
+
+    public static class LayoutParams{
+        public static final int FILL_PARENT = -1;
+        public static final int MATCH_PARENT = -1;
+        public static final int WRAP_CONTENT = -2;
+        public int width;
+        public int height;
+        public int leftMargin;
+        public int topMargin;
+        public int rightMargin;
+        public int bottomMargin;
+
+        public int mLeft;
+        public int mRight;
+        public int mTop;
+        public int mBottom;
+
+        public int WidthMeasureSpecMode = 0;
+        public int WidthMeasureSpecSize = 0;
+        public int HeightMeasureSpecMode = 0;
+        public int HeightMeasureSpecSize = 0;
+
+
+        void setWidthMeasureSpec(int mode, int size){
+            this.WidthMeasureSpecMode = mode;
+            this.WidthMeasureSpecSize = size;
+        }
+
+
+        void setHeightMeasureSpec(int mode, int size){
+            this.HeightMeasureSpecMode = mode;
+            this.HeightMeasureSpecSize = size;
+        }
+
+
+        public void printClassName(){
+            System.out.println("ViewGroup.LayoutParams");
+        }
+
+        public LayoutParams() {
+        }
+
+        int getDimen(String dimenStr){
+            if(dimenStr.equals("wrap_content")){
+                return DimenVaule.WRAP_CONTENT;
+            } else if (dimenStr.equals("fill_parent") || dimenStr.equals("match_parent")) {
+                return DimenVaule.FILL_PARENT;
+            }else{
+                return DimenVaule.parseDimenValue2Px(dimenStr);
+            }
+        }
+
+        public void setLayoutParams(HashMap<String, String> attrMap){
+            // initial height
+            this.height = getDimen(attrMap.get("layout_height")); //px
+            attrMap.remove("layout_height");
+            // initial width
+            this.width = getDimen(attrMap.get("layout_width")); // px
+            attrMap.remove("layout_width");
+            // initial margin
+            for (String margin : Margin_Attr) {
+                if (attrMap.containsKey(margin)) {
+                    setMargin(margin, attrMap.get(margin));
+                    attrMap.remove(margin);
+                }
+            }
+
+        }
+
+        void setMargin(String margin_type, String margin_val){
+            int margin_px = DimenVaule.parseDimenValue2Px(margin_val);
+            switch (margin_type) {
+                case "layout_margin" -> {
+                    leftMargin = margin_px;
+                    topMargin = margin_px;
+                    rightMargin = margin_px;
+                    bottomMargin = margin_px;
+                }
+                case "layout_marginLeft" -> leftMargin = margin_px;
+                case "layout_marginTop" -> topMargin = margin_px;
+                case "layout_marginRight" -> rightMargin = margin_px;
+                case "layout_marginBottom" -> bottomMargin = margin_px;
+                default -> System.err.println("unknown margin type" + margin_type);
+            }
+        }
+
+        public void show(){
+            System.out.println("width: " + width);
+            System.out.println("height: " + height);
+            System.out.println("leftMargin: " + leftMargin);
+            System.out.println("topMargin: " + topMargin);
+            System.out.println("rightMargin: " + rightMargin);
+            System.out.println("bottomMargin: " + bottomMargin);
+            System.out.println("width measureSpec Mode: " + this.WidthMeasureSpecMode);
+            System.out.println("width measureSpec Size: " + this.WidthMeasureSpecSize);
+            System.out.println("height measureSpec Mode: " + this.HeightMeasureSpecMode);
+            System.out.println("height measureSpec Size: " + this.HeightMeasureSpecSize);
+        }
+    }
+
+}

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="android-28">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../../Android/AndroidSDK/platforms/android-28" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../../../Android/AndroidSDK/platforms/android-28" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/../../../Android/AndroidSDK/platforms/android-28" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../../../Android/AndroidSDK/platforms/android-28" recursive="false" type="SOURCES" />
+  </library>
+</component>
