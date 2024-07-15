@@ -11,7 +11,7 @@ import java.util.*;
 
 
 public class DynamicXmlProcess {
-    static String package_name = "com.workingagenda.democracydroid";
+    static String package_name;
 
     static HashMap<Element, String> DynamicIdMap = new HashMap<>(); // dynamic_element -> res_id
     static HashMap<String, List<Element>> StaticIdMap = new HashMap<>(); // ID -> static_element_list
@@ -23,160 +23,6 @@ public class DynamicXmlProcess {
             "long-clickable", "password", "selected", "displayed", "content-desc"
     };
     static HashSet<String> uselessAttrsSet = new HashSet<>(Arrays.asList(uselessAttrs));//xml dump中无用的属性集合
-
-    /**
-     * 删去动态xml dump中无用的属性
-     * @param doc
-     */
-    static void deleteUselessAttributesInDynamicXml(Document doc){
-        Element root = doc.getRootElement();
-        deleteUselessAttributesInElem(root);
-    }
-
-    /**
-     * 删去元素中的无用属性
-     * @param e
-     */
-    static void deleteUselessAttributesInElem(Element e){
-        List<Attribute> toBeDel = new ArrayList<>();
-        for(Iterator<Attribute> it = e.attributeIterator(); it.hasNext();) {
-            Attribute a = it.next();
-            if(a.getName().equals("scrollable") && a.getValue().equals("false")) {
-                toBeDel.add(a);
-                continue;
-            }
-            if(uselessAttrsSet.contains(a.getName())){
-                toBeDel.add(a);
-            }
-        }
-        for(Attribute attr : toBeDel){
-            e.remove(attr);
-        }
-        List<Element> children = e.elements();
-        for(Element child : children){
-            deleteUselessAttributesInElem(child);
-        }
-    }
-
-
-//    HashMap<Element, Integer> staticElementsSiblingsCNT = new HashMap<>();
-    static void buildStaticIDMap(File layoutBase){
-        if (layoutBase.isDirectory() && layoutBase.exists()) {
-            File[] files = layoutBase.listFiles();  // 获取文件夹中所有文件数组
-            if (files != null) {
-                for (File xml : files) {
-                    if (xml.isFile()) {
-                        //System.out.println("文件: " + xml.getName());
-                        getOneXmlIds(xml);
-                    }
-                }
-            }
-        } else {
-            System.err.println(layoutBase.getAbsolutePath() + "并不是一个存在的文件夹");
-        }
-    }
-
-    /**
-     * 合并layout中的静态xml和dump的动态xml
-     * @return
-     */
-    public static void mergeProcess(){
-
-        for(Map.Entry<Element, String> d_entry : DynamicIdMap.entrySet()){
-            Element de = d_entry.getKey();
-            String d_id = d_entry.getValue();
-            if(! d_id.contains(package_name)) {
-                continue;
-            }
-            String s_id = d_id.replace(package_name + ":" , "@");
-            if(StaticIdMap.containsKey(s_id)){
-                List<Element> se_list = StaticIdMap.get(s_id);
-                Element se;
-                int rightIndex = 0;
-                if(se_list.size() == 1){
-                    se = se_list.get(0);
-                }else{
-//                    System.out.println(s_id + " " + se_list.size());
-                    rightIndex = chooseRightElement(s_id, se_list, de);
-                    se = se_list.get(rightIndex);
-                }
-                File static_xml = IdMap.get(s_id).get(rightIndex);
-                mergeElements(de, se, static_xml);
-            }else{
-                System.out.println("can't find " + s_id + " in static xml");
-            }
-        }
-    }
-
-
-    /**
-     * 有多个id相同的静态element的情况下，选择出正确的与动态element对应的静态element
-     * 以静态文件中的id和动态xml中的res-id重合数量为指标，选择数量最大的那个静态文件进行merge
-     * @param id 以id为锚点
-     * @param se_list id相同的静态element_list
-     * @param de 动态element
-     * @return 返回se_list的index
-     */
-    static int chooseRightElement(String id, List<Element> se_list, Element de){
-        int maxSameIds = 0;
-        int rightIndex = 0;
-        for(int i=0; i<se_list.size(); i++){
-            Element se = se_list.get(i);
-            Element s_root = se;
-            Element d_root = de;
-            while(s_root != null && de != null){
-                s_root = s_root.getParent();
-                d_root = d_root.getParent();
-            }
-
-            File s_xml = IdMap.get(id).get(i);
-            int sameIdCnt = countCommonStrings(FileIdMap.get(s_xml),getAllIdsUnderRootEle(d_root));
-
-            // 能覆盖最多动态res-id的静态layout文件
-            if(sameIdCnt > maxSameIds){
-                rightIndex = i;
-                maxSameIds = sameIdCnt;
-            }
-        }
-//        System.out.println("maxSameIds = " + maxSameIds);
-//        System.out.println("right file name: " + IdMap.get(id).get(rightIndex).getName());
-        return rightIndex;
-    }
-
-    /**
-     * 以root为根节点的树中的所有id
-     * @param root
-     * @return id_list
-     */
-    static List<String> getAllIdsUnderRootEle(Element root){
-        List<String> res = new ArrayList<>();
-        if(DynamicIdMap.containsKey(root)){
-            String id = DynamicIdMap.get(root);
-            id = id.replace(package_name + ":", "@");
-            res.add(id);
-        }
-
-        for(Element child : root.elements()){
-            res.addAll(getAllIdsUnderRootEle(child));
-        }
-        return res;
-    }
-
-    /** 返回连个字符串列表中相同的字符串个数
-     * @param list1
-     * @param list2
-     * @return
-     */
-    public static int countCommonStrings(List<String> list1, List<String> list2) {
-        Set<String> set1 = new HashSet<>(list1);
-        Set<String> set2 = new HashSet<>(list2);
-
-        // Find the intersection of two sets
-        set1.retainAll(set2);
-
-        return set1.size();
-    }
-
 
     /**
      * 在动态xml中搜索"resource-id"为id参数的元素
@@ -211,34 +57,64 @@ public class DynamicXmlProcess {
         }
     }
 
-    public static void mergeElements(Element de, Element se, File static_file){
-//        System.out.println("mergeElements from " + static_file.getName());
-        if(se == null || de == null) {
-            return;
-        }
 
-        if(de.attribute("isMerged") != null){
-            return;
-        }
-
-        if (de.attributeValue("isMerged") != null) {
-            return;
-        }
-
-        if(!de.getName().contains(se.getName())) System.err.println("WARNING : merge " + de.getName() + " and " + se.getName());
-//        System.out.println("merge " + de.getName() + " and " + se.getName());
-
-        for(Iterator<Attribute> it = se.attributeIterator(); it.hasNext();) {
-            Attribute a = it.next();
-            if(a.getName().equals("text")) continue;
-            de.addAttribute(a.getName(), a.getValue());
-        }
-        de.addAttribute("type", se.getName());
-        de.addAttribute("isMerged", static_file.getName());
-//        System.out.println("isMerged " + static_file.getName());
-        mergeElements(de.getParent(), se.getParent(), static_file);
+    /**
+     * 删去动态xml dump中无用的属性
+     * @param doc
+     */
+    static void deleteUselessAttributesInDynamicXml(Document doc){
+        Element root = doc.getRootElement();
+        deleteUselessAttributesInElem(root);
     }
 
+    /**
+     * 删去元素中的无用属性，并且初始化包名
+     * @param e
+     */
+    static void deleteUselessAttributesInElem(Element e){
+        List<Attribute> toBeDel = new ArrayList<>();
+        for(Iterator<Attribute> it = e.attributeIterator(); it.hasNext();) {
+            Attribute a = it.next();
+            if(package_name == null && a.getName().equals("package")){
+                package_name = a.getValue();
+                toBeDel.add(a);
+            }
+
+            if(a.getName().equals("scrollable") && a.getValue().equals("false")) {
+                toBeDel.add(a);
+                continue;
+            }
+            if(uselessAttrsSet.contains(a.getName())){
+                toBeDel.add(a);
+            }
+        }
+        for(Attribute attr : toBeDel){
+            e.remove(attr);
+        }
+        List<Element> children = e.elements();
+        for(Element child : children){
+            deleteUselessAttributesInElem(child);
+        }
+    }
+
+    /**
+     * 构建静态xml的 id--Element--File 映射
+     * @param layoutBase res/layout的文件路径
+     */
+    static void buildStaticIDMap(File layoutBase){
+        if (layoutBase.isDirectory() && layoutBase.exists()) {
+            File[] files = layoutBase.listFiles();  // 获取文件夹中所有文件数组
+            if (files != null) {
+                for (File xml : files) {
+                    if (xml.isFile()) {
+                        getOneXmlIds(xml);
+                    }
+                }
+            }
+        } else {
+            System.err.println(layoutBase.getAbsolutePath() + "并不是一个存在的文件夹");
+        }
+    }
 
     static void getOneXmlIds(File xml){
         try {
@@ -319,10 +195,136 @@ public class DynamicXmlProcess {
         }
     }
 
+    /**
+     * 合并layout中的静态xml和dump的动态xml
+     * @return
+     */
+    public static void mergeProcess(){
 
-    static void mergeXmls(File dynamic_xml, File LayoutBase, String pkg_name, String out_file){
+        for(Map.Entry<Element, String> d_entry : DynamicIdMap.entrySet()){
+            Element de = d_entry.getKey();
+            String d_id = d_entry.getValue();
+            if(! d_id.contains(package_name)) {
+                continue;
+            }
+            String s_id = d_id.replace(package_name + ":" , "@");
+            if(StaticIdMap.containsKey(s_id)){
+                List<Element> se_list = StaticIdMap.get(s_id);
+                Element se;
+                int rightIndex = 0;
+                if(se_list.size() == 1){
+                    se = se_list.get(0);
+                }else{
+                    rightIndex = chooseRightElement(s_id, se_list, de);
+                    se = se_list.get(rightIndex);
+                }
+                File static_xml = IdMap.get(s_id).get(rightIndex);
+                mergeElements(de, se, static_xml);
+            }else{
+                System.out.println("can't find " + s_id + " in static xml");
+            }
+        }
+    }
+
+
+    /**
+     * 有多个id相同的静态element的情况下，选择出正确的与动态element对应的静态element
+     * 以静态文件中的id和动态xml中的res-id重合数量为指标，选择数量最大的那个静态文件进行merge
+     * @param id 以id为锚点
+     * @param se_list id相同的静态element_list
+     * @param de 动态element
+     * @return 返回se_list的index
+     */
+    static int chooseRightElement(String id, List<Element> se_list, Element de){
+        int maxSameIds = 0;
+        int rightIndex = 0;
+        for(int i=0; i<se_list.size(); i++){
+            Element se = se_list.get(i);
+            Element s_root = se;
+            Element d_root = de;
+            while(s_root != null && de != null){
+                s_root = s_root.getParent();
+                d_root = d_root.getParent();
+            }
+
+            File s_xml = IdMap.get(id).get(i);
+            int sameIdCnt = countCommonStrings(FileIdMap.get(s_xml),getAllIdsUnderRootEle(d_root));
+
+            // 能覆盖最多动态res-id的静态layout文件
+            if(sameIdCnt > maxSameIds){
+                rightIndex = i;
+                maxSameIds = sameIdCnt;
+            }
+        }
+        return rightIndex;
+    }
+
+    /**
+     * 以root为根节点的树中的所有id
+     * @param root
+     * @return id_list
+     */
+    static List<String> getAllIdsUnderRootEle(Element root){
+        List<String> res = new ArrayList<>();
+        if(DynamicIdMap.containsKey(root)){
+            String id = DynamicIdMap.get(root);
+            id = id.replace(package_name + ":", "@");
+            res.add(id);
+        }
+
+        for(Element child : root.elements()){
+            res.addAll(getAllIdsUnderRootEle(child));
+        }
+        return res;
+    }
+
+    // 返回连个字符串列表中相同的字符串个数
+    public static int countCommonStrings(List<String> list1, List<String> list2) {
+        Set<String> set1 = new HashSet<>(list1);
+        Set<String> set2 = new HashSet<>(list2);
+
+        // Find the intersection of two sets
+        set1.retainAll(set2);
+
+        return set1.size();
+    }
+
+
+
+    public static void mergeElements(Element de, Element se, File static_file){
+        if(se == null || de == null) {
+            return;
+        }
+
+        if(de.attribute("isMerged") != null){
+            return;
+        }
+
+        if (de.attributeValue("isMerged") != null) {
+            return;
+        }
+
+        if(!de.getName().contains(se.getName())) System.err.println("WARNING : merge " + de.getName() + " and " + se.getName());
+
+        for(Iterator<Attribute> it = se.attributeIterator(); it.hasNext();) {
+            Attribute a = it.next();
+            if(a.getName().equals("text")) continue;
+            de.addAttribute(a.getName(), a.getValue());
+        }
+        de.addAttribute("type", se.getName());
+        de.addAttribute("isMerged", static_file.getName());
+        mergeElements(de.getParent(), se.getParent(), static_file);
+    }
+
+
+    /**
+     * 总流程函数
+     * @param dynamic_xml 动态xml
+     * @param LayoutBase 静态layout xml base
+     * @param out_file 输出文件
+     */
+    static void mergeXmls(File dynamic_xml, File LayoutBase, String out_file){
 //        getIds(LayoutBase);
-        package_name = pkg_name;
         buildStaticIDMap(LayoutBase);
 
         try{
@@ -368,10 +370,9 @@ public class DynamicXmlProcess {
     public static void main(String[] args){
         File dynamic_xml = new File("C:\\Users\\gaoshu\\Desktop\\textExamples\\democracy.xml");
         File layout_base = new File("C:\\Accessibility\\DataSet\\owleyeDataset\\DemocracyDroid3.7.1\\apk\\DemocracyDroid-3.7.1\\res\\layout");
-        String pkg_name = "com.workingagenda.democracydroid";
         String activity_name = "MainActivity";
         String out_path = "democracyMergeTest.xml";
-        mergeXmls(dynamic_xml, layout_base, pkg_name, out_path);
+        mergeXmls(dynamic_xml, layout_base, out_path);
     }
 
 
