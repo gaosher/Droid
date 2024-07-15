@@ -10,7 +10,7 @@ public class ScrollView extends ViewGroup {
     int child_height = 0;
 
     @Override
-    void onMeasure(int WidthMeasureSpecMode, int WidthMeasureSpecSize, int HeightMeasureSpecMode, int HeightMeasureSpecSize) {
+    public void onMeasure(int WidthMeasureSpecMode, int WidthMeasureSpecSize, int HeightMeasureSpecMode, int HeightMeasureSpecSize) {
         if(HeightMeasureSpecMode == MeasureSpec.AT_MOST){
             HeightMeasureSpecSize = Integer.MAX_VALUE;
         }

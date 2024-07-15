@@ -1,6 +1,5 @@
 package tool;
 
-import heros.fieldsens.AccessPath;
 import org.dom4j.*;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
@@ -12,9 +11,12 @@ import java.util.*;
 
 
 public class DynamicXmlProcess {
+    static String package_name = "com.workingagenda.democracydroid";
 
-    static HashMap<Element, String> DynamicIdMap = new HashMap<>();
-    static HashMap<String, Element> StaticIdMap = new HashMap<>();
+    static HashMap<Element, String> DynamicIdMap = new HashMap<>(); // dynamic_element -> res_id
+    static HashMap<String, List<Element>> StaticIdMap = new HashMap<>(); // ID -> static_element_list
+    static HashMap<String, List<File>> IdMap = new HashMap<>(); // id -> xml_file_name_list
+    static HashMap<File, List<String>> FileIdMap = new HashMap<>(); // xml_file_name -> static_id_list
 
 
     static String [] uselessAttrs = {"package", "checkable", "checked", "clickable", "enabled", "focusable", "focused",
@@ -56,49 +58,125 @@ public class DynamicXmlProcess {
         }
     }
 
-    /**
-     * 合并layout中的静态xml和dump的动态xml
-     * @param Dynamic_doc
-     * @param static_xml
-     * @param pkg_name app包名
-     * @param out_file 输出文件
-     * @return
-     */
-    public static Document mergeXml(Document Dynamic_doc, File static_xml, String pkg_name, String out_file){
-        try {
-            // 读取 XML 文件
-            SAXReader reader = new SAXReader();
-            //Document Dynamic_doc = reader.read(dynamic_xml);
-            Document Static_doc = reader.read(static_xml);
-            // 获取根节点
-            Element Dynamic_root = Dynamic_doc.getRootElement();
-            Element Static_root = Static_doc.getRootElement();
 
-            buildDynamicMap(Dynamic_root);
-            buildStaticMap(Static_root);
-
-            for(Map.Entry<Element, String> d_entry : DynamicIdMap.entrySet()){
-                Element de = d_entry.getKey();
-                String d_id = d_entry.getValue();
-                if(! d_id.contains(pkg_name)) {
-                    continue;
-                }
-                String s_id = d_id.replace(pkg_name+":", "@");
-                if(StaticIdMap.containsKey(s_id)){
-                    Element se = StaticIdMap.get(s_id);
-                    mergeElements(de, se, static_xml.getName());
-                    //ViewMap.put(de, se);
-                }else{
-                    System.out.println("can't find " + s_id + " in static xml");
+//    HashMap<Element, Integer> staticElementsSiblingsCNT = new HashMap<>();
+    static void buildStaticIDMap(File layoutBase){
+        if (layoutBase.isDirectory() && layoutBase.exists()) {
+            File[] files = layoutBase.listFiles();  // 获取文件夹中所有文件数组
+            if (files != null) {
+                for (File xml : files) {
+                    if (xml.isFile()) {
+                        //System.out.println("文件: " + xml.getName());
+                        getOneXmlIds(xml);
+                    }
                 }
             }
-            return Dynamic_doc;
-
-        } catch (DocumentException e) {
-            e.printStackTrace();
+        } else {
+            System.err.println(layoutBase.getAbsolutePath() + "并不是一个存在的文件夹");
         }
-        return null;
     }
+
+    /**
+     * 合并layout中的静态xml和dump的动态xml
+     * @return
+     */
+    public static void mergeProcess(){
+
+        for(Map.Entry<Element, String> d_entry : DynamicIdMap.entrySet()){
+            Element de = d_entry.getKey();
+            String d_id = d_entry.getValue();
+            if(! d_id.contains(package_name)) {
+                continue;
+            }
+            String s_id = d_id.replace(package_name + ":" , "@");
+            if(StaticIdMap.containsKey(s_id)){
+                List<Element> se_list = StaticIdMap.get(s_id);
+                Element se;
+                int rightIndex = 0;
+                if(se_list.size() == 1){
+                    se = se_list.get(0);
+                }else{
+//                    System.out.println(s_id + " " + se_list.size());
+                    rightIndex = chooseRightElement(s_id, se_list, de);
+                    se = se_list.get(rightIndex);
+                }
+                File static_xml = IdMap.get(s_id).get(rightIndex);
+                mergeElements(de, se, static_xml);
+            }else{
+                System.out.println("can't find " + s_id + " in static xml");
+            }
+        }
+    }
+
+
+    /**
+     * 有多个id相同的静态element的情况下，选择出正确的与动态element对应的静态element
+     * 以静态文件中的id和动态xml中的res-id重合数量为指标，选择数量最大的那个静态文件进行merge
+     * @param id 以id为锚点
+     * @param se_list id相同的静态element_list
+     * @param de 动态element
+     * @return 返回se_list的index
+     */
+    static int chooseRightElement(String id, List<Element> se_list, Element de){
+        int maxSameIds = 0;
+        int rightIndex = 0;
+        for(int i=0; i<se_list.size(); i++){
+            Element se = se_list.get(i);
+            Element s_root = se;
+            Element d_root = de;
+            while(s_root != null && de != null){
+                s_root = s_root.getParent();
+                d_root = d_root.getParent();
+            }
+
+            File s_xml = IdMap.get(id).get(i);
+            int sameIdCnt = countCommonStrings(FileIdMap.get(s_xml),getAllIdsUnderRootEle(d_root));
+
+            // 能覆盖最多动态res-id的静态layout文件
+            if(sameIdCnt > maxSameIds){
+                rightIndex = i;
+                maxSameIds = sameIdCnt;
+            }
+        }
+//        System.out.println("maxSameIds = " + maxSameIds);
+//        System.out.println("right file name: " + IdMap.get(id).get(rightIndex).getName());
+        return rightIndex;
+    }
+
+    /**
+     * 以root为根节点的树中的所有id
+     * @param root
+     * @return id_list
+     */
+    static List<String> getAllIdsUnderRootEle(Element root){
+        List<String> res = new ArrayList<>();
+        if(DynamicIdMap.containsKey(root)){
+            String id = DynamicIdMap.get(root);
+            id = id.replace(package_name + ":", "@");
+            res.add(id);
+        }
+
+        for(Element child : root.elements()){
+            res.addAll(getAllIdsUnderRootEle(child));
+        }
+        return res;
+    }
+
+    /** 返回连个字符串列表中相同的字符串个数
+     * @param list1
+     * @param list2
+     * @return
+     */
+    public static int countCommonStrings(List<String> list1, List<String> list2) {
+        Set<String> set1 = new HashSet<>(list1);
+        Set<String> set2 = new HashSet<>(list2);
+
+        // Find the intersection of two sets
+        set1.retainAll(set2);
+
+        return set1.size();
+    }
+
 
     /**
      * 在动态xml中搜索"resource-id"为id参数的元素
@@ -133,51 +211,22 @@ public class DynamicXmlProcess {
         }
     }
 
-    /**
-     * 为静态xml生成一个Element-(androd:id) HashMap
-     * @param root 静态xml doc的根节点
-     */
-    public static void buildStaticMap(Element root){
-        if(root.attribute("id") != null){
-            StaticIdMap.put(root.attributeValue("id"), root);
-        }
-        List<Element> children = root.elements();
-        for (Element child : children) {
-            buildStaticMap(child);
-        }
-    }
-
-    public static void showIdMap(HashMap<Element, String> map){
-        for(Map.Entry<Element, String> entry : map.entrySet()){
-            System.out.println(entry.getKey().getName() + " " + entry.getValue());
-        }
-    }
-
-//    public static Element findElementInStatic(Element root, String id){
-//        //id = "@id/simple_lat_text";
-//        if(root.attribute("id") != null && root.attributeValue("id").equals(id)){
-//            return root;
-//        }
-//        Element res = null;
-//        List<Element> children = root.elements();
-//        for (Element child : children) {
-//            res = findElementInStatic(child, id);
-//            if(res != null) return res;
-//        }
-//        return res;
-//    }
-
-    public static void mergeElements(Element de, Element se, String static_file_name){
+    public static void mergeElements(Element de, Element se, File static_file){
+//        System.out.println("mergeElements from " + static_file.getName());
         if(se == null || de == null) {
-            //System.out.println("parent is null");
             return;
         }
-        if (de.attributeValue("isMerged") !=null) {
+
+        if(de.attribute("isMerged") != null){
             return;
-            //mergeElements(de.getParent(), se.getParent());
         }
-        if(!de.getName().contains(se.getName())) System.out.println("warning");
-        System.out.println("merge " + de.getName() + " and " + se.getName());
+
+        if (de.attributeValue("isMerged") != null) {
+            return;
+        }
+
+        if(!de.getName().contains(se.getName())) System.err.println("WARNING : merge " + de.getName() + " and " + se.getName());
+//        System.out.println("merge " + de.getName() + " and " + se.getName());
 
         for(Iterator<Attribute> it = se.attributeIterator(); it.hasNext();) {
             Attribute a = it.next();
@@ -185,129 +234,119 @@ public class DynamicXmlProcess {
             de.addAttribute(a.getName(), a.getValue());
         }
         de.addAttribute("type", se.getName());
-        de.addAttribute("isMerged", static_file_name);
-        mergeElements(de.getParent(), se.getParent(), static_file_name);
+        de.addAttribute("isMerged", static_file.getName());
+//        System.out.println("isMerged " + static_file.getName());
+        mergeElements(de.getParent(), se.getParent(), static_file);
     }
 
-    static HashMap<String, String> IdMap = new HashMap<>();
-    static void getIds(File BasePath){
-        if (BasePath.isDirectory() && BasePath.exists()) {
-            File[] files = BasePath.listFiles();  // 获取文件夹中所有文件数组
-            if (files != null) {
-                for (File xml : files) {
-                    if (xml.isFile()) {
-                        //System.out.println("文件: " + xml.getName());
-                        getOneXmlIds(xml);
-                    }
-                }
-            }
-        } else {
-            System.out.println("指定的路径并不是一个存在的文件夹");
-        }
-    }
 
     static void getOneXmlIds(File xml){
         try {
+            // 文件读取
             SAXReader reader = new SAXReader();
             Document document = reader.read(xml);
+
             //Root element
             Element root = document.getRootElement();
+
             // 使用栈来保存待处理的元素
             Stack<Element> elementStack = new Stack<>();
             elementStack.push(root);
+
+            List<String> ids = new ArrayList<>();
+            // root id 处理
             String root_id = root.attributeValue("id");
-            if(root_id != null) IdMap.put(root_id, xml.getName());
+            if(root_id != null) {
+                List<File> file_list;
+                if(IdMap.containsKey(root_id)){
+                    file_list = IdMap.get(root_id);
+                }else {
+                    file_list = new ArrayList<>();
+                }
+                file_list.add(xml);
+                IdMap.put(root_id, file_list);
+
+                List<Element> ele_list;
+                if(StaticIdMap.containsKey(root_id)){
+                    ele_list = StaticIdMap.get(root_id);
+                }else {
+                    ele_list = new ArrayList<>();
+                }
+                ele_list.add(root);
+                StaticIdMap.put(root_id, ele_list);
+
+                ids.add(root_id);
+            }
 
             // 迭代遍历所有元素
             while (!elementStack.isEmpty()) {
                 Element currentElement = elementStack.pop();
                 //System.out.println("Element Name: " + currentElement.getName()); // 输出元素名称
                 // 将当前元素的所有子元素压入栈中
-                for (Object obj : currentElement.elements()) {
-                    if (obj instanceof Element) {
-                        Element childElement = (Element) obj;
+                for (Element childElement : currentElement.elements()) {
+                    if (childElement != null) {
+//                        Element childElement = obj;
                         elementStack.push(childElement);
                         String id = childElement.attributeValue("id");
                         if(id != null){
-                            IdMap.put(id, xml.getName());
+                            List<File> file_list;
+                            if(IdMap.containsKey(id)){
+                                file_list = IdMap.get(id);
+                            }else {
+                                file_list = new ArrayList<>();
+                            }
+                            file_list.add(xml);
+                            IdMap.put(id, file_list);
+
+                            List<Element> ele_list;
+                            if(StaticIdMap.containsKey(id)){
+                                ele_list = StaticIdMap.get(id);
+                            }else {
+                                ele_list = new ArrayList<>();
+                            }
+                            ele_list.add(childElement);
+                            StaticIdMap.put(id, ele_list);
+
+                            ids.add(id);
                         }
                     }
                 }
             }
+
+            FileIdMap.put(xml, ids);
         } catch (DocumentException e){
             e.printStackTrace();
         }
     }
 
 
-    static Set<File> getStaticXmls(Document Doc, File LayoutBase, String pkg_name){
-        Element root = Doc.getRootElement();
-        Set<File> xml_files = new HashSet<>();
-        getStaticXml(root, pkg_name);
-        for(String name : xml_names){
-            // 检查文件夹是否存在
-            if (LayoutBase.exists() && LayoutBase.isDirectory()) {
-                // 获取文件夹中的所有文件
-                File[] files = LayoutBase.listFiles();
-                // 遍历所有文件
-                if (files != null) {
-                    for (File file : files) {
-                        if(file.getName().equals(name)){
-                            System.out.println(file.getName());
-                            xml_files.add(file);
-                        }
-                    }
-                }
-            } else {
-                System.out.println("Folder does not exist or is not a directory.");
-            }
-        }
-        return xml_files;
-    }
-
-    static Set<String> xml_names = new HashSet<>();
-    static void getStaticXml(Element root,  String pkg_name){
-
-        if(root.attribute("resource-id") != null){
-            String resource_id = root.attributeValue("resource-id");
-            //System.out.println("resource_id: " + resource_id);
-            if(resource_id.contains(pkg_name)){
-                String static_id = resource_id.replace(pkg_name+":", "@");
-                //System.out.println("static_id: " + static_id);
-                String file_name = IdMap.get(static_id);
-                if(file_name != null){
-                    //System.out.println("file name: " + file_name);
-                    xml_names.add(file_name);
-                }else{
-                    System.out.println("cannot find" + static_id + "in static layouts");
-                }
-            }
-        }
-        List<Element> children = root.elements();
-        if(children.size() == 0) return;
-        for (Element child : children) {
-            getStaticXml(child, pkg_name);
-        }
-    }
-
     static void mergeXmls(File dynamic_xml, File LayoutBase, String pkg_name, String out_file){
-        getIds(LayoutBase);
+//        getIds(LayoutBase);
+        package_name = pkg_name;
+        buildStaticIDMap(LayoutBase);
+
         try{
             SAXReader reader = new SAXReader();
             Document Dynamic_doc = reader.read(dynamic_xml);
+
             deleteUselessAttributesInDynamicXml(Dynamic_doc);
+
             Element Dynamic_root = Dynamic_doc.getRootElement();
+
+            // 搜索整个页面的根节点
             Element Dynamic_target = findElementInDynamic(Dynamic_root, "android:id/content");
+
             Document DocMerged = DocumentHelper.createDocument();
-            Dynamic_root  = Dynamic_target.createCopy();
+
+            if (Dynamic_target != null) {
+                Dynamic_root  = Dynamic_target.createCopy();
+            }
+
             DocMerged.add(Dynamic_root);
 
-            Set<File> XmlsToBeMerged = getStaticXmls(DocMerged, LayoutBase, pkg_name);
-            for(File xml : XmlsToBeMerged){
-                if (DocMerged != null) {
-                    DocMerged = mergeXml(DocMerged, xml, pkg_name, out_file);
-                }
-            }
+            buildDynamicMap(Dynamic_root);
+
+            mergeProcess();
 
             // 创建 XMLWriter
             FileWriter fileWriter = new FileWriter(out_file);
@@ -323,13 +362,15 @@ public class DynamicXmlProcess {
     }
 
 
+
+
     //@id/simple_lat_text
     public static void main(String[] args){
         File dynamic_xml = new File("C:\\Users\\gaoshu\\Desktop\\textExamples\\democracy.xml");
         File layout_base = new File("C:\\Accessibility\\DataSet\\owleyeDataset\\DemocracyDroid3.7.1\\apk\\DemocracyDroid-3.7.1\\res\\layout");
         String pkg_name = "com.workingagenda.democracydroid";
         String activity_name = "MainActivity";
-        String out_path = "C:\\Users\\gaoshu\\Desktop\\textExamples\\" + "merged_" + pkg_name + "." + activity_name+ ".xml";
+        String out_path = "democracyMergeTest.xml";
         mergeXmls(dynamic_xml, layout_base, pkg_name, out_path);
     }
 

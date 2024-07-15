@@ -24,7 +24,7 @@ public class BugReporter {
     static FileWriter writer;
 
     static void initialReportFile(String pkgName){
-        System.out.println("initial reporter");
+//        System.out.println("initial reporter");
         if (BugReport == null) {
             BugReport = new File(pkgName + "_bug_report.txt");
         }
@@ -48,10 +48,8 @@ public class BugReporter {
     }
 
     public static void writeViewBug(String pkgName, int bugType, View bugView1, View bugView2) {
-
         BUG_CNT++; // 记录bug数量
-        System.out.println(BUG_CNT);
-
+//        System.out.println(BUG_CNT);
         initialReportFile(pkgName);
 
         try{
@@ -67,7 +65,7 @@ public class BugReporter {
                 }
                 case VIEW_OVERLAP -> {
                     writer.write("VIEWS OVERLAP WITH EACH OTHER, DETAILED INFO:\n");
-                    System.out.println("VIEWS OVERLAP WITH EACH OTHER, DETAILED INFO:\n");
+//                    System.out.println("VIEWS OVERLAP WITH EACH OTHER, DETAILED INFO:\n");
                     writer.write("bug view 1 info:\n");
                     reportBugInfo(bugView1, writer);
                     writer.write("bug view 2 info:\n");

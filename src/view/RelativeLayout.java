@@ -532,8 +532,8 @@ public class RelativeLayout extends ViewGroup {
 //        if(isOverlapped(bounds1[0], bounds1[2], bounds2[0], bounds2[2]) && isOverlapped(bounds1[1], bounds1[3], bounds2[1], bounds2[3])) return;
 //        System.out.println(Arrays.toString(bounds1));
 //        System.out.println(Arrays.toString(bounds2));
-        if(isOverlapping(bounds1[0], bounds1[2], bounds1[1], bounds1[3], bounds2[0], bounds2[2], bounds2[1], bounds2[3])){
-            System.out.println(child1.getId() + " " + child2.getId());
+        if(isOverlapping(bounds1[0], bounds1[1], bounds1[2], bounds1[3], bounds2[0], bounds2[1], bounds2[2], bounds2[3])){
+//            System.out.println(child1.getId() + " " + child2.getId());
             return;
         }
 
@@ -548,23 +548,32 @@ public class RelativeLayout extends ViewGroup {
         int t2 = child2.top;
         int b2 = child2.bottom;
 
-
-        if(isOverlapping(l1, t1, r1, b1, l2, t2, r2, b2)){
-            System.out.println("there is overlap");
+        boolean flag = isOverlapping(l1, t1, r1, b1, l2, t2, r2, b2);
+        if(flag){
+//            System.out.println("there is overlap");
+            System.out.println(child1.getId() + " " + child2.getId());
+            System.out.printf("%d, %d, %d, %d; %d, %d, %d, %d\n", l1, t1, r1, b1, l2, t2, r2, b2);
+            System.out.println(isOverlapping(l1, t1, r1, b1, l2, t2, r2, b2));
             BugReporter.writeViewBug(View.packageName, BugReporter.VIEW_OVERLAP, child1, child2);
         }
     }
 
 
     private static boolean isOverlapping(int left1, int top1 , int right1, int bottom1, int left2, int top2, int right2, int bottom2) {
+
+//        System.out.printf("%d, %d, %d, %d; %d, %d, %d, %d\t", left1, top1, right1, bottom1, left2, top2, right2, bottom2);
+
         // 如果一个矩形在另一个矩形的左边
-        if (left1 > right2 || left2 > right1) {
+        if (left1 >= right2 || left2 >= right1) {
+//            System.out.println(false);
             return false;
         }
         // 如果一个矩形在另一个矩形的下边
-        if (bottom1 < top2 || bottom2 < top1) {
+        if (bottom1 <= top2 || bottom2 <= top1) {
+//            System.out.println(false);
             return false;
         }
+//        System.out.println(true);
         return true;
     }
 
@@ -575,7 +584,7 @@ public class RelativeLayout extends ViewGroup {
             View child1 = this.Children.get(i);
             for (int j = i+1; j < n; j++) {
                 View child2 = this.Children.get(j);
-                System.out.println(i + " " + j);
+//                System.out.println(i + " " + j);
                 overLappingCheck(child1, child2);
             }
         }
@@ -658,8 +667,8 @@ public class RelativeLayout extends ViewGroup {
 //        List<Integer> res = sortChilren(rules, 3);
 //        System.out.println(res);
 
-        System.out.println(isOverlapping(509, 431, 1302, 586, 509, 602, 1316, 659));
-        System.out.println(isOverlapping(483, 14, 1278, 272, 455, 147, 1278, 241));
+        System.out.println(isOverlapping(0, 0, 455,255, 483,14,1330,213));
+//        System.out.println(isOverlapping(483, 14, 1278, 272, 455, 147, 1278, 241));
     }
 
 }

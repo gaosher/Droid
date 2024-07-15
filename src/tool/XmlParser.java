@@ -51,6 +51,9 @@ public class XmlParser {
             // todo 这里还需要设置一下根组件的宽高
             ViewGroup.LayoutParams rootLP = new ViewGroup.LayoutParams();
             View view_root = parseElement(root, null, rootLP);
+            if (view_root != null) {
+                view_root.onMeasure(MeasureSpec.EXACTLY, DisplayParams.SCREEN_WIDTH, MeasureSpec.EXACTLY, DisplayParams.SCREEN_HEIGHT);
+            }
 
 //            if (view_root != null) {
 //                printXML(view_root);
@@ -75,6 +78,7 @@ public class XmlParser {
         }
 
         int ViewType = 0;
+
         if(ViewGroupSet.contains(ele_name)){
             ViewType = 1;
         }else if (TextualViewSet.contains(ele_name) || (attrMap.get("text") != null && attrMap.get("text").length()>0)){ // 存在文字属性的就可以算是
@@ -85,6 +89,7 @@ public class XmlParser {
             System.out.println("Undefined View Type: " + ele_name);
             return null;
         }
+
         switch (ViewType) {
             case 1 -> { // ViewGroups
                 //todo 细分每一种 ViewGroup
@@ -99,8 +104,6 @@ public class XmlParser {
                             View child_view = parseElement(child, vg, rlayoutParams);
                             vg.addChild(child_view);
                         }
-//                        ((RelativeLayout) vg).constructDependencyGraph();
-                        ((RelativeLayout) vg).onMeasure(MeasureSpec.EXACTLY, 1388, MeasureSpec.AT_MOST, 2560);
                     }
                     case "LinearLayout" -> {
                         vg = new LinearLayout(layoutParams, attrMap);
@@ -110,7 +113,6 @@ public class XmlParser {
                             View child_view = parseElement(child, vg, lLayoutParams);
                             vg.addChild(child_view);
                         }
-//                        ((LinearLayout) vg).onMeasure(MeasureSpec.EXACTLY, 1440, MeasureSpec.AT_MOST, 2560);
                     }
                     default -> {
                         //todo 细分每一种 ViewGroup

@@ -111,9 +111,7 @@ public class TextualView extends View {
         // TODO: 2024/6/21 是否与显示设置相关？
         double space_width = textSize * DisplayParams.TEXT_WIDTH_PARAM ; // 单个字母的宽度 px
 
-        if(textSize > 0){ // sp 为单位
-            space_width *= DisplayParams.SCALING_PARAM;
-        } else if (textSize == Integer.MIN_VALUE) {
+        if (textSize == Integer.MIN_VALUE) {
             System.err.println("can't parse textSize of text: " + text);
             return 0;
         }else { // 非sp为单位
@@ -168,7 +166,7 @@ public class TextualView extends View {
 
 
     static int onMeasureCNT = 0;
-    void onMeasure(int WidthMeasureSpecMode, int WidthMeasureSpecSize, int HeightMeasureSpecMode, int HeightMeasureSpecSize){
+    public void onMeasure(int WidthMeasureSpecMode, int WidthMeasureSpecSize, int HeightMeasureSpecMode, int HeightMeasureSpecSize){
 //        System.out.println("TextualView.onMeasure Params: WidthMeasureSpecSize = " + WidthMeasureSpecSize +
 //                "; HeightMeasureSpecSize = " + HeightMeasureSpecMode);
         System.out.println("Textual View onMeasure CNT = " + ++onMeasureCNT);
@@ -242,9 +240,7 @@ public class TextualView extends View {
             // TODO: 2024/6/24 这个公式还需要更多的拟合，参数是否需要调整位置
             res = singleLineHeight + (lines - 1) * textSize * 4.1 / 3.5;
         }
-        if (textSize > 0) {
-            res *= DisplayParams.SCALING_PARAM;
-        }else{
+        if (textSize < 0) {
             res *= -1;
         }
 //        System.out.println("text Line = " + lines + ", text Height = " + res);

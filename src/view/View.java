@@ -203,7 +203,7 @@ public abstract class View {
 
 
 
-    void onMeasure(int WidthMeasureSpecMode, int WidthMeasureSpecSize, int HeightMeasureSpecMode, int HeightMeasureSpecSize){
+    public void onMeasure(int WidthMeasureSpecMode, int WidthMeasureSpecSize, int HeightMeasureSpecMode, int HeightMeasureSpecSize){
         if(WidthMeasureSpecMode == MeasureSpec.AT_MOST){
             // todo 考虑是否将这里处理为默认设置下的宽高
         } else if (WidthMeasureSpecMode == MeasureSpec.EXACTLY) {
@@ -239,6 +239,7 @@ public abstract class View {
     public void checkView() throws IOException {
 
     }
+
 
 
 }

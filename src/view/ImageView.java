@@ -113,7 +113,7 @@ public class ImageView extends View{
     }
 
     @Override
-    void onMeasure(int WidthMeasureSpecMode, int WidthMeasureSpecSize, int HeightMeasureSpecMode, int HeightMeasureSpecSize){
+    public void onMeasure(int WidthMeasureSpecMode, int WidthMeasureSpecSize, int HeightMeasureSpecMode, int HeightMeasureSpecSize){
 
         if(this.src == null){
             if(HeightMeasureSpecMode == MeasureSpec.EXACTLY && WidthMeasureSpecMode == MeasureSpec.EXACTLY){
