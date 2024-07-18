@@ -78,6 +78,7 @@ public class DynamicXmlProcess {
             if(package_name == null && a.getName().equals("package")){
                 package_name = a.getValue();
                 toBeDel.add(a);
+                System.out.println("package_name: " + package_name);
             }
 
             if(a.getName().equals("scrollable") && a.getValue().equals("false")) {
@@ -157,38 +158,43 @@ public class DynamicXmlProcess {
             // 迭代遍历所有元素
             while (!elementStack.isEmpty()) {
                 Element currentElement = elementStack.pop();
+
+                if(currentElement.getName().equals("include")) {
+                    System.out.println("include tag");
+                    System.out.println(currentElement.attributeValue("id"));
+                    continue;
+                }
+
+                String id = currentElement.attributeValue("id");
+                if(id != null){
+                    List<File> file_list;
+                    if(IdMap.containsKey(id)){
+                        file_list = IdMap.get(id);
+                    }else {
+                        file_list = new ArrayList<>();
+                    }
+                    file_list.add(xml);
+                    IdMap.put(id, file_list);
+
+                    List<Element> ele_list;
+                    if(StaticIdMap.containsKey(id)){
+                        ele_list = StaticIdMap.get(id);
+                    }else {
+                        ele_list = new ArrayList<>();
+                    }
+                    ele_list.add(currentElement);
+                    StaticIdMap.put(id, ele_list);
+                    ids.add(id);
+                }
                 //System.out.println("Element Name: " + currentElement.getName()); // 输出元素名称
                 // 将当前元素的所有子元素压入栈中
                 for (Element childElement : currentElement.elements()) {
                     if (childElement != null) {
 //                        Element childElement = obj;
                         elementStack.push(childElement);
-                        String id = childElement.attributeValue("id");
-                        if(id != null){
-                            List<File> file_list;
-                            if(IdMap.containsKey(id)){
-                                file_list = IdMap.get(id);
-                            }else {
-                                file_list = new ArrayList<>();
-                            }
-                            file_list.add(xml);
-                            IdMap.put(id, file_list);
-
-                            List<Element> ele_list;
-                            if(StaticIdMap.containsKey(id)){
-                                ele_list = StaticIdMap.get(id);
-                            }else {
-                                ele_list = new ArrayList<>();
-                            }
-                            ele_list.add(childElement);
-                            StaticIdMap.put(id, ele_list);
-
-                            ids.add(id);
-                        }
                     }
                 }
             }
-
             FileIdMap.put(xml, ids);
         } catch (DocumentException e){
             e.printStackTrace();
@@ -236,19 +242,24 @@ public class DynamicXmlProcess {
      * @return 返回se_list的index
      */
     static int chooseRightElement(String id, List<Element> se_list, Element de){
+        if(se_list == null) return -1;
+
+        System.out.println(id);
         int maxSameIds = 0;
         int rightIndex = 0;
         for(int i=0; i<se_list.size(); i++){
             Element se = se_list.get(i);
             Element s_root = se;
             Element d_root = de;
-            while(s_root != null && de != null){
+
+            while(s_root.getParent() != null && de.getParent() != null){
                 s_root = s_root.getParent();
                 d_root = d_root.getParent();
             }
 
             File s_xml = IdMap.get(id).get(i);
-            int sameIdCnt = countCommonStrings(FileIdMap.get(s_xml),getAllIdsUnderRootEle(d_root));
+            System.out.println("file name: " + s_xml);
+            int sameIdCnt = countCommonStrings(FileIdMap.get(s_xml), getAllIdsUnderRootEle(d_root));
 
             // 能覆盖最多动态res-id的静态layout文件
             if(sameIdCnt > maxSameIds){
@@ -265,6 +276,10 @@ public class DynamicXmlProcess {
      * @return id_list
      */
     static List<String> getAllIdsUnderRootEle(Element root){
+        if(root == null){
+            System.out.println("null root");
+            return null;
+        }
         List<String> res = new ArrayList<>();
         if(DynamicIdMap.containsKey(root)){
             String id = DynamicIdMap.get(root);
@@ -280,6 +295,7 @@ public class DynamicXmlProcess {
 
     // 返回连个字符串列表中相同的字符串个数
     public static int countCommonStrings(List<String> list1, List<String> list2) {
+        if(list1 == null || list2 == null) return -1;
         Set<String> set1 = new HashSet<>(list1);
         Set<String> set2 = new HashSet<>(list2);
 
@@ -368,10 +384,13 @@ public class DynamicXmlProcess {
 
     //@id/simple_lat_text
     public static void main(String[] args){
-        File dynamic_xml = new File("C:\\Users\\gaoshu\\Desktop\\textExamples\\democracy.xml");
-        File layout_base = new File("C:\\Accessibility\\DataSet\\owleyeDataset\\DemocracyDroid3.7.1\\apk\\DemocracyDroid-3.7.1\\res\\layout");
+        File dynamic_xml = new File("C:\\Users\\gaoshu\\Desktop\\textExamples\\linphone.xml");
+        File layout_base = new File("C:\\Accessibility\\DataSet\\owleyeDataset\\linphone4.2.3\\linphone-android-debug-4.2.3\\res\\layout");
+
+//        File dynamic_xml = new File("C:\\Users\\gaoshu\\Desktop\\textExamples\\democracy.xml");
+//        File layout_base = new File("C:\\Accessibility\\DataSet\\owleyeDataset\\DemocracyDroid3.7.1\\apk\\DemocracyDroid-3.7.1\\res\\layout");
         String activity_name = "MainActivity";
-        String out_path = "democracyMergeTest.xml";
+        String out_path = "linphoneMergeTest.xml";
         mergeXmls(dynamic_xml, layout_base, out_path);
     }
 

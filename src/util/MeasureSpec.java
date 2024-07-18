@@ -1,7 +1,5 @@
 package util;
 
-import polyglot.ast.Do;
-
 public class MeasureSpec {
 
 
@@ -48,9 +46,10 @@ public class MeasureSpec {
      * 注：子view的大小由父view的MeasureSpec值 和 子view的LayoutParams属性 共同决定
      */
     public static Spec getChildMeasureSpec(int measureSpecMode, int measureSpecSize,  int padding, int childDimension) {
-
+        System.out.println("getChildMeasureSpec measureSpecSize = " + measureSpecSize);
         // 通过父view计算出的子view = 父大小-边距（父要求的大小，但子view不一定用这个值）
         int size = Math.max(0, measureSpecSize - padding);
+        System.out.println("getChildMeasureSpec size = " + size);
 
         // 子view想要的实际大小和模式（需要计算）
         int resultSize = 0;
@@ -67,12 +66,14 @@ public class MeasureSpec {
                     resultSize = childDimension;
                     resultMode = MeasureSpec.EXACTLY;
 
-                } else if (childDimension == DimenVaule.FILL_PARENT) { // 当子view的LayoutParams为MATCH_PARENT时(-1)
+                } else if (childDimension == DimenValue.FILL_PARENT) { // 当子view的LayoutParams为MATCH_PARENT时(-1)
                     //子view大小为父view大小，模式为EXACTLY
+                    System.out.println("getChildMeasureSpec FILL_PARENT");
                     resultSize = size;
+                    System.out.println(size);
                     resultMode = MeasureSpec.EXACTLY;
 
-                } else if (childDimension == DimenVaule.WRAP_CONTENT) { // 当子view的LayoutParams为WRAP_CONTENT时(-2)
+                } else if (childDimension == DimenValue.WRAP_CONTENT) { // 当子view的LayoutParams为WRAP_CONTENT时(-2)
                     // 子view决定自己的大小，但最大不能超过父view，模式为AT_MOST
                     resultSize = size;
                     resultMode = MeasureSpec.AT_MOST;
@@ -85,30 +86,14 @@ public class MeasureSpec {
                 if (childDimension >= 0) {
                     resultSize = childDimension;
                     resultMode = MeasureSpec.EXACTLY;
-                } else if (childDimension == DimenVaule.FILL_PARENT) {
+                } else if (childDimension == DimenValue.FILL_PARENT) {
                     // 当父View = wrap_content, 子View = fill_parent时，可以看到子View的模式为AT_MOST，简单理解为wrap_content
                     // 在as中也得到了验证
                     resultSize = size;
                     resultMode = MeasureSpec.AT_MOST;
-                } else if (childDimension == DimenVaule.WRAP_CONTENT) {
+                } else if (childDimension == DimenValue.WRAP_CONTENT) {
                     resultSize = size;
                     resultMode = MeasureSpec.AT_MOST;
-                }
-            }
-
-            // 当父view的模式为UNSPECIFIED时，父容器不对view有任何限制，要多大给多大
-            // 多见于ListView、GridView
-            case MeasureSpec.UNSPECIFIED -> {
-                if (childDimension >= 0) {
-                    // 子view大小为子自身所赋的值
-                    resultSize = childDimension;
-                    resultMode = MeasureSpec.EXACTLY;
-                } else if (childDimension == DimenVaule.FILL_PARENT) {
-                    // 因为父view为UNSPECIFIED，所以MATCH_PARENT的话子类大小为0
-                    resultMode = MeasureSpec.UNSPECIFIED;
-                } else if (childDimension == DimenVaule.WRAP_CONTENT) {
-                    // 因为父view为UNSPECIFIED，所以WRAP_CONTENT的话子类大小为0
-                    resultMode = MeasureSpec.UNSPECIFIED;
                 }
             }
         }

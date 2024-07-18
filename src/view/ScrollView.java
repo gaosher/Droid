@@ -3,14 +3,25 @@ package view;
 import util.MeasureSpec;
 import util.Spec;
 
+import java.util.HashMap;
+
 public class ScrollView extends ViewGroup {
 
 
     int child_width = 0;
     int child_height = 0;
 
+    public ScrollView(ViewGroup.LayoutParams layoutParams, HashMap<String, String> attrMap){
+        super(layoutParams, attrMap);
+    }
+
     @Override
     public void onMeasure(int WidthMeasureSpecMode, int WidthMeasureSpecSize, int HeightMeasureSpecMode, int HeightMeasureSpecSize) {
+        System.out.println("start ScrollView measurement: " + this.Id);
+        System.out.println("HeightMeasureSpecMode = " + HeightMeasureSpecMode);
+        System.out.println("WidthMeasureSpecSize = " + WidthMeasureSpecSize);
+        System.out.println("HeightMeasureSpecSize = " + HeightMeasureSpecSize);
+
         if(HeightMeasureSpecMode == MeasureSpec.AT_MOST){
             HeightMeasureSpecSize = Integer.MAX_VALUE;
         }

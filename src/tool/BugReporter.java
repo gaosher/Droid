@@ -1,4 +1,4 @@
-package util;
+package tool;
 
 import view.TextualView;
 import view.View;
@@ -81,7 +81,7 @@ public class BugReporter {
 
     }
 
-    public static void writeUnitBug(String pkgName, int bugType, View bugView, String attr, String attrValue) {
+    public static void writeUnitBug(String pkgName, View bugView, String attr) {
         BUG_CNT++; // 记录bug数量
 
         initialReportFile(pkgName);
@@ -89,7 +89,7 @@ public class BugReporter {
         try {
             writer.write("-------------------BUG " + BUG_CNT + "-----------------\n");
             writer.write("THE UNIT USED IS NOT APPROPRIATE, DETAILED INFO:\n");
-            reportUnitBugInfo(bugView, writer, attr, attrValue);
+            reportUnitBugInfo(bugView, writer, attr);
             writer.flush();
             writer.close();
             writer = null; // Ensure the writer is recreated for the next call
@@ -112,7 +112,7 @@ public class BugReporter {
         }
     }
 
-    static void reportUnitBugInfo(View bugView, FileWriter writer, String attr, String attrValue) throws IOException {
+    static void reportUnitBugInfo(View bugView, FileWriter writer, String attr) throws IOException {
         if (bugView.getXmlFileName() != null) {
             writer.write("bug view is in file: " + bugView.getXmlFileName() + '\n');
         }
@@ -124,7 +124,7 @@ public class BugReporter {
         if (bugView instanceof TextualView) {
             writer.write("bug view text: " + ((TextualView) bugView).getText() + '\n');
         }
-        writer.write("BUG UNIT ->  " + attr + ": " + attrValue + '\n');
+        writer.write("BUG UNIT ->  " + attr + '\n');
     }
 
     public static void writeInReport(String content){

@@ -4,14 +4,13 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
-import polyglot.ast.Do;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class DimenVaule {
+public class DimenValue {
 
     public static final int FILL_PARENT = -1;
     public static final int WRAP_CONTENT = -2;
@@ -48,7 +47,7 @@ public class DimenVaule {
                 if(dimenVal.endsWith("%") ||
                         (dimenVal.charAt(dimenVal.length()-1) >= '0' && dimenVal.charAt(dimenVal.length()-1) <= '9')  ){ // 处理%
                     double val = parsePercentageDimen(dimenVal);
-                    DoubleDimens.put(name, val);
+                    Dimens.put(name, val);
                 } else if (dimenVal.startsWith("@dimen/")) { // 处理@dimen
                     if(Dimens.containsKey(dimenVal)){
                         Dimens.put(name, Dimens.get(dimenVal));
@@ -97,24 +96,6 @@ public class DimenVaule {
     }
 
 
-
-
-
-    static void showHashMaps(){
-//        for(Map.Entry e : Dimens.entrySet()){
-//            System.out.println(e.getKey() + ": " + e.getValue());
-//        }
-//        for(Map.Entry e : DoubleDimens.entrySet()){
-//            System.out.println(e.getKey() + ": " + e.getValue());
-//        }
-
-//        for(Map.Entry e : Integers.entrySet()){
-//            System.out.println(e.getKey() + ": " + e.getValue());
-//        }
-    }
-
-
-
     public static int parseDimenValue2Px(String dimenValue){
         int px = 0;
         double val = 0;
@@ -125,7 +106,7 @@ public class DimenVaule {
 
         if(dimenValue.startsWith("@dimen/")){
             // TODO: 2024/5/17
-            System.out.println("startsWith @Dimen");
+            System.out.println(dimenValue + " starts With @Dimen");
             return 0;
         }
 
@@ -145,7 +126,7 @@ public class DimenVaule {
         } else if (dimenValue.endsWith("sp")) {
             String double_str = dimenValue.substring(0, len - 2);
             val = Double.parseDouble(double_str);
-            System.err.println("Warning" + dimenValue + "use sp as unit");
+//            System.err.println("Warning" + dimenValue + "use sp as unit");
             return sp2px(val);
         } else{
             System.err.println("Unknown unit type: " + dimenValue);
@@ -202,7 +183,7 @@ public class DimenVaule {
             val = Double.parseDouble(double_str);
             res = sp2px(val);
         }else {
-            System.err.println("Warning" + textSizeValue + "not use sp as unit, may cause Unresponsive issues");
+//            System.err.println("Warning" + textSizeValue + "not use sp as unit, may cause Unresponsive issues");
             if(textSizeValue.endsWith("dip")){
                 String double_str = textSizeValue.substring(0, len - 3);
                 val = Double.parseDouble(double_str);
@@ -210,7 +191,9 @@ public class DimenVaule {
                 String double_str = textSizeValue.substring(0, len - 2);
                 val = Double.parseDouble(double_str);
             }
-            res = dip2px(val);
+            // 非sp为单位的字体大小值解析为附属
+            res = -dip2px(val);
+//            System.err.println(res);
         }
         return res;
     }

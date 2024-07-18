@@ -1,27 +1,29 @@
 package view;
 
-import util.BugReporter;
-import util.DimenVaule;
+import tool.BugReporter;
+import util.DimenValue;
 import util.MeasureSpec;
 import util.Spec;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class ViewGroup extends View{
     public String view_type = "view group";
-    List<View> Children;
+    List<View> Children = new ArrayList<>();
     public ViewGroup(int width, int height){
         Children = new ArrayList<>();
 //        this.Height = height;
 //        this.Width = width;
     }
 
-    public ViewGroup(HashMap<String, String> attrMap){
+    public ViewGroup(LayoutParams layoutParams, HashMap<String, String> attrMap){
+        mLayoutParams = layoutParams;
+        mLayoutParams.setLayoutParams(attrMap);
         initialBasicAttrs(attrMap);
-        Children = new ArrayList<>();
+//        Children = new ArrayList<>();
+        this.AttrMap = attrMap;
     }
 
     public ViewGroup() {
@@ -36,10 +38,37 @@ public class ViewGroup extends View{
         return this.Children;
     }
 
-    // TODO: 2024/6/13 计算子组件的放置位置
-    void onLayout(){
+    @Override
+    public void onMeasure(int WidthMeasureSpecMode, int WidthMeasureSpecSize, int HeightMeasureSpecMode, int HeightMeasureSpecSize){
+        System.out.println("start ViewGroup measurement: " + this.getId());
+        System.out.println("WidthMeasureSpecSize = " + WidthMeasureSpecSize);
+        System.out.println("HeightMeasureSpecSize = " + HeightMeasureSpecSize);
 
+        int maxWidth = 0;
+        int maxHeight = 0;
+        for (View child : Children){
+            System.out.println("ViewGroup.measureChild WidthMeasureSpecSize = " + WidthMeasureSpecSize + "; HeightMeasureSpecSize = " + HeightMeasureSpecSize);
+            measureChild(child, WidthMeasureSpecMode, WidthMeasureSpecSize, HeightMeasureSpecMode, HeightMeasureSpecSize);
+            if(child.measuredHeight > maxHeight){
+                maxHeight = child.measuredHeight;
+            }
+            if(child.measuredWidth > maxWidth){
+                maxWidth = child.measuredWidth;
+            }
+        }
+
+        if(WidthMeasureSpecMode == MeasureSpec.EXACTLY){
+            this.measuredWidth = WidthMeasureSpecSize;
+        }else {
+            this.measuredWidth = maxWidth + paddingLeft + paddingRight;
+        }
+        if(HeightMeasureSpecMode == MeasureSpec.EXACTLY){
+            this.measuredHeight = HeightMeasureSpecSize;
+        }else{
+            this.measuredHeight = maxHeight + paddingTop + paddingBottom;
+        }
     }
+
 
 
     /**
@@ -124,6 +153,11 @@ public class ViewGroup extends View{
 //        System.out.println("ViewGroup measureChild Params: wSpecMode = " + wSpecMode + "; wSpecSize = " + wSpecSize +
 //                "; hSpecMode = " + hSpecMode + "; hSpecSize = " + hSpecSize);
 
+        if(child.isNormal){
+            child.onMeasure(wSpecMode, wSpecSize, hSpecMode, hSpecSize);
+            return;
+        }
+
         LayoutParams lp = child.mLayoutParams;
 
         // 水平方向
@@ -135,6 +169,7 @@ public class ViewGroup extends View{
 
         Spec cHeightSpec = MeasureSpec.getChildMeasureSpec(hSpecMode, hSpecSize, vertical_padding, lp.height);
 
+        System.out.println("ViewGroup child.onMeasure: " + child.getId());
         child.onMeasure(cWidthSpec.mode, cWidthSpec.size, cHeightSpec.mode, cHeightSpec.size);
     }
 
@@ -165,7 +200,6 @@ public class ViewGroup extends View{
                 }
                 BugReporter.writeInReport("bottom side out of boundary");
             }
-
         }
     }
 
@@ -179,7 +213,7 @@ public class ViewGroup extends View{
     }
 
     @Override
-    public void checkView() throws IOException {
+    public void checkView() {
         int n = this.getChildren().size();
         for (int i = 0; i < n; i++) {
             View child = this.getChildren().get(i);
@@ -193,15 +227,11 @@ public class ViewGroup extends View{
         public static final int WRAP_CONTENT = -2;
         public int width;
         public int height;
+        public int minHeight = Integer.MAX_VALUE;
         public int leftMargin;
         public int topMargin;
         public int rightMargin;
         public int bottomMargin;
-
-        public int mLeft;
-        public int mRight;
-        public int mTop;
-        public int mBottom;
 
         public int WidthMeasureSpecMode = 0;
         public int WidthMeasureSpecSize = 0;
@@ -230,16 +260,19 @@ public class ViewGroup extends View{
 
         int getDimen(String dimenStr){
             if(dimenStr.equals("wrap_content")){
-                return DimenVaule.WRAP_CONTENT;
+                return DimenValue.WRAP_CONTENT;
             } else if (dimenStr.equals("fill_parent") || dimenStr.equals("match_parent")) {
-                return DimenVaule.FILL_PARENT;
+                return DimenValue.FILL_PARENT;
             }else{
-                return DimenVaule.parseDimenValue2Px(dimenStr);
+                return DimenValue.parseDimenValue2Px(dimenStr);
             }
         }
 
         public void setLayoutParams(HashMap<String, String> attrMap){
             // initial height
+            if(!attrMap.containsKey("layout_height")) {
+                System.out.println("can't find layout_height");
+            }
             this.height = getDimen(attrMap.get("layout_height")); //px
             attrMap.remove("layout_height");
             // initial width
@@ -252,11 +285,15 @@ public class ViewGroup extends View{
                     attrMap.remove(margin);
                 }
             }
-
+            // initial minHeight
+            if(attrMap.containsKey("minHeight")){
+                this.minHeight = getDimen(attrMap.get("minHeight"));
+                attrMap.remove("minHeight");
+            }
         }
 
         void setMargin(String margin_type, String margin_val){
-            int margin_px = DimenVaule.parseDimenValue2Px(margin_val);
+            int margin_px = DimenValue.parseDimenValue2Px(margin_val);
             switch (margin_type) {
                 case "layout_margin" -> {
                     leftMargin = margin_px;

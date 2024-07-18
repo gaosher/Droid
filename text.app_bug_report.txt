@@ -1,14 +1,6 @@
 -------------------BUG 1-----------------
-VIEWS OVERLAP WITH EACH OTHER, DETAILED INFO:
-bug view 1 info:
-bug view is in file: row_episodes.xml
+TEXT CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: assistant_toolbar.xml
 bug view class name: android.widget.TextView
-bug view id: @id/row_tag
-bug view bounds: [509, 477, 1302, 632]
-bug view text: Headlines for June 28, 2024; Step Aside Joe: After First Pres. Debate, Democrats Reeling from Biden Missteps Trump Lies; Taking Black Jobs? Economists Darrick Hamilton Dean Baker on Inflation Taxes in Pres. Debate; 2024 Debate: Trump Lies About Abortions After Birth as Biden Fails to Defend Reproductive Rights; Biden-Trump Debate: Silky Shah on How Both Candidates Scapegoat Immigrants, Promote Xenophobic Myths; Biden Boasts of Israel Support in Gaza Assault as Trump Uses “Palestinian” as Slur Against Biden
-bug view 2 info:
-bug view is in file: row_episodes.xml
-bug view class name: android.widget.TextView
-bug view id: @id/row_title
-bug view bounds: [509, 648, 1316, 705]
-bug view text: 2024-06-28 Friday
+bug view bounds: [288, 84, 1152, 294]
+bug view text: ASSISTANT

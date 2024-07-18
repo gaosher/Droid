@@ -1,10 +1,10 @@
 package view;
 
 
-import util.DimenVaule;
+import util.DimenValue;
 import util.MeasureSpec;
 
-import java.io.IOException;
+import javax.swing.*;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -43,6 +43,9 @@ public abstract class View {
 
     public String xmlFileName;
 
+    public boolean isNormal = false;
+
+
     public View(){
     }
 
@@ -56,19 +59,23 @@ public abstract class View {
         mLayoutParams = layoutParams;
         mLayoutParams.setLayoutParams(attrMap);
 
-
         initialBasicAttrs(attrMap);
+
+        AttrMap = attrMap;
     }
 
     void initialBasicAttrs(HashMap<String, String> attrMap){
+
         // initial bounds
         this.setBounds(attrMap.get("bounds"));
         attrMap.remove("bounds");
+
         // initial resource-id
         if(attrMap.containsKey("resource-id")){
             this.setResourceId(attrMap.get("resource-id"));
             attrMap.remove("resource-id");
         }
+
         // initial id
         if(attrMap.containsKey("id")){
             this.setId(attrMap.get("id"));
@@ -138,7 +145,7 @@ public abstract class View {
      * @param padding_val 属性值
      */
     void setPadding(String padding_type, String padding_val){
-        int padding_px = DimenVaule.parseDimenValue2Px(padding_val);
+        int padding_px = DimenValue.parseDimenValue2Px(padding_val);
         switch (padding_type) {
             case "padding" -> {
                 this.paddingLeft = padding_px;
@@ -204,14 +211,16 @@ public abstract class View {
 
 
     public void onMeasure(int WidthMeasureSpecMode, int WidthMeasureSpecSize, int HeightMeasureSpecMode, int HeightMeasureSpecSize){
+        System.out.println("start View measurement");
         if(WidthMeasureSpecMode == MeasureSpec.AT_MOST){
             // todo 考虑是否将这里处理为默认设置下的宽高
+            this.measuredWidth = Bounds[2] - Bounds[0];
         } else if (WidthMeasureSpecMode == MeasureSpec.EXACTLY) {
             this.measuredWidth = WidthMeasureSpecSize;
         }
 
         if(HeightMeasureSpecMode == MeasureSpec.AT_MOST){
-
+            this.measuredHeight = Bounds[3] - Bounds[1];
         } else if (HeightMeasureSpecMode == MeasureSpec.EXACTLY) {
             this.measuredHeight = HeightMeasureSpecSize;
         }
@@ -221,25 +230,27 @@ public abstract class View {
     int right = Integer.MAX_VALUE;
     int top = Integer.MIN_VALUE;
     int bottom = Integer.MAX_VALUE;
-    void setCoords(int left, int top, int right, int bottom){
+
+    void locateView(int left, int top, int right, int bottom){
         this.left = left;
         this.right = right;
         this.top = top;
         this.bottom = bottom;
     }
 
-    void onLayout(){
 
+    void showMeasureParams(int WidthMeasureSpecMode, int WidthMeasureSpecSize, int HeightMeasureSpecMode, int HeightMeasureSpecSize){
+        System.out.println("WidthMeasureSpecMode = " + WidthMeasureSpecMode);
+        System.out.println("WidthMeasureSpecSize = " + WidthMeasureSpecSize);
+        System.out.println("HeightMeasureSpecMode = " + HeightMeasureSpecMode);
+        System.out.println("HeightMeasureSpecSize = " + HeightMeasureSpecSize);
     }
 
     public void printClassName() {
         System.out.println("View");
     }
 
-    public void checkView() throws IOException {
-
+    public void checkView(){
     }
-
-
 
 }

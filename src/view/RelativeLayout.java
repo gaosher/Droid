@@ -1,13 +1,9 @@
 package view;
 
-import org.w3c.dom.stylesheets.LinkStyle;
-import soot.toolkits.graph.InverseGraph;
-import soot.toolkits.scalar.LocalUses;
-import util.BugReporter;
+import tool.BugReporter;
 import util.MeasureSpec;
 import util.Spec;
 
-import java.io.IOException;
 import java.util.*;
 
 public class RelativeLayout extends ViewGroup {
@@ -72,13 +68,17 @@ public class RelativeLayout extends ViewGroup {
     };
 
     public RelativeLayout(ViewGroup.LayoutParams layoutParams, HashMap<String, String> attrMap){
-        super(attrMap);
+//        super(layoutParams, attrMap);
+        Children = new ArrayList<>();
         mLayoutParams = layoutParams;
         mLayoutParams.setLayoutParams(attrMap);
         this.AttrMap = attrMap;
+        if(attrMap.isEmpty()){
+            System.err.println("RelativeLayout: empty attrMap");
+        }
     }
 
-    private HashMap<String, Integer> constructIdIndexMap(){
+    HashMap<String, Integer> constructIdIndexMap(){
         HashMap<String, Integer> map = new HashMap<>();
         for (View child : this.Children) {
             if (child.Id != null && child.Id.length() > 0) {
@@ -101,9 +101,11 @@ public class RelativeLayout extends ViewGroup {
     public void constructHDG(){
         HashMap<String, Integer> IdMap = constructIdIndexMap(); //建立 id -> index 的映射
         for(View child : this.Children){
-
             // children之间的 水平方向上的依赖关系
             for(int h=0; h<HorizontalRules.length; h++){
+                if(child.AttrMap == null){
+                    System.err.println(child.getId());
+                }
                 if(child.AttrMap.containsKey(HorizontalRules[h])){
                     // 没有对id进行任何修改操作，@id/view_id
                     String target_id = child.AttrMap.get(HorizontalRules[h]);
@@ -115,7 +117,7 @@ public class RelativeLayout extends ViewGroup {
                         System.err.println("can't find " + target_id + " in " + this.AttrMap.get("isMerged"));
                     }
                     int relation = RULES_HORIZONTAL[h];
-                    Rule rule = new Rule(child.index, target_view_index, relation, Rule.VERTICAL);
+                    Rule rule = new Rule(child.index, target_view_index, relation, Rule.HORIZONTAL);
                     horizontalRules.add(rule);
                 }
             }
@@ -169,7 +171,7 @@ public class RelativeLayout extends ViewGroup {
                         child.AttrMap.get(VerticalParentRules[p_h]).equals("true")){
                     int relation = RULES_VERTICAL_PARENT[p_h];
 
-                    Rule rule = new Rule(child.index, PARENT_INDEX, relation, Rule.HORIZONTAL);
+                    Rule rule = new Rule(child.index, PARENT_INDEX, relation, Rule.VERTICAL);
                     verticalRules.add(rule);
                 }
             }
@@ -217,9 +219,13 @@ public class RelativeLayout extends ViewGroup {
         return res;
     }
 
+//    static int relativeLayoutMeasureCNT = 0;
 
     public void onMeasure(int WidthMeasureSpecMode, int WidthMeasureSpecSize, int HeightMeasureSpecMode, int HeightMeasureSpecSize) {
-
+//        System.out.println("relativeLayoutMeasureCNT = " + ++relativeLayoutMeasureCNT);
+        System.out.println("start relativeLayout measure: " + this.Id);
+        System.out.println("WidthMeasureSpecSize = " + WidthMeasureSpecSize);
+        System.out.println("HeightMeasureSpecSize = " + HeightMeasureSpecSize);
         constructHDG();
         System.out.println("HCO : " + HCO);
         constructVDG();
@@ -428,8 +434,6 @@ public class RelativeLayout extends ViewGroup {
         }
 
         System.out.println("relative layout measured width = " + measuredWidth + "; measured height = " + measuredHeight);
-
-        checkView();
     }
 
     /**
@@ -524,8 +528,9 @@ public class RelativeLayout extends ViewGroup {
         System.out.println("RelativeLayout");
     }
 
-
+//    static int overlapcheckCnt = 0;
     void overLappingCheck(View child1, View child2){
+//        System.out.println("overlapcheckCnt = " + overlapcheckCnt++);
         // default settings
         int [] bounds1 = child1.getBounds();
         int [] bounds2 = child2.getBounds();
@@ -577,8 +582,11 @@ public class RelativeLayout extends ViewGroup {
         return true;
     }
 
+//    static int checkCnt = 0;
     @Override
     public void checkView() {
+//        System.out.println("checkCnt = " + checkCnt ++);
+        super.checkView();
         int n = this.getChildren().size();
         for (int i = 0; i < n-1; i++) {
             View child1 = this.Children.get(i);
@@ -591,7 +599,7 @@ public class RelativeLayout extends ViewGroup {
     }
 
 
-    private static class Boundary{
+    static class Boundary{
         final static int LEFT = 1;
         final static int TOP = 2;
         final static int RIGHT = 3;
@@ -618,7 +626,7 @@ public class RelativeLayout extends ViewGroup {
 
     }
 
-    private static class Rule{
+    static class Rule{
         int start;
         int target;
         int relation;

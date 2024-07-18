@@ -45,7 +45,6 @@ public class ImageView extends View{
         }else{
             System.err.println("empty or wrong drawable base: " + drawablesPath);
         }
-
     }
     public ImageView() {
     }
@@ -97,7 +96,7 @@ public class ImageView extends View{
         if(attrMap.containsKey("src")){
             setSrc(attrMap.get("src"));
             attrMap.remove("src");
-        }else {
+        } else {
             System.out.println("can't find attribute src");
         }
 
@@ -105,9 +104,10 @@ public class ImageView extends View{
         if(attrMap.containsKey("scaleType")){
             setScaleType(attrMap.get("scaleType"));
             attrMap.remove("scaleType");
-        }else {
-            System.out.println("can't find attribute scaleType");
         }
+//        else {
+//            System.out.println("can't find attribute scaleType");
+//        }
 
         this.AttrMap = attrMap;
     }

@@ -1,6 +1,6 @@
 package view;
-import util.BugReporter;
-import util.DimenVaule;
+import tool.BugReporter;
+import util.DimenValue;
 import util.DisplayParams;
 
 import java.util.HashMap;
@@ -9,7 +9,7 @@ import util.MeasureSpec;
 
 public class TextualView extends View {
 
-    String Text;
+    public String Text;
     int TextSize = 49; // 改成以px为单位，默认为14sp，受字体放大影响？
     int maxLines = -1;
     int minLines = -1;
@@ -22,14 +22,13 @@ public class TextualView extends View {
 
     public TextualView(ViewGroup.LayoutParams layoutParams, HashMap<String, String> attrMap) {
 
-        mLayoutParams = layoutParams;
-        layoutParams.setLayoutParams(attrMap);
+        super(layoutParams, attrMap);
 
-        initialBasicAttrs(attrMap);
-        super.view_type = "Textual view";
+
         // initial text
         String text = "text";
         if(attrMap.containsKey(text)){
+//            System.out.println("containsKey text: " + attrMap.get(text));
             if(!attrMap.get(text).equals("")) {
                 setText(attrMap.get(text));
             }else{
@@ -85,12 +84,11 @@ public class TextualView extends View {
     }
 
     void setTextSize(String textSize){
-        // TODO:
-        this.TextSize = DimenVaule.parseTextSizeValue(textSize);
+        this.TextSize = DimenValue.parseTextSizeValue(textSize);
 
         // CHECK POINT : TEXT SIZE UNIT
         if(TextSize < 0){
-            BugReporter.writeUnitBug(View.packageName, BugReporter.UNIT_ERROR, this, "textSize", textSize);
+            BugReporter.writeUnitBug(View.packageName, this, "textSize");
         }
     }
 
@@ -110,11 +108,12 @@ public class TextualView extends View {
 
         // TODO: 2024/6/21 是否与显示设置相关？
         double space_width = textSize * DisplayParams.TEXT_WIDTH_PARAM ; // 单个字母的宽度 px
+//        space_width = Math.abs(space_width);
 
         if (textSize == Integer.MIN_VALUE) {
             System.err.println("can't parse textSize of text: " + text);
             return 0;
-        }else { // 非sp为单位
+        }else if(space_width < 0) { // 非sp为单位
             space_width = -space_width;
         }
 
@@ -135,6 +134,7 @@ public class TextualView extends View {
 
         int left_letter_cnt = max_letters;
         for(int num : letterCnt){
+//            System.out.println("num = " + num + "; max_letters = " + max_letters);
             if (left_letter_cnt <= 0){
                 lines ++;
                 left_letter_cnt = max_letters;
@@ -145,14 +145,17 @@ public class TextualView extends View {
                     // 使用上一行的剩余空间
                     int left_letters = num - left_letter_cnt; // 使用上一行的剩余空间后还剩下的字母数量
                     if(left_letters % max_letters < (max_letters - left_letter_cnt)){
+//                        System.out.println(1);
                         lines += Math.ceil( (double) left_letters / max_letters);
                         left_letter_cnt =  max_letters - left_letters % max_letters;
                     }else{
+                        System.out.println(2);
                         lines += Math.ceil( (double) num / max_letters);
                         left_letter_cnt = max_letters - num % max_letters;
                     }
                 }else{ // 整行可以容纳，直接换到下一行
                     left_letter_cnt = max_letters - num;
+//                    System.out.println(3);
                     lines ++;
                 }
             } else { // 剩余空间可以容纳这个单词
@@ -166,10 +169,13 @@ public class TextualView extends View {
 
 
     static int onMeasureCNT = 0;
+
+    @Override
     public void onMeasure(int WidthMeasureSpecMode, int WidthMeasureSpecSize, int HeightMeasureSpecMode, int HeightMeasureSpecSize){
 //        System.out.println("TextualView.onMeasure Params: WidthMeasureSpecSize = " + WidthMeasureSpecSize +
 //                "; HeightMeasureSpecSize = " + HeightMeasureSpecMode);
-        System.out.println("Textual View onMeasure CNT = " + ++onMeasureCNT);
+        System.out.println("start TextualView measurement: " + this.Text);
+        showMeasureParams(WidthMeasureSpecMode, WidthMeasureSpecSize, HeightMeasureSpecMode, HeightMeasureSpecSize);
         int lineSum = 0;
         int letters_cnt = 0;
 
@@ -188,6 +194,7 @@ public class TextualView extends View {
         } else if (WidthMeasureSpecMode == MeasureSpec.AT_MOST) {
             // 如果每行文字都很短的话，应该是使用最宽的文字
             int space_width = (int) (this.TextSize * DisplayParams.TEXT_WIDTH_PARAM); // 单字符的宽度
+            space_width = Math.abs(space_width);
             this.measuredWidth = Math.min(letters_cnt * space_width + paddingLeft + paddingRight, WidthMeasureSpecSize);
         }else{
             System.err.println("unspecified width");
@@ -250,6 +257,7 @@ public class TextualView extends View {
 
     @Override
     public void checkView(){
+        System.out.println("text: " + this.Text + " textual view measuredHeight = " + this.measuredHeight + "; textHeight = " + this.textHeight);
         // CHECK POINT 文字高度受限
         if(this.textHeight > this.measuredHeight - this.paddingTop - this.paddingBottom){
             BugReporter.writeViewBug(View.packageName, BugReporter.TEXT_INCOMPLETE, this, null);
@@ -273,6 +281,7 @@ public class TextualView extends View {
     }
 
     public static void main(String[] args){
-
+        int lines = getTextLines("ASSISTANT", 110, 1079);
+        System.out.println("lines = " + lines);
     }
 }
