@@ -60,7 +60,7 @@ public class BugReporter {
                     reportBugInfo(bugView1, writer);
                 }
                 case VIEW_INCOMPLETE -> {
-                    writer.write("VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:");
+                    writer.write("VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:\n");
                     reportBugInfo(bugView1, writer);
                 }
                 case VIEW_OVERLAP -> {
@@ -128,8 +128,9 @@ public class BugReporter {
     }
 
     public static void writeInReport(String content){
+        initialReportFile(View.packageName);
         try {
-            writer.write(content);
+            writer.write(content + '\n');
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -14,5 +14,6 @@ public class HorizontalView extends ViewGroup{
         System.out.println("WidthMeasureSpecSize = " + WidthMeasureSpecSize);
         System.out.println("HeightMeasureSpecSize = " + HeightMeasureSpecSize);
         super.onMeasure(WidthMeasureSpecMode, WidthMeasureSpecSize, HeightMeasureSpecMode, HeightMeasureSpecSize);
+        System.out.println("HorizontalView: " + measuredHeight);
     }
 }

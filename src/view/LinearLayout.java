@@ -3,6 +3,7 @@ package view;
 import util.MeasureSpec;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,9 +17,10 @@ public class LinearLayout extends ViewGroup{
     HashMap<Integer, Double> WeightMap = new HashMap<>(); // child.index --> child.weight
     public LinearLayout(ViewGroup.LayoutParams layoutParams, HashMap<String, String> attrMap) {
         this.Children = new ArrayList<>();
+        initialBasicAttrs(attrMap);
+
         mLayoutParams = layoutParams;
         mLayoutParams.setLayoutParams(attrMap);
-        initialBasicAttrs(attrMap);
 
         // initial orientation
         if(attrMap.containsKey("orientation")){
@@ -27,7 +29,7 @@ public class LinearLayout extends ViewGroup{
             }
             attrMap.remove("orientation");
         }
-        System.out.println("orientation: " + this.Orientation);
+//        System.out.println("orientation: " + this.Orientation);
 
         this.AttrMap = attrMap;
     }
@@ -54,7 +56,7 @@ public class LinearLayout extends ViewGroup{
     public void onMeasure(int WidthMeasureSpecMode, int WidthMeasureSpecSize, int HeightMeasureSpecMode, int HeightMeasureSpecSize){
         // TODO: 2024/6/13
         System.out.println("-------- start LinearLayout measurement " + this.getId() + " ----------");
-        showMeasureParams(WidthMeasureSpecMode, WidthMeasureSpecSize, HeightMeasureSpecMode, HeightMeasureSpecSize);
+//        showMeasureParams(WidthMeasureSpecMode, WidthMeasureSpecSize, HeightMeasureSpecMode, HeightMeasureSpecSize);
         if(this.Orientation == HORIZONTAL){ // 水平布局
             System.out.println("start LinearLayout horizontal measurement");
             measureHorizontal(WidthMeasureSpecMode, WidthMeasureSpecSize, HeightMeasureSpecMode, HeightMeasureSpecSize);
@@ -69,7 +71,7 @@ public class LinearLayout extends ViewGroup{
     void measureVertical(int WidthMeasureSpecMode, int WidthMeasureSpecSize, int HeightMeasureSpecMode, int HeightMeasureSpecSize){
         int WidestChildWidth = 0;
         if(HeightMeasureSpecMode == MeasureSpec.EXACTLY){
-            System.out.println("measureVertical height mode = MeasureSpec.EXACTLY");
+//            System.out.println("measureVertical height mode = MeasureSpec.EXACTLY");
             this.measuredHeight = HeightMeasureSpecSize;
             int left_height = HeightMeasureSpecSize;
             for(View child : this.getChildren()){
@@ -89,18 +91,22 @@ public class LinearLayout extends ViewGroup{
                 WidestChildWidth = Math.max(WidestChildWidth, child.measuredWidth);
             }
 
-            System.out.println("left_height = " + left_height);
+//            System.out.println("left_height = " + left_height);
 
             if(left_height < 0){
                 // todo linearLayout高度无法容纳child，输出到报告中
-                System.out.println("----------------------BUG REPORT---------------------");
-                System.out.println("LinearLayout高度不足");
-                System.out.println("File Name: " + this.xmlFileName);
-                this.showAllAttrs();
-                System.out.println("----------------------BUG REPORT END---------------------");
+//                System.out.println("----------------------BUG REPORT---------------------");
+//                System.out.println("LinearLayout高度不足");
+//                System.out.println("File Name: " + this.xmlFileName);
+//                this.showAllAttrs();
+//                System.out.println("----------------------BUG REPORT END---------------------");
             }
 
             for(View child : this.getChildren()){
+                if(child.isNormal){
+                    child.onMeasure(MeasureSpec.EXACTLY, 0, MeasureSpec.EXACTLY, 0);
+                    continue;
+                }
                 LayoutParams lp = (LayoutParams) child.mLayoutParams;
                 if(lp.Weight == 0) continue;
                 int child_height = child.measuredHeight + (int) (left_height * (lp.Weight / this.WeightSum));
@@ -121,7 +127,7 @@ public class LinearLayout extends ViewGroup{
                     child.onMeasure(MeasureSpec.EXACTLY, 0, MeasureSpec.EXACTLY, 0);
                     continue;
                 }
-                System.out.println("linearlayout measureVertical: " + child.getId());
+//                System.out.println("linearlayout measureVertical: " + child.getId());
 
                 LayoutParams lp = (LayoutParams) child.mLayoutParams;
                 this.WeightSum += lp.Weight;
@@ -135,7 +141,7 @@ public class LinearLayout extends ViewGroup{
                 }
 
                 measureChild(child, WidthMeasureSpecMode, WidthMeasureSpecSize, HeightMeasureSpecMode, spare_height);
-                System.out.println("1st measuredHeight = " + child.measuredHeight);
+//                System.out.println("1st measuredHeight = " + child.measuredHeight);
 
                 // spare_height 迭代, 表示用不到的高度
                 spare_height -= (child.measuredHeight + lp.topMargin + lp.bottomMargin);
@@ -153,24 +159,24 @@ public class LinearLayout extends ViewGroup{
 
             if(spare_height < 0){
                 // todo linearLayout高度无法容纳child，输出到报告中
-                System.out.println("----------------------BUG REPORT---------------------");
-                System.out.println("LinearLayout高度不足");
-                System.out.println("File Name: " + this.xmlFileName);
-                this.showAllAttrs();
-                System.out.println("----------------------BUG REPORT END---------------------");
+//                System.out.println("----------------------BUG REPORT---------------------");
+//                System.out.println("LinearLayout高度不足");
+//                System.out.println("File Name: " + this.xmlFileName);
+//                this.showAllAttrs();
+//                System.out.println("----------------------BUG REPORT END---------------------");
             }
 //            System.out.println("spare_height = " + spare_height);
 
             // 设置LinearLayout的高度
             this.measuredHeight = HeightMeasureSpecSize - spare_height;
-            System.out.println("ll.measuredHeight = " + measuredHeight);
+//            System.out.println("ll.measuredHeight = " + measuredHeight);
 
             // 对于weight的二次测量
             if(!zeroHeightChildren.isEmpty()){
                 // 根据需要根据weight重新分配到child上的总高度
 //                System.out.println("heightUsed = " + heightUsed);
                 double heightSharedByWeight = this.measuredHeight - heightUsed;
-                System.out.println("heightSharedByWeight = " +heightSharedByWeight);
+//                System.out.println("heightSharedByWeight = " +heightSharedByWeight);
                 for(View child : this.getChildren()){
                     // TODO: 2024/7/18 normalView 处理 
                     if(child.isNormal){
@@ -181,7 +187,7 @@ public class LinearLayout extends ViewGroup{
                     LayoutParams lp = (LayoutParams) child.mLayoutParams;
                     if(lp.Weight == 0) continue;
                     int child_height = (int) (heightSharedByWeight * lp.Weight / this.WeightSum);
-                    System.out.println("child.verticalPadding" + (child.paddingBottom + child.paddingTop));
+//                    System.out.println("child.verticalPadding" + (child.paddingBottom + child.paddingTop));
                     child.onMeasure(MeasureSpec.EXACTLY, child.measuredWidth, MeasureSpec.EXACTLY, child_height);
                 }
             }
@@ -200,7 +206,7 @@ public class LinearLayout extends ViewGroup{
         for(View child : this.getChildren()){
             // TODO: 2024/7/18
             if(child.isNormal){
-                child.onMeasure(MeasureSpec.EXACTLY, 0, MeasureSpec.EXACTLY, 0);
+//                child.onMeasure(MeasureSpec.EXACTLY, 0, MeasureSpec.EXACTLY, 0);
                 continue;
             }
             // 确定child位置
@@ -209,33 +215,44 @@ public class LinearLayout extends ViewGroup{
             int right = left + child.measuredWidth;
             int top = useHeight + this.paddingTop + lp.topMargin;
             int bottom = top + child.measuredHeight;
+//            System.out.println("linear layout locate child: " + left + " " + top + " " + right + " " + bottom);
             locateChild(child, left, right, top, bottom);
             useHeight += bottom + lp.bottomMargin;
+
+            // 输出children的坐标
+            System.out.println("child " + child.index + ": " + child.left +" " + child.top + " " + child.right + " " + child.bottom);
         }
 
 
         // 输出展示
-        System.out.println("----------Linear Layout-----------");
-        System.out.println("LinearLayout: measuredHeight = " + this.measuredHeight + "px, measuredWidth = " +
-                this.measuredWidth + "px.");
-        System.out.println("children cnt = " + this.getChildren().size());
-        for (int i = 0; i < this.getChildren().size(); i++) {
-            View child = this.getChildren().get(i);
-//            System.out.println(child.getId());
-            System.out.println("child " + i + ": measuredHeight = " + child.measuredHeight + "px, measuredWidth = " +
-                    child.measuredWidth + "px.");
-            System.out.println("left: " + child.left + ", top: " + child.top + ", right: " + child.right + ", bottom: " + child.bottom);
-        }
-        System.out.println("-------------Linear Layout End-----------");
+//        System.out.println("----------Linear Layout-----------");
+//        System.out.println("LinearLayout: measuredHeight = " + this.measuredHeight + "px, measuredWidth = " +
+//                this.measuredWidth + "px.");
+//        System.out.println("children cnt = " + this.getChildren().size());
+//        for (int i = 0; i < this.getChildren().size(); i++) {
+//            View child = this.getChildren().get(i);
+////            System.out.println(child.getId());
+//            System.out.println("child " + i + ": measuredHeight = " + child.measuredHeight + "px, measuredWidth = " +
+//                    child.measuredWidth + "px.");
+//            System.out.println("left: " + child.left + ", top: " + child.top + ", right: " + child.right + ", bottom: " + child.bottom);
+//        }
+//        System.out.println("-------------Linear Layout End-----------");
     }
 
     void measureHorizontal(int WidthMeasureSpecMode, int WidthMeasureSpecSize, int HeightMeasureSpecMode, int HeightMeasureSpecSize){
         int maxChildHeight = 0;
         if(WidthMeasureSpecMode == MeasureSpec.EXACTLY){
-            System.out.println("measureHorizontal width mode = MeasureSpec.EXACTLY");
+//            System.out.println("measureHorizontal width mode = MeasureSpec.EXACTLY");
             this.measuredWidth = WidthMeasureSpecSize;
-            int left_width = WidthMeasureSpecSize; // TODO: 2024/7/18 -horizontalPadding? 
+            int left_width = WidthMeasureSpecSize; // TODO: 2024/7/18 -horizontalPadding?
+            if(getChildren() == null) System.out.println("null child list");
+            if (getChildren().isEmpty()) System.out.println("empty child list");
             for(View child : this.getChildren()){
+                if(child == null) {
+                    System.err.println("null child");
+                    System.err.println(Arrays.toString(this.getBounds()));
+                    continue;
+                }
                 if(child.isNormal){// TODO: 2024/7/18  
                     child.onMeasure(WidthMeasureSpecMode, WidthMeasureSpecSize, HeightMeasureSpecMode, HeightMeasureSpecSize);
                     continue;
@@ -244,7 +261,7 @@ public class LinearLayout extends ViewGroup{
 
                 this.WeightSum += lp.Weight;
 
-                System.out.println("measure horizontal left_width = " + left_width);
+//                System.out.println("measure horizontal left_width = " + left_width);
                 measureChild(child, WidthMeasureSpecMode, left_width, HeightMeasureSpecMode, HeightMeasureSpecSize);
 
                 // left_width 迭代
@@ -254,15 +271,15 @@ public class LinearLayout extends ViewGroup{
                 maxChildHeight = Math.max(maxChildHeight, child.measuredHeight);
             }
 
-            System.out.println("left_width = " + left_width);
+//            System.out.println("left_width = " + left_width);
 
             if(left_width < 0){
                 // todo linearLayout高度无法容纳child，输出到报告中
-                System.out.println("----------------------BUG REPORT---------------------");
-                System.out.println("LinearLayout宽度不足");
-                System.out.println("File Name: " + this.xmlFileName);
-                this.showAllAttrs();
-                System.out.println("----------------------BUG REPORT END---------------------");
+//                System.out.println("----------------------BUG REPORT---------------------");
+//                System.out.println("LinearLayout宽度不足");
+//                System.out.println("File Name: " + this.xmlFileName);
+//                this.showAllAttrs();
+//                System.out.println("----------------------BUG REPORT END---------------------");
             }
 
             for(View child : this.getChildren()){
@@ -288,7 +305,7 @@ public class LinearLayout extends ViewGroup{
 //                    widthUsed += child.measuredWidth;
                     continue;
                 }
-                System.out.println("linearlayout measureHorizontal: " + child.getId());
+//                System.out.println("linearlayout measureHorizontal: " + child.getId());
 
                 LayoutParams lp = (LayoutParams) child.mLayoutParams;
                 this.WeightSum += lp.Weight;
@@ -302,7 +319,7 @@ public class LinearLayout extends ViewGroup{
                 }
 
                 measureChild(child, WidthMeasureSpecMode, spare_width, HeightMeasureSpecMode, HeightMeasureSpecSize);
-                System.out.println("1st measuredWidth = " + child.measuredWidth);
+//                System.out.println("1st measuredWidth = " + child.measuredWidth);
 
                 // spare_width 迭代, 表示用不到的宽度
                 spare_width -= (child.measuredWidth + lp.leftMargin + lp.rightMargin);
@@ -320,11 +337,11 @@ public class LinearLayout extends ViewGroup{
 
             if(spare_width < 0){
                 // todo linearLayout高度无法容纳child，输出到报告中
-                System.out.println("----------------------BUG REPORT---------------------");
-                System.out.println("LinearLayout宽度不足");
-                System.out.println("File Name: " + this.xmlFileName);
-                this.showAllAttrs();
-                System.out.println("----------------------BUG REPORT END---------------------");
+//                System.out.println("----------------------BUG REPORT---------------------");
+//                System.out.println("LinearLayout宽度不足");
+//                System.out.println("File Name: " + this.xmlFileName);
+//                this.showAllAttrs();
+//                System.out.println("----------------------BUG REPORT END---------------------");
             }
 //            System.out.println("spare_height = " + spare_height);
 
@@ -337,13 +354,13 @@ public class LinearLayout extends ViewGroup{
                 // 根据需要根据weight重新分配到child上的总高度
 //                System.out.println("heightUsed = " + heightUsed);
                 double widthSharedByWeight = this.measuredWidth - widthUsed;
-                System.out.println("widthSharedByWeight = " + widthSharedByWeight);
+//                System.out.println("widthSharedByWeight = " + widthSharedByWeight);
                 for(View child : this.getChildren()){
                     // 误差1px
                     LayoutParams lp = (LayoutParams) child.mLayoutParams;
                     if(lp.Weight == 0) continue;
                     int child_width = (int) (widthSharedByWeight * lp.Weight / this.WeightSum);
-                    System.out.println("child.verticalPadding" + (child.paddingBottom + child.paddingTop));
+//                    System.out.println("child.verticalPadding" + (child.paddingBottom + child.paddingTop));
                     child.onMeasure(MeasureSpec.EXACTLY, child_width, MeasureSpec.EXACTLY, child.measuredHeight);
                 }
             }
@@ -371,6 +388,7 @@ public class LinearLayout extends ViewGroup{
             int right = left + child.measuredWidth;
             int top = this.paddingTop + lp.topMargin;
             int bottom = top + child.measuredHeight;
+//            System.out.println("linear layout locate child: " + left + " " + top + " " + right + " " + bottom);
             locateChild(child, left, right, top, bottom);
             useWidth += right + lp.rightMargin;
         }

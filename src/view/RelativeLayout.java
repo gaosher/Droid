@@ -72,10 +72,11 @@ public class RelativeLayout extends ViewGroup {
         Children = new ArrayList<>();
         mLayoutParams = layoutParams;
         mLayoutParams.setLayoutParams(attrMap);
+        initialBasicAttrs(attrMap);
         this.AttrMap = attrMap;
-        if(attrMap.isEmpty()){
-            System.err.println("RelativeLayout: empty attrMap");
-        }
+//        if(attrMap.isEmpty()){
+//            System.err.println("RelativeLayout: empty attrMap");
+//        }
     }
 
     HashMap<String, Integer> constructIdIndexMap(){
@@ -187,7 +188,7 @@ public class RelativeLayout extends ViewGroup {
         }
         for(Rule rule : rules){
             if(rule.target != PARENT_INDEX){
-                System.out.println(rule.target);
+//                System.out.println(rule.target);
                 inDegree.put(rule.target, inDegree.get(rule.target) + 1);
             }
         }
@@ -223,9 +224,10 @@ public class RelativeLayout extends ViewGroup {
 
     public void onMeasure(int WidthMeasureSpecMode, int WidthMeasureSpecSize, int HeightMeasureSpecMode, int HeightMeasureSpecSize) {
 //        System.out.println("relativeLayoutMeasureCNT = " + ++relativeLayoutMeasureCNT);
-        System.out.println("start relativeLayout measure: " + this.Id);
-        System.out.println("WidthMeasureSpecSize = " + WidthMeasureSpecSize);
-        System.out.println("HeightMeasureSpecSize = " + HeightMeasureSpecSize);
+        System.out.println("------------start relativeLayout measure: " + this.Id + "------------");
+//        System.out.println("WidthMeasureSpecSize = " + WidthMeasureSpecSize);
+//        System.out.println("HeightMeasureSpecSize = " + HeightMeasureSpecSize);
+
         constructHDG();
         System.out.println("HCO : " + HCO);
         constructVDG();
@@ -234,8 +236,9 @@ public class RelativeLayout extends ViewGroup {
         int right = 0;
         int bottom = 0;
         // 水平方向
+        System.out.println("HORIZONTAL");
         for(int index : HCO){
-            System.out.println("HORIZONTAL");
+//            System.out.println("HORIZONTAL");
             System.out.println("---------------child index " + index + "-------------------");
             View child = this.getChildren().get(index);
             LayoutParams lp = (LayoutParams) child.mLayoutParams;
@@ -247,7 +250,7 @@ public class RelativeLayout extends ViewGroup {
             Spec wSpec = MeasureSpec.getChildMeasureSpec(WidthMeasureSpecMode, WidthMeasureSpecSize, wpadding, lp.width);
             int wSpecMode = wSpec.mode;
             int wSpecSize = wSpec.size;
-            System.out.println("wSpecMode = " + wSpecMode + ", wSpecSize = " + wSpecSize);
+//            System.out.println("wSpecMode = " + wSpecMode + ", wSpecSize = " + wSpecSize);
 
             int hpadding = this.paddingTop + this.paddingBottom + lp.topMargin + lp.bottomMargin;
             Spec hSpec = MeasureSpec.getChildMeasureSpec(HeightMeasureSpecMode, HeightMeasureSpecSize, hpadding, lp.height);
@@ -260,16 +263,17 @@ public class RelativeLayout extends ViewGroup {
                     Boundary bound = getBounds(rule, WidthMeasureSpecSize, HeightMeasureSpecSize);
                     // TODO: 2024/7/8 右端点 align_parent_right > align_right > to_left_of 优先级处理
                     if(bound.val == Boundary.ERROR_CODE){
-                        System.err.println("invalid dependency in RelativeLayout : " + this.Id);
+//                        System.out.println("target child index = " + rule.target + " dependency = " + rule.relation);
+                        System.err.println("at 1 invalid dependency in RelativeLayout " + this.Id + ": child index = " + child.index + ", target child index = " + rule.target + ", dependency = " + rule.relation);
                         continue;
                     }
                     if(bound.dir == Boundary.LEFT){
                         lp.bLeft = bound.val;
-                        System.out.println("lp.bLeft: " + lp.bLeft);
+//                        System.out.println("lp.bLeft: " + lp.bLeft);
                         lFlag = true;
                     } else if (bound.dir == Boundary.RIGHT) {
                         lp.bRight = bound.val;
-                        System.out.println("lp.bRight = " + lp.bRight);
+//                        System.out.println("lp.bRight = " + lp.bRight);
                         rFlag = true;
                     }else{ // 不是水平方向
                         System.err.println("Wrong direction");
@@ -286,7 +290,7 @@ public class RelativeLayout extends ViewGroup {
                 }else{ // 右边界没有限制
                     if(wSpecMode == MeasureSpec.AT_MOST){
                         wSpecSize = WidthMeasureSpecSize - lp.bLeft - lp.leftMargin - lp.rightMargin - this.paddingRight;
-                        System.out.println("lp.bLeft: " + lp.bLeft + ", wSpecSize: " + wSpecSize);
+//                        System.out.println("lp.bLeft: " + lp.bLeft + ", wSpecSize: " + wSpecSize);
                     }
 //                    else{
 //                        lp.bRight = lp.bLeft + wSpecSize;
@@ -296,7 +300,7 @@ public class RelativeLayout extends ViewGroup {
                 if(rFlag){ // 右边界有限制
                     if(wSpecMode == MeasureSpec.AT_MOST){
                         wSpecSize = lp.bRight - lp.rightMargin - lp.leftMargin - this.paddingLeft;
-                        System.out.println("lp.bRight = " + lp.bRight);
+//                        System.out.println("lp.bRight = " + lp.bRight);
 //                        System.out.println("test wSpecSize: " + wSpecSize);
                     }
 //                    else{
@@ -308,8 +312,8 @@ public class RelativeLayout extends ViewGroup {
             lp.wSpecSize = wSpecSize;
 
             // measure 1
-            child.onMeasure(lp.wSpecMode, lp.wSpecSize, hSpecMode, hSpecSize);
-            System.out.println("child.onMeasure lp.wSpecSize = " + lp.wSpecSize);
+            measureChild(child, wSpecMode, wSpecSize, hSpecMode, hSpecSize);
+//            System.out.println("child.onMeasure lp.wSpecSize = " + lp.wSpecSize);
 
             if(lFlag){ // 左边界有限制
                 child.left = lp.bLeft + lp.leftMargin;
@@ -330,11 +334,13 @@ public class RelativeLayout extends ViewGroup {
 
             child.top = this.paddingTop + lp.topMargin;
             child.bottom = child.top + child.measuredHeight;
-            System.out.println("measuredWidth: " + child.measuredWidth);
+//            System.out.println("measuredWidth: " + child.measuredWidth);
         }
 
+
+        System.out.println("VERTICAL");
         for(int index : VCO){
-            System.out.println("VERTICAL");
+//            System.out.println("VERTICAL");
             System.out.println("---------------child index " + index + "-------------------");
             View child = this.getChildren().get(index);
             System.out.println(child.getId());
@@ -395,11 +401,11 @@ public class RelativeLayout extends ViewGroup {
             lp.hSpecSize = hSpecSize;
 
             child.onMeasure(lp.wSpecMode, lp.wSpecSize, lp.hSpecMode, lp.hSpecSize);
-            System.out.println("index: " + index + ", Measure 2, " + lp.wSpecSize + ", " + lp.hSpecSize);
+//            System.out.println("index: " + index + ", Measure 2, " + lp.wSpecSize + ", " + lp.hSpecSize);
 
             if(tFlag){ // 确定上边界
                 child.top = lp.bTop + lp.topMargin;
-                System.out.println("fixed Top" + child.top);
+//                System.out.println("fixed Top" + child.top);
                 if(bFlag){
                     child.bottom = lp.bBottom - lp.bottomMargin;
                 }else{
@@ -415,8 +421,8 @@ public class RelativeLayout extends ViewGroup {
                 }
             }
 
-            System.out.println("child " + index + ": measured width = " + child.measuredWidth + ", measured height = " + child.measuredHeight);
-            System.out.println("left: " + child.left + "; top: " + child.top + "; right: " + child.right + "; bottom: " + child.bottom);
+//            System.out.println("child " + index + ": measured width = " + child.measuredWidth + ", measured height = " + child.measuredHeight);
+//            System.out.println("left: " + child.left + "; top: " + child.top + "; right: " + child.right + "; bottom: " + child.bottom);
 
             if(right < child.right) right = child.right;
             if(bottom < child.bottom) bottom = child.bottom;
@@ -449,7 +455,7 @@ public class RelativeLayout extends ViewGroup {
         if(target == -1){
             switch (rel){
                 case ALIGN_PARENT_LEFT, ALIGN_PARENT_START -> {
-                    System.out.println("ALIGN_PARENT_START");
+//                    System.out.println("ALIGN_PARENT_START");
                     val = this.paddingLeft;
                     dir = Boundary.LEFT;
                 }
@@ -462,7 +468,7 @@ public class RelativeLayout extends ViewGroup {
                     val = WidthMeasureSpecSize - this.paddingRight;
                     dir = Boundary.RIGHT;
                 }
-                case ALIGN_BOTTOM -> {
+                case ALIGN_PARENT_BOTTOM -> {
                     val = HeightMeasureSpecSize - this.paddingBottom;
                     dir = Boundary.BOTTOM;
                 }
@@ -478,8 +484,8 @@ public class RelativeLayout extends ViewGroup {
                 }
                 case LEFT_OF, START_OF ->{
                     val = target_view.left + lp.leftMargin;
-                    System.out.println("LEFT_OF");
-                    System.out.println("to_left_of " + val);
+//                    System.out.println("LEFT_OF");
+//                    System.out.println("to_left_of " + val);
 //                    val = lp.bLeft + lp.leftMargin;
                     dir = Boundary.RIGHT;
                 }
@@ -499,8 +505,8 @@ public class RelativeLayout extends ViewGroup {
                 }
                 case RIGHT_OF, END_OF -> {
                     val = target_view.right + lp.rightMargin;
-                    System.out.println("END_OF");
-                    System.out.println("to_right_of " + val);
+//                    System.out.println("END_OF");
+//                    System.out.println("to_right_of " + val);
 //                    val = lp.bRight + lp.rightMargin;
                     dir = Boundary.LEFT;
                 }
@@ -534,13 +540,21 @@ public class RelativeLayout extends ViewGroup {
         // default settings
         int [] bounds1 = child1.getBounds();
         int [] bounds2 = child2.getBounds();
-//        if(isOverlapped(bounds1[0], bounds1[2], bounds2[0], bounds2[2]) && isOverlapped(bounds1[1], bounds1[3], bounds2[1], bounds2[3])) return;
-//        System.out.println(Arrays.toString(bounds1));
-//        System.out.println(Arrays.toString(bounds2));
-        if(isOverlapping(bounds1[0], bounds1[1], bounds1[2], bounds1[3], bounds2[0], bounds2[1], bounds2[2], bounds2[3])){
-//            System.out.println(child1.getId() + " " + child2.getId());
-            return;
-        }
+
+        // content bounds
+        int cl1 = bounds1[0] + child1.paddingLeft;
+        int ct1 = bounds1[1] + child1.paddingTop;
+        int cr1 = bounds1[2] - child1.paddingRight;
+        int cb1 = bounds1[3] - child1.paddingBottom;
+        int cl2 = bounds1[0] + child2.paddingLeft;
+        int ct2 = bounds1[1] + child2.paddingTop;
+        int cr2 = bounds1[2] - child2.paddingRight;
+        int cb2 = bounds1[3] - child2.paddingBottom;
+
+        boolean default_view_overlap = isOverlapping(bounds1[0], bounds1[1], bounds1[2], bounds1[3], bounds2[0], bounds2[1], bounds2[2], bounds2[3]);
+        boolean default_content_overlap = isOverlapping(cl1, ct1, cr1, cb1, cl2, ct2, cr2, cb2);
+
+        if(!default_content_overlap) return;
 
         // scaling settings
         int l1 = child1.left;
@@ -553,13 +567,29 @@ public class RelativeLayout extends ViewGroup {
         int t2 = child2.top;
         int b2 = child2.bottom;
 
-        boolean flag = isOverlapping(l1, t1, r1, b1, l2, t2, r2, b2);
-        if(flag){
-//            System.out.println("there is overlap");
-            System.out.println(child1.getId() + " " + child2.getId());
-            System.out.printf("%d, %d, %d, %d; %d, %d, %d, %d\n", l1, t1, r1, b1, l2, t2, r2, b2);
-            System.out.println(isOverlapping(l1, t1, r1, b1, l2, t2, r2, b2));
+        int scl1 = child1.left + child1.paddingLeft;
+        int scr1 = child1.right - child1.paddingRight;
+        int sct1 = child1.top + child1.paddingTop;
+        int scb1 = child1.bottom - child1.paddingBottom;
+
+        int scl2 = child2.left + child1.paddingLeft;
+        int scr2 = child2.right - child1.paddingRight;
+        int sct2 = child2.top + child1.paddingTop;
+        int scb2 = child2.bottom - child1.paddingBottom;
+
+        boolean view_overlap = isOverlapping(l1, t1, r1, b1, l2, t2, r2, b2);;
+        boolean content_overlap = isOverlapping(scl1, sct1, scr1, scb1, scl2, sct2, scr2, scb2);
+
+        if(view_overlap){
+            if(!default_view_overlap){
+                BugReporter.writeViewBug(View.packageName, BugReporter.VIEW_OVERLAP, child1, child2);
+                return;
+            }
+        }
+
+        if(content_overlap){
             BugReporter.writeViewBug(View.packageName, BugReporter.VIEW_OVERLAP, child1, child2);
+            return;
         }
     }
 
@@ -590,8 +620,14 @@ public class RelativeLayout extends ViewGroup {
         int n = this.getChildren().size();
         for (int i = 0; i < n-1; i++) {
             View child1 = this.Children.get(i);
+            if(child1 instanceof NormalView){
+                continue;
+            }
             for (int j = i+1; j < n; j++) {
                 View child2 = this.Children.get(j);
+                if(child2 instanceof NormalView){
+                    continue;
+                }
 //                System.out.println(i + " " + j);
                 overLappingCheck(child1, child2);
             }
@@ -657,7 +693,6 @@ public class RelativeLayout extends ViewGroup {
         int wSpecMode = MeasureSpec.UNSPECIFIED;
         int hSpecSize = Integer.MIN_VALUE;
         int hSpecMode = MeasureSpec.UNSPECIFIED;
-
 
     }
 

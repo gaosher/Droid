@@ -10,19 +10,18 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ViewGroup extends View{
-    public String view_type = "view group";
+//    public String view_type = "view group";
     List<View> Children = new ArrayList<>();
-    public ViewGroup(int width, int height){
-        Children = new ArrayList<>();
-//        this.Height = height;
-//        this.Width = width;
-    }
+//    public ViewGroup(int width, int height){
+//        Children = new ArrayList<>();
+////        this.Height = height;
+////        this.Width = width;
+//    }
 
     public ViewGroup(LayoutParams layoutParams, HashMap<String, String> attrMap){
+        initialBasicAttrs(attrMap);
         mLayoutParams = layoutParams;
         mLayoutParams.setLayoutParams(attrMap);
-        initialBasicAttrs(attrMap);
-//        Children = new ArrayList<>();
         this.AttrMap = attrMap;
     }
 
@@ -40,21 +39,47 @@ public class ViewGroup extends View{
 
     @Override
     public void onMeasure(int WidthMeasureSpecMode, int WidthMeasureSpecSize, int HeightMeasureSpecMode, int HeightMeasureSpecSize){
-        System.out.println("start ViewGroup measurement: " + this.getId());
-        System.out.println("WidthMeasureSpecSize = " + WidthMeasureSpecSize);
-        System.out.println("HeightMeasureSpecSize = " + HeightMeasureSpecSize);
+        System.out.println("----------------start ViewGroup measurement: " + this.getId() + "-------------------");
+        showMeasureParams(WidthMeasureSpecMode, WidthMeasureSpecSize, HeightMeasureSpecMode, HeightMeasureSpecSize);
+//        System.out.println("WidthMeasureSpecSize = " + WidthMeasureSpecSize);
+//        System.out.println("HeightMeasureSpecSize = " + HeightMeasureSpecSize);
 
         int maxWidth = 0;
         int maxHeight = 0;
         for (View child : Children){
-            System.out.println("ViewGroup.measureChild WidthMeasureSpecSize = " + WidthMeasureSpecSize + "; HeightMeasureSpecSize = " + HeightMeasureSpecSize);
+//            System.out.println("ViewGroup.measureChild WidthMeasureSpecSize = " + WidthMeasureSpecSize + "; HeightMeasureSpecSize = " + HeightMeasureSpecSize);
             measureChild(child, WidthMeasureSpecMode, WidthMeasureSpecSize, HeightMeasureSpecMode, HeightMeasureSpecSize);
-            if(child.measuredHeight > maxHeight){
-                maxHeight = child.measuredHeight;
+//            System.out.println(child.getId() + ": " + child.measuredWidth + " " + child.measuredHeight);
+
+//            if(child.measuredHeight > maxHeight){
+//                maxHeight = child.measuredHeight;
+//            }
+//            if(child.measuredWidth > maxWidth){
+//                maxWidth = child.measuredWidth;
+//            }
+
+            if(!child.isNormal){
+                LayoutParams lp = child.mLayoutParams;
+                int l = this.paddingLeft + lp.leftMargin;
+                int t = this.paddingTop + lp.topMargin;
+//                System.out.println("viewgroup locate child: " + child.getId() + " --- " + l + " " + t + " " + (l + child.measuredWidth) + " " + (t + child.measuredHeight));
+                child.locateView(l, t, l + child.measuredWidth, t + child.measuredHeight);
+                if(maxWidth < child.right + lp.rightMargin) {
+                    maxWidth = Math.min(child.right + lp.rightMargin, WidthMeasureSpecSize);
+                }
+                if(maxHeight < child.bottom + lp.topMargin){
+                    maxHeight = Math.min(child.bottom + lp.topMargin, HeightMeasureSpecSize);
+                }
+            }else{
+                child.locateView(0, 0, child.measuredWidth, child.measuredHeight);
+                if(maxWidth < child.right) {
+                    maxWidth = Math.min(child.right, WidthMeasureSpecSize);
+                }
+                if(maxHeight < child.bottom ){
+                    maxHeight = Math.min(child.bottom, HeightMeasureSpecSize);
+                }
             }
-            if(child.measuredWidth > maxWidth){
-                maxWidth = child.measuredWidth;
-            }
+
         }
 
         if(WidthMeasureSpecMode == MeasureSpec.EXACTLY){
@@ -66,6 +91,16 @@ public class ViewGroup extends View{
             this.measuredHeight = HeightMeasureSpecSize;
         }else{
             this.measuredHeight = maxHeight + paddingTop + paddingBottom;
+        }
+        showChildCoors();
+        System.out.println("view group measured width = " + this.measuredWidth);
+        System.out.println("view group measured height = " + this.measuredHeight);
+        System.out.println("----------------end ViewGroup measurement: " + this.getId() + "-------------------");
+    }
+
+    void showChildCoors(){
+        for(View child : Children){
+            System.out.println("child " + child.index + ": " + child.left +" " + child.top + " " + child.right + " " + child.bottom);
         }
     }
 
@@ -155,6 +190,7 @@ public class ViewGroup extends View{
 
         if(child.isNormal){
             child.onMeasure(wSpecMode, wSpecSize, hSpecMode, hSpecSize);
+            child.locateView(0, 0, child.measuredWidth, child.measuredHeight);
             return;
         }
 
@@ -169,36 +205,48 @@ public class ViewGroup extends View{
 
         Spec cHeightSpec = MeasureSpec.getChildMeasureSpec(hSpecMode, hSpecSize, vertical_padding, lp.height);
 
-        System.out.println("ViewGroup child.onMeasure: " + child.getId());
+//        System.out.println("ViewGroup child.onMeasure: " + child.getId());
+//        System.out.println("view group measure child " + cWidthSpec.mode + " " + cWidthSpec.size + " " + cHeightSpec.mode + " " + cHeightSpec.size);
         child.onMeasure(cWidthSpec.mode, cWidthSpec.size, cHeightSpec.mode, cHeightSpec.size);
+//        System.out.println(child.getId() + " " + child.measuredWidth + " " + child.measuredHeight);
     }
 
     void checkOutOfParentBounds(){
         for(View child : this.getChildren()){
+            if(child instanceof NormalView){
+//                System.out.println("skip normal view");
+                continue;
+            }
             boolean isReported = false;
+//            System.out.println();
             // 当子组件不是可横向滑动的组件时，子组件的左边界不应该超过0，子组件的右边界不应该超过父组件的右边界
             if(child.left < 0 && !(child instanceof HorizontalView)){
                 BugReporter.writeViewBug(View.packageName, BugReporter.VIEW_INCOMPLETE, child, null);
-                BugReporter.writeInReport("left side out of boundary");
+                BugReporter.writeInReport("left side out of boundary " + child.left);
+                isReported = true;
             }
             if(child.right + this.left > this.right && !(child instanceof HorizontalView)){
                 if(!isReported){
                     BugReporter.writeViewBug(View.packageName, BugReporter.VIEW_INCOMPLETE, child, null);
+                    isReported = true;
                 }
-                BugReporter.writeInReport("right side out of boundary");
+                BugReporter.writeInReport("right side out of boundary " + child.right + " " + this.left + " " + this.right);
             }
             // 当子组件不是可竖向滑动的组件时，子组件的上边界不应该小于0，子组件的下边界不应该超过父组件的下边界
             if(child.top < 0 && !(child instanceof ScrollView)){
                 if(!isReported){
                     BugReporter.writeViewBug(View.packageName, BugReporter.VIEW_INCOMPLETE, child, null);
+                    isReported = true;
                 }
-                BugReporter.writeInReport("top side out of boundary");
+                BugReporter.writeInReport("top side out of boundary " + child.top);
             }
-            if(child.bottom + this.top < this.bottom && !(child instanceof ScrollView)){
+
+            if(child.bottom + this.top > this.bottom && !(child instanceof ScrollView)){
                 if(!isReported){
                     BugReporter.writeViewBug(View.packageName, BugReporter.VIEW_INCOMPLETE, child, null);
+                    isReported = true;
                 }
-                BugReporter.writeInReport("bottom side out of boundary");
+                BugReporter.writeInReport("bottom side out of boundary " + child.bottom + " " + this.bottom);
             }
         }
     }
@@ -214,6 +262,7 @@ public class ViewGroup extends View{
 
     @Override
     public void checkView() {
+        checkOutOfParentBounds();
         int n = this.getChildren().size();
         for (int i = 0; i < n; i++) {
             View child = this.getChildren().get(i);
@@ -271,7 +320,7 @@ public class ViewGroup extends View{
         public void setLayoutParams(HashMap<String, String> attrMap){
             // initial height
             if(!attrMap.containsKey("layout_height")) {
-                System.out.println("can't find layout_height");
+                System.err.println("can't find layout_height");
             }
             this.height = getDimen(attrMap.get("layout_height")); //px
             attrMap.remove("layout_height");
@@ -301,9 +350,9 @@ public class ViewGroup extends View{
                     rightMargin = margin_px;
                     bottomMargin = margin_px;
                 }
-                case "layout_marginLeft" -> leftMargin = margin_px;
+                case "layout_marginLeft", "layout_marginStart" -> leftMargin = margin_px;
                 case "layout_marginTop" -> topMargin = margin_px;
-                case "layout_marginRight" -> rightMargin = margin_px;
+                case "layout_marginRight", "layout_marginEnd" -> rightMargin = margin_px;
                 case "layout_marginBottom" -> bottomMargin = margin_px;
                 default -> System.err.println("unknown margin type" + margin_type);
             }

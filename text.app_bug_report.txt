@@ -1,6 +1,183 @@
 -------------------BUG 1-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: search_frag.xml
+bug view class name: android.widget.LinearLayout
+bug view bounds: [0, 280, 1440, 2220]
+bottom side out of boundary 2204 972
+-------------------BUG 2-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: search_frag.xml
+bug view class name: android.widget.EditText
+bug view id: @id/textsearch
+bug view bounds: [56, 842, 1384, 982]
+bug view text: Text
+bottom side out of boundary 4266 2204
+-------------------BUG 3-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: search_frag.xml
+bug view class name: android.widget.Spinner
+bug view id: @id/textlogic
+bug view bounds: [56, 1010, 1384, 1150]
+bottom side out of boundary 8546 2204
+-------------------BUG 4-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: search_frag.xml
+bug view class name: android.widget.LinearLayout
+bug view bounds: [56, 1350, 1384, 1490]
+bottom side out of boundary 17106 2204
+-------------------BUG 5-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: search_frag.xml
+bug view class name: android.widget.Spinner
+bug view id: @id/colorlogic
+bug view bounds: [56, 1518, 1384, 1658]
+bottom side out of boundary 34226 2204
+-------------------BUG 6-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: search_frag.xml
+bug view class name: android.widget.LinearLayout
+bug view bounds: [56, 1858, 1384, 1998]
+bottom side out of boundary 68466 2204
+-------------------BUG 7-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: search_frag.xml
+bug view class name: android.widget.Spinner
+bug view id: @id/coloridentitylogic
+bug view bounds: [56, 2026, 1384, 2166]
+bottom side out of boundary 136946 2204
+-------------------BUG 8-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: search_frag.xml
+bug view class name: android.view.ViewGroup
+bug view bounds: [56, 2198, 1384, 2220]
+bottom side out of boundary 273766 2204
+-------------------BUG 9-----------------
 TEXT CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
-bug view is in file: assistant_toolbar.xml
-bug view class name: android.widget.TextView
-bug view bounds: [288, 84, 1152, 294]
-bug view text: ASSISTANT
+bug view is in file: search_frag.xml
+bug view class name: android.widget.EditText
+bug view id: @id/name_search
+bug view bounds: [56, 294, 1384, 452]
+bug view text: Name
+-------------------BUG 10-----------------
+TEXT CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: search_frag.xml
+bug view class name: android.widget.EditText
+bug view id: @id/supertypesearch
+bug view bounds: [56, 484, 720, 642]
+bug view text: (Super)Type
+-------------------BUG 11-----------------
+TEXT CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: search_frag.xml
+bug view class name: android.widget.EditText
+bug view id: @id/subtypesearch
+bug view bounds: [720, 484, 1384, 642]
+bug view text: Subtype
+-------------------BUG 12-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: search_frag.xml
+bug view class name: android.widget.LinearLayout
+bug view bounds: [1162, 1350, 1384, 1490]
+right side out of boundary 1760 56 1384
+-------------------BUG 13-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: search_frag.xml
+bug view class name: android.widget.CheckBox
+bug view id: @id/checkBoxW
+bug view bounds: [110, 1350, 222, 1490]
+right side out of boundary 112 0 55
+-------------------BUG 14-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: search_frag.xml
+bug view class name: android.widget.CheckBox
+bug view id: @id/checkBoxU
+bug view bounds: [331, 1350, 443, 1490]
+right side out of boundary 112 55 110
+-------------------BUG 15-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: search_frag.xml
+bug view class name: android.widget.CheckBox
+bug view id: @id/checkBoxB
+bug view bounds: [552, 1350, 664, 1490]
+right side out of boundary 112 165 220
+-------------------BUG 16-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: search_frag.xml
+bug view class name: android.widget.CheckBox
+bug view id: @id/checkBoxR
+bug view bounds: [773, 1350, 885, 1490]
+right side out of boundary 112 385 440
+-------------------BUG 17-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: search_frag.xml
+bug view class name: android.widget.CheckBox
+bug view id: @id/checkBoxG
+bug view bounds: [995, 1350, 1107, 1490]
+right side out of boundary 112 825 880
+-------------------BUG 18-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: search_frag.xml
+bug view class name: android.widget.CheckBox
+bug view id: @id/checkBoxL
+bug view bounds: [1217, 1350, 1329, 1490]
+right side out of boundary 112 1705 1760
+-------------------BUG 19-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: search_frag.xml
+bug view class name: android.widget.LinearLayout
+bug view bounds: [1162, 1858, 1384, 1998]
+right side out of boundary 1760 56 1384
+-------------------BUG 20-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: search_frag.xml
+bug view class name: android.widget.CheckBox
+bug view id: @id/checkBoxW_identity
+bug view bounds: [110, 1858, 222, 1998]
+right side out of boundary 112 0 55
+-------------------BUG 21-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: search_frag.xml
+bug view class name: android.widget.CheckBox
+bug view id: @id/checkBoxU_identity
+bug view bounds: [331, 1858, 443, 1998]
+right side out of boundary 112 55 110
+-------------------BUG 22-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: search_frag.xml
+bug view class name: android.widget.CheckBox
+bug view id: @id/checkBoxB_identity
+bug view bounds: [552, 1858, 664, 1998]
+right side out of boundary 112 165 220
+-------------------BUG 23-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: search_frag.xml
+bug view class name: android.widget.CheckBox
+bug view id: @id/checkBoxR_identity
+bug view bounds: [773, 1858, 885, 1998]
+right side out of boundary 112 385 440
+-------------------BUG 24-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: search_frag.xml
+bug view class name: android.widget.CheckBox
+bug view id: @id/checkBoxG_identity
+bug view bounds: [995, 1858, 1107, 1998]
+right side out of boundary 112 825 880
+-------------------BUG 25-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: search_frag.xml
+bug view class name: android.widget.CheckBox
+bug view id: @id/checkBoxL_identity
+bug view bounds: [1217, 1858, 1329, 1998]
+right side out of boundary 112 1705 1760
+-------------------BUG 26-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: search_frag.xml
+bug view class name: android.widget.Spinner
+bug view id: @id/powLogic
+bug view bounds: [498, 2200, 941, 2220]
+bottom side out of boundary 168 273766
+-------------------BUG 27-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: search_frag.xml
+bug view class name: android.widget.Spinner
+bug view id: @id/powChoice
+bug view bounds: [941, 2200, 1384, 2220]

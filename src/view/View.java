@@ -1,15 +1,26 @@
 package view;
 
 
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
+import org.dom4j.io.XMLWriter;
 import util.DimenValue;
 import util.MeasureSpec;
 
 import javax.swing.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.security.interfaces.ECKey;
 import java.util.HashMap;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import tool.staticFilesPreProcess;
 
-public abstract class View {
+public class View {
 
     public static String packageName = "text.app"; // todo 需要在入口初始化
     public String view_type = "view";
@@ -55,16 +66,24 @@ public abstract class View {
 
 
     public View(ViewGroup.LayoutParams layoutParams, HashMap<String, String> attrMap){
-
+//        if(layoutParams == null) System.out.println("null layoutParams");
+        initialBasicAttrs(attrMap);
         mLayoutParams = layoutParams;
         mLayoutParams.setLayoutParams(attrMap);
-
-        initialBasicAttrs(attrMap);
-
         AttrMap = attrMap;
     }
 
     void initialBasicAttrs(HashMap<String, String> attrMap){
+
+        //initial style
+        if(attrMap.containsKey("theme")){
+            this.parseStyles(attrMap.get("theme"), attrMap);
+            attrMap.remove("theme");
+        }
+        if(attrMap.containsKey("style")){
+            this.parseStyles(attrMap.get("style"), attrMap);
+            attrMap.remove("style");
+        }
 
         // initial bounds
         this.setBounds(attrMap.get("bounds"));
@@ -106,6 +125,39 @@ public abstract class View {
         }
     }
 
+    void parseStyles(String styleName, HashMap<String, String> attrMap){
+        styleName = styleName.replace("@style/", "");
+        try {
+            // 1. 读取style.xml文件
+            SAXReader reader = new SAXReader();
+            Document document = reader.read(staticFilesPreProcess.StylesXML);
+            Element root = document.getRootElement();
+            List<Element> styles = root.elements();
+            for (Element style : styles){
+                if(style.attributeValue("name").equals(styleName)){
+                    List<Element> items = style.elements();
+                    if(items != null){
+                        System.out.println("parsed " + styleName);
+                        for(Element item : items){
+                            String item_name = item.attributeValue("name").replace("android:", "");
+                            String item_val = item.getText();
+                            if(!attrMap.containsKey(item_name)){
+                                attrMap.put(item_name, item_val);
+                                System.out.println(item_name + ": " + item_val);
+                            }
+                        }
+                    }
+                    String parent_style_name = style.attributeValue("parent");
+                    if(parent_style_name != null){
+                        parseStyles(parent_style_name, attrMap);
+                    }
+                    return;
+                }
+            }
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+    }
 
     void setIndex(String index_str){
         this.index = Integer.parseInt(index_str);
@@ -232,6 +284,7 @@ public abstract class View {
     int bottom = Integer.MAX_VALUE;
 
     void locateView(int left, int top, int right, int bottom){
+//        System.out.println("locate view: " + left + " " + top + " " + right + " " + bottom);
         this.left = left;
         this.right = right;
         this.top = top;

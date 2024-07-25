@@ -10,9 +10,9 @@ public class RecyclerView extends ViewGroup{
 
     @Override
     public void onMeasure(int WidthMeasureSpecMode, int WidthMeasureSpecSize, int HeightMeasureSpecMode, int HeightMeasureSpecSize){
-        System.out.println("start Recycler View measurement");
-        System.out.println("WidthMeasureSpecSize = " + WidthMeasureSpecSize);
-        System.out.println("HeightMeasureSpecSize = " + HeightMeasureSpecSize);
+//        System.out.println("start Recycler View measurement");
+//        System.out.println("WidthMeasureSpecSize = " + WidthMeasureSpecSize);
+//        System.out.println("HeightMeasureSpecSize = " + HeightMeasureSpecSize);
         super.onMeasure(WidthMeasureSpecMode, WidthMeasureSpecSize, HeightMeasureSpecMode, HeightMeasureSpecSize);
     }
 }

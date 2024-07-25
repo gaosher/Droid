@@ -25,6 +25,9 @@ public class XmlParser {
     static final int NORMAL_VIEW = -1;
     static final int NORMAL_VIEW_GROUP = -2;
 
+    static int VIEW_CNT = 0;
+    static int NORMAL_VIEW_CNT = 0;
+
 
 
     static final String [] ViewGroups = {
@@ -66,7 +69,11 @@ public class XmlParser {
             ViewGroup.LayoutParams rootLP = new ViewGroup.LayoutParams();
 
             // 构建ViewTree
+            System.out.println("------------------------START CONSTRUCT VIEW TREE----------------------");
             View view_root = parseElement(root, null, rootLP);
+            System.out.println("there is " + VIEW_CNT + " views in total");
+            System.out.println("there is " + NORMAL_VIEW_CNT + " normal views in total");
+            System.out.println("------------------------CONSTRUCTION COMPLETED----------------------");
 
             if (view_root != null) {
                 int root_height = view_root.getBounds()[3] - view_root.getBounds()[1];
@@ -88,6 +95,7 @@ public class XmlParser {
     }
 
     static View parseElement(Element ele, View parent, ViewGroup.LayoutParams layoutParams){
+        VIEW_CNT++;
         /* View的类型*/
         String ele_name = ele.getName();
         ele_name = ele_name.replace("android.widget.", ""); // TODO: 可能会有名称不匹配的问题
@@ -105,7 +113,10 @@ public class XmlParser {
             else if(ele_name.contains("HorizontalScrollView")) ViewType = HORIZONTAL_SCROLL_VIEW;
             else if(ele_name.contains("LinearLayout")) ViewType = LINEAR_LAYOUT;
             else if(ele_name.contains("RelativeLayout")) ViewType = RELATIVE_LAYOUT;
-            else if(ele_name.contains("ConstraintLayout")) ViewType = CONSTRAINT_LAYOUT;
+            else if(attrMap.get("type").contains("ConstraintLayout")) {
+//                System.out.println("ConstraintLayout");
+                ViewType = CONSTRAINT_LAYOUT;
+            }
             else if(ele_name.contains("ScrollView")) ViewType = SCROLL_VIEW;
 //            else if(ele_name.contains("ScrollView")) ViewType = SCROLL_VIEW;
             else if (TextualViewSet.contains(ele_name) || (attrMap.get("text") != null && attrMap.get("text").length()>0)){ // 存在文字属性的就可以算是
@@ -113,20 +124,24 @@ public class XmlParser {
             } else if (ImageViewSet.contains(ele_name)) {
                 ViewType = IMAGE_VIEW;
             }else{
-                System.out.println("Undefined View Type: " + ele_name);
                 List<Element> children = ele.elements();
                 if(children == null || children.size() == 0){
                     ViewType = VIEW;
+                    System.err.println("Undefined View Type: " + ele_name + " is parsed as a View");
                 }else{
-                    System.out.println(ele.attributeValue("id") + " ViewType = VIEW_GROUP");
+                    System.err.println("Undefined View Type: " + ele_name + " is parsed as a ViewGroup");
+//                    System.out.println(ele.attributeValue("id") + " ViewType = VIEW_GROUP");
                     ViewType = VIEW_GROUP;
                 }
             }
         }else{
+            NORMAL_VIEW_CNT ++;
             List<Element> children = ele.elements();
             if(children == null || children.size() == 0){
+//                System.out.println("NORMAL VIEW: " + ele_name);
                 ViewType = NORMAL_VIEW;
             }else{
+//                System.out.println("NORMAL VIEW GROUP: " + ele_name);
                 ViewType = NORMAL_VIEW_GROUP;
             }
         }
@@ -137,9 +152,10 @@ public class XmlParser {
             case NORMAL_VIEW -> { // 未合并的组件
                 NormalView normalView = new NormalView(attrMap);
                 normalView.setParent(parent);
-                System.out.println("parse a normal view");
+//                System.out.println("parse a normal view");
                 return normalView;
             }
+
             case NORMAL_VIEW_GROUP -> {
                 NormalViewGroup normalViewGroup = new NormalViewGroup(attrMap);
                 for (Element child : children) {
@@ -150,7 +166,7 @@ public class XmlParser {
                     normalViewGroup.addChild(child_view);
                 }
                 normalViewGroup.setParent(parent);
-                System.out.println("parse a normalViewGroup");
+//                System.out.println("parse a normalViewGroup");
                 return normalViewGroup;
             }
 
@@ -187,7 +203,7 @@ public class XmlParser {
                 ConstraintLayout constraintLayout = new ConstraintLayout(layoutParams, attrMap);
                 constraintLayout.setParent(parent);
                 for (Element child : children){
-                    ViewGroup.LayoutParams cLayoutParams = new RelativeLayout.LayoutParams();
+                    ViewGroup.LayoutParams cLayoutParams = new ConstraintLayout.LayoutParams();
                     View child_view = parseElement(child, constraintLayout, cLayoutParams);
                     constraintLayout.addChild(child_view);
                 }
@@ -196,24 +212,24 @@ public class XmlParser {
             case VIEW_GROUP -> {
 //                ViewGroup vg;
 //                List<Element> children = ele.elements(); // 获取子elements
-                System.out.println("new ViewGroup");
+//                System.out.println("new ViewGroup");
                 ViewGroup vg = new ViewGroup(layoutParams, attrMap);
                 vg.setParent(parent);
                 for (Element child : children) {
                     ViewGroup.LayoutParams dLayoutParams = new ViewGroup.LayoutParams();
                     View child_view = parseElement(child, vg, dLayoutParams);
                     vg.addChild(child_view);
-                    System.out.println("add child to ViewGroup : " + child_view.getId());
+//                    System.out.println("add child to ViewGroup : " + child_view.getId());
                 }
 //                System.out.println("return ViewGroup");
-                System.out.println("ViewGroup childrenCNT = " + vg.getChildren().size());
+//                System.out.println("ViewGroup childrenCNT = " + vg.getChildren().size());
                 return vg;
             }
 
             case TEXTUAL_VIEW -> { // textual views
                 TextualView textualView = new TextualView(layoutParams, attrMap);
                 textualView.setParent(parent);
-                System.out.println("parsed textualView text: " + textualView.Text);
+//                System.out.println("parsed textualView text: " + textualView.Text);
                 return textualView;
             }
             case IMAGE_VIEW -> { // image views
@@ -256,6 +272,12 @@ public class XmlParser {
                 return  scrollView;
             }
 
+            case VIEW -> {
+                View view = new View(layoutParams, attrMap);
+                view.setParent(parent);
+                return view;
+            }
+
             default -> {
                 System.err.println("Undefined View Type: " + ele_name);
                 return null;
@@ -292,7 +314,21 @@ public class XmlParser {
     }
 
     public static void main(String[] args){
-        String filename = "mergedXmlBase\\linphoneMergeTest.xml";
+//        String filename = "mergedXmlBase\\democracyMergeTest.xml";
+//        staticFilesPreProcess.initial("C:\\Accessibility\\DataSet\\owleyeDataset\\DemocracyDroid3.7.1\\apk\\DemocracyDroid-3.7.1\\res");
+
+//        staticFilesPreProcess.initial("C:\\Accessibility\\DataSet\\owleyeDataset\\linphone4.2.3\\linphone-android-debug-4.2.3\\res");
+//        String filename = "mergedXmlBase\\linphoneMergeTest.xml";
+
+
+
+//        String filename = "mergedXmlBase\\transistorMergedTest.xml";
+//        String resBase = "C:\\Accessibility\\DataSet\\owleyeDataset\\transistor3.2.4\\transistor-app-release-3.2.4\\res";
+
+        String filename = "mergedXmlBase\\mtgfamMergeTest.xml";
+        String resBase = "C:\\Accessibility\\DataSet\\owleyeDataset\\mtg-familiar3.6.4\\mtgfam_3.6.4\\res";
+
+        staticFilesPreProcess.initial(resBase);
         readXml(new File(filename));
     }
 }

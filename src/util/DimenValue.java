@@ -9,6 +9,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import tool.staticFilesPreProcess;
 
 public class DimenValue {
 
@@ -28,56 +29,56 @@ public class DimenValue {
     static HashMap<String, String> Styles = new HashMap<>();
 
 
-    /**
-     * 解析dimens.xml
-     * 还有%结尾情况
-     * @param dimenPath 路径
-     */
-    static void parseDimen(String dimenPath){//dimens.xml
-        try {
-            SAXReader reader = new SAXReader();
-            Document document = reader.read(new File(dimenPath));
-            Element root = document.getRootElement();
-            Iterator<Element> dimens = root.elementIterator();
-            HashMap<String, String> DimenValues = new HashMap<>();
-            while(dimens.hasNext()){
-                Element dimen = dimens.next();
-                String name = dimen.attributeValue("name");
-                String dimenVal = dimen.getText();
-                if(dimenVal.endsWith("%") ||
-                        (dimenVal.charAt(dimenVal.length()-1) >= '0' && dimenVal.charAt(dimenVal.length()-1) <= '9')  ){ // 处理%
-                    double val = parsePercentageDimen(dimenVal);
-                    Dimens.put(name, val);
-                } else if (dimenVal.startsWith("@dimen/")) { // 处理@dimen
-                    if(Dimens.containsKey(dimenVal)){
-                        Dimens.put(name, Dimens.get(dimenVal));
-                    }else if(DoubleDimens.containsKey(dimenVal)){
-                        DoubleDimens.put(name, DoubleDimens.get(dimenVal));
-                    }else{
-                        DimenValues.put(name, dimenVal);
-                    }
-                } else{ // 处理普通dimen，单位px
-                    double val = parseDimenValue2Px(dimenVal);
-                    Dimens.put(name, val);
-                }
-            }
-
-            for (Map.Entry e : DimenValues.entrySet()){
-                String name = (String) e.getKey();
-                String dimenVal = (String) e.getValue();
-                dimenVal = dimenVal.replace("@dimen/", "");
-                if(Dimens.containsKey(dimenVal)){
-                    Dimens.put(name, Dimens.get(dimenVal));
-                }else if(DoubleDimens.containsKey(dimenVal)){
-                    DoubleDimens.put(name, DoubleDimens.get(dimenVal));
-                }else{
-                    System.err.println("can't find " + dimenVal + " in dimens.xml");
-                }
-            }
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        }
-    }
+//    /**
+//     * 解析dimens.xml
+//     * 还有%结尾情况
+//     * @param dimenPath 路径
+//     */
+//    static void parseDimen(String dimenPath){//dimens.xml
+//        try {
+//            SAXReader reader = new SAXReader();
+//            Document document = reader.read(new File(dimenPath));
+//            Element root = document.getRootElement();
+//            Iterator<Element> dimens = root.elementIterator();
+//            HashMap<String, String> DimenValues = new HashMap<>();
+//            while(dimens.hasNext()){
+//                Element dimen = dimens.next();
+//                String name = dimen.attributeValue("name");
+//                String dimenVal = dimen.getText();
+//                if(dimenVal.endsWith("%") ||
+//                        (dimenVal.charAt(dimenVal.length()-1) >= '0' && dimenVal.charAt(dimenVal.length()-1) <= '9')  ){ // 处理%
+//                    double val = parsePercentageDimen(dimenVal);
+//                    Dimens.put(name, val);
+//                } else if (dimenVal.startsWith("@dimen/")) { // 处理@dimen
+//                    if(Dimens.containsKey(dimenVal)){
+//                        Dimens.put(name, Dimens.get(dimenVal));
+//                    }else if(DoubleDimens.containsKey(dimenVal)){
+//                        DoubleDimens.put(name, DoubleDimens.get(dimenVal));
+//                    }else{
+//                        DimenValues.put(name, dimenVal);
+//                    }
+//                } else{ // 处理普通dimen，单位px
+//                    double val = parseDimenValue2Px(dimenVal);
+//                    Dimens.put(name, val);
+//                }
+//            }
+//
+//            for (Map.Entry<String, String> e : DimenValues.entrySet()){
+//                String name = e.getKey();
+//                String dimenVal = e.getValue();
+//                dimenVal = dimenVal.replace("@dimen/", "");
+//                if(Dimens.containsKey(dimenVal)){
+//                    Dimens.put(name, Dimens.get(dimenVal));
+//                }else if(DoubleDimens.containsKey(dimenVal)){
+//                    DoubleDimens.put(name, DoubleDimens.get(dimenVal));
+//                }else{
+//                    System.err.println("can't find " + dimenVal + " in dimens.xml");
+//                }
+//            }
+//        } catch (DocumentException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     static void parseInteger(String IntegerPath){
         try {
@@ -106,8 +107,8 @@ public class DimenValue {
 
         if(dimenValue.startsWith("@dimen/")){
             // TODO: 2024/5/17
-            System.out.println(dimenValue + " starts With @Dimen");
-            return 0;
+            dimenValue = dimenValue.replace("@dimen/", "");
+            return parseDimenValue2Px(staticFilesPreProcess.Dimens.get(dimenValue));
         }
 
         if(dimenValue.endsWith("dip")){
@@ -178,9 +179,16 @@ public class DimenValue {
         int len = textSizeValue.length();
         double val = Double.MIN_VALUE;
         int res = Integer.MIN_VALUE;
+        if(textSizeValue.startsWith("@dimen/")){
+            textSizeValue = textSizeValue.replace("@dimen/", "");
+//            System.out.println("find in dimens");
+            return parseTextSizeValue(staticFilesPreProcess.Dimens.get(textSizeValue));
+        }
+
         if (textSizeValue.endsWith("sp")) {
             String double_str = textSizeValue.substring(0, len - 2);
             val = Double.parseDouble(double_str);
+//            System.out.println("find ends with sp");
             res = sp2px(val);
         }else {
 //            System.err.println("Warning" + textSizeValue + "not use sp as unit, may cause Unresponsive issues");

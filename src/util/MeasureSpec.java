@@ -46,10 +46,10 @@ public class MeasureSpec {
      * 注：子view的大小由父view的MeasureSpec值 和 子view的LayoutParams属性 共同决定
      */
     public static Spec getChildMeasureSpec(int measureSpecMode, int measureSpecSize,  int padding, int childDimension) {
-        System.out.println("getChildMeasureSpec measureSpecSize = " + measureSpecSize);
+//        System.out.println("getChildMeasureSpec measureSpecSize = " + measureSpecSize);
         // 通过父view计算出的子view = 父大小-边距（父要求的大小，但子view不一定用这个值）
         int size = Math.max(0, measureSpecSize - padding);
-        System.out.println("getChildMeasureSpec size = " + size);
+//        System.out.println("getChildMeasureSpec size = " + size);
 
         // 子view想要的实际大小和模式（需要计算）
         int resultSize = 0;
@@ -68,7 +68,7 @@ public class MeasureSpec {
 
                 } else if (childDimension == DimenValue.FILL_PARENT) { // 当子view的LayoutParams为MATCH_PARENT时(-1)
                     //子view大小为父view大小，模式为EXACTLY
-                    System.out.println("getChildMeasureSpec FILL_PARENT");
+//                    System.out.println("getChildMeasureSpec FILL_PARENT");
                     resultSize = size;
                     System.out.println(size);
                     resultMode = MeasureSpec.EXACTLY;

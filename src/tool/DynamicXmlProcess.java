@@ -384,13 +384,13 @@ public class DynamicXmlProcess {
 
     //@id/simple_lat_text
     public static void main(String[] args){
-        File dynamic_xml = new File("C:\\Users\\gaoshu\\Desktop\\textExamples\\linphone.xml");
-        File layout_base = new File("C:\\Accessibility\\DataSet\\owleyeDataset\\linphone4.2.3\\linphone-android-debug-4.2.3\\res\\layout");
+        File dynamic_xml = new File("mergedXmlBase\\mtgfam_3.6.4.xml");
+        File layout_base = new File("C:\\Accessibility\\DataSet\\owleyeDataset\\mtg-familiar3.6.4\\mtgfam_3.6.4\\res\\layout");
 
 //        File dynamic_xml = new File("C:\\Users\\gaoshu\\Desktop\\textExamples\\democracy.xml");
 //        File layout_base = new File("C:\\Accessibility\\DataSet\\owleyeDataset\\DemocracyDroid3.7.1\\apk\\DemocracyDroid-3.7.1\\res\\layout");
         String activity_name = "MainActivity";
-        String out_path = "linphoneMergeTest.xml";
+        String out_path = "mergedXmlBase\\mtgfamMergeTest.xml";
         mergeXmls(dynamic_xml, layout_base, out_path);
     }
 

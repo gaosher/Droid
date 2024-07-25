@@ -9,47 +9,18 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
-
+import tool.staticFilesPreProcess;
 public class ImageView extends View{
 
     // ImageView ImageButton
 
-    static HashMap<String, int[]> Drawables;
-    static String drawablesPath = "C:\\Accessibility\\DataSet\\owleyeDataset\\DemocracyDroid3.7.1\\apk\\DemocracyDroid-3.7.1\\res\\drawable-xxxhdpi";
+    static HashMap<String, int[]> Drawables = staticFilesPreProcess.getImages();
+//    static String drawablesPath = "C:\\Accessibility\\DataSet\\owleyeDataset\\DemocracyDroid3.7.1\\apk\\DemocracyDroid-3.7.1\\res\\drawable-xxxhdpi";
 
-    static void initalDrawables(String drawablesPath){
-        Drawables = new HashMap<>();
-        File drawablesBase = new File(drawablesPath);
-        File[] images = drawablesBase.listFiles();
-        if(images != null){
-            for(File img : images){
-                try{
-                    BufferedImage image = ImageIO.read(img);
-                    if(image != null){
-                        int width = image.getWidth();
-                        int height = image.getHeight();
-                        String imgName = img.getName();
-                        if(imgName.endsWith(".png")){
-                            imgName = imgName.substring(0, imgName.length()-4);
-                        }else{
-                            System.err.println(imgName + " is not a png");
-                        }
-                        Drawables.put(imgName, new int[]{width, height});
-                    }else{
-                        System.err.println("can't read picture" + img.getName());
-                    }
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }else{
-            System.err.println("empty or wrong drawable base: " + drawablesPath);
-        }
-    }
     public ImageView() {
     }
 
-    String src = "";
+    String src;
     int scaleType = FIT_CENTER;
     int w = 0;
     int h = 0;
@@ -75,17 +46,19 @@ public class ImageView extends View{
 
     void getImageSizeFromSrc(){
         if(Drawables.isEmpty()){
-            initalDrawables(drawablesPath);
+            System.err.println("Empty drawable/mipmap base");
+            return;
         }
         if(Drawables.containsKey(this.src)){
             this.w = Drawables.get(this.src)[0];
             this.h = Drawables.get(this.src)[1];
         }else{
-            System.err.println("can't find " + this.src + " in " + drawablesPath);
+            System.err.println("can't find " + this.src);
         }
     }
 
     public ImageView(ViewGroup.LayoutParams layoutParams, HashMap<String, String> attrMap){
+
         initialBasicAttrs(attrMap);
 
         //  lp 相关
@@ -93,9 +66,15 @@ public class ImageView extends View{
         mLayoutParams.setLayoutParams(attrMap);
 
         // src
+        String img_src;
         if(attrMap.containsKey("src")){
-            setSrc(attrMap.get("src"));
+            img_src = attrMap.get("src").replace("@drawable/", "").replace("@mipmap/", "");
+            setSrc(img_src);
             attrMap.remove("src");
+        } else if (attrMap.containsKey("srcCompat")) {
+            img_src = attrMap.get("srcCompat").replace("@drawable/", "").replace("@mipmap/", "");
+            setSrc(img_src);
+            attrMap.remove("srcCompat");
         } else {
             System.out.println("can't find attribute src");
         }
@@ -105,17 +84,15 @@ public class ImageView extends View{
             setScaleType(attrMap.get("scaleType"));
             attrMap.remove("scaleType");
         }
-//        else {
-//            System.out.println("can't find attribute scaleType");
-//        }
 
         this.AttrMap = attrMap;
     }
 
     @Override
     public void onMeasure(int WidthMeasureSpecMode, int WidthMeasureSpecSize, int HeightMeasureSpecMode, int HeightMeasureSpecSize){
-
-        if(this.src == null){
+        System.out.println("start onMeasure Image View " + this.Id);
+        if(this.src == null || this.src.equals("")){
+//            System.out.println("null");
             if(HeightMeasureSpecMode == MeasureSpec.EXACTLY && WidthMeasureSpecMode == MeasureSpec.EXACTLY){
                 this.measuredWidth = WidthMeasureSpecSize;
                 this.measuredHeight = HeightMeasureSpecSize;
@@ -137,30 +114,23 @@ public class ImageView extends View{
                 System.err.println("this Image View's MeasureSpec have bugs");
             }
         }else{
-            // 读取drawables.xml
-            if(ImageView.Drawables == null || ImageView.Drawables.isEmpty()){
-//                System.out.println("Initial Drawables");
-                ImageView.initalDrawables(ImageView.drawablesPath);
-            }
+            System.out.println("src: " + this.src);
             // 获取src源图片的宽高
 //            String image_name = this.src.replace("@drawable/", "") + ".png";
 //            System.out.println(image_name);
             int image_width = 0;
             int image_height = 0;
-            if(this.src != null && !this.src.equals("")){
-                String image_name = this.src.replace("@drawable/", "");
-                if(ImageView.Drawables.containsKey(image_name)){
-                    int [] imageSize = ImageView.Drawables.get(image_name);
-                    image_width = imageSize[0];
-                    image_height = imageSize[1];
-                    System.out.println("img width = " + image_width + "; img height = " + image_height);
-                }else{
-                    for(Map.Entry e : ImageView.Drawables.entrySet()){
-                        System.out.println(e.getKey());
-                    }
-                }
-//                System.out.println(this.src);
-//                System.out.println(image_name);
+            String image_name = this.src;
+            if(ImageView.Drawables.containsKey(image_name)){
+                int [] imageSize = ImageView.Drawables.get(image_name);
+                image_width = imageSize[0];
+                image_height = imageSize[1];
+//                System.out.println("img width = " + image_width + "; img height = " + image_height);
+            }else{
+                System.err.println("not in Drawables");
+//                for(Map.Entry e : ImageView.Drawables.entrySet()){
+//                    System.out.println(e.getKey());
+//                }
             }
 
             // todo 可能还有图片显示不全的情况，可以考虑输出
@@ -170,8 +140,8 @@ public class ImageView extends View{
             } else if (HeightMeasureSpecMode == MeasureSpec.EXACTLY && WidthMeasureSpecMode == MeasureSpec.AT_MOST) {
                 this.measuredHeight = HeightMeasureSpecSize;
                 this.measuredWidth = Math.min(WidthMeasureSpecSize, image_width);
-                System.out.println("HeightMeasureSpecMode == MeasureSpec.EXACTLY && WidthMeasureSpecMode == MeasureSpec.AT_MOST");
-                System.out.println(WidthMeasureSpecSize + " " + image_width);
+//                System.out.println("HeightMeasureSpecMode == MeasureSpec.EXACTLY && WidthMeasureSpecMode == MeasureSpec.AT_MOST");
+//                System.out.println(WidthMeasureSpecSize + " " + image_width);
             } else if (WidthMeasureSpecMode == MeasureSpec.EXACTLY && HeightMeasureSpecMode == MeasureSpec.AT_MOST) {
                 this.measuredWidth = WidthMeasureSpecSize;
                 this.measuredHeight = Math.min(HeightMeasureSpecSize, image_height);

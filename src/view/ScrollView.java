@@ -17,10 +17,10 @@ public class ScrollView extends ViewGroup {
 
     @Override
     public void onMeasure(int WidthMeasureSpecMode, int WidthMeasureSpecSize, int HeightMeasureSpecMode, int HeightMeasureSpecSize) {
-        System.out.println("start ScrollView measurement: " + this.Id);
-        System.out.println("HeightMeasureSpecMode = " + HeightMeasureSpecMode);
-        System.out.println("WidthMeasureSpecSize = " + WidthMeasureSpecSize);
-        System.out.println("HeightMeasureSpecSize = " + HeightMeasureSpecSize);
+        System.out.println("-----------------start ScrollView measurement: " + this.Id + "------------");
+//        System.out.println("HeightMeasureSpecMode = " + HeightMeasureSpecMode);
+//        System.out.println("WidthMeasureSpecSize = " + WidthMeasureSpecSize);
+//        System.out.println("HeightMeasureSpecSize = " + HeightMeasureSpecSize);
 
         if(HeightMeasureSpecMode == MeasureSpec.AT_MOST){
             HeightMeasureSpecSize = Integer.MAX_VALUE;
@@ -43,6 +43,11 @@ public class ScrollView extends ViewGroup {
 
             this.child_width = child.measuredWidth;
             this.measuredHeight = child.measuredHeight;
+
+//            LayoutParams lp = child.mLayoutParams;
+            int l = this.paddingLeft + child_lp.leftMargin;
+            int t = this.paddingTop + child_lp.topMargin;
+            child.locateView(l, t, l + child.measuredWidth, t + child.measuredHeight);
         }
 
         if(WidthMeasureSpecMode == MeasureSpec.EXACTLY){
@@ -56,5 +61,10 @@ public class ScrollView extends ViewGroup {
         }else{
             this.measuredHeight = child_height;
         }
+
+        showChildCoors();
+        System.out.println("Scroll View measured width = " + this.measuredWidth);
+        System.out.println("Scroll View measured height = " + this.measuredHeight);
+        System.out.println("----------------end Scroll View measurement: " + this.getId() + "-------------------");
     }
 }

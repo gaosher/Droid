@@ -1,0 +1,47 @@
+
+<android.widget.FrameLayout index="0" class="android.widget.FrameLayout" text="" resource-id="android:id/content" bounds="[0,0][1440,2392]">
+  <android.view.ViewGroup index="0" class="android.view.ViewGroup" text="" bounds="[0,0][1440,2392]" fitsSystemWindows="true" layout_width="fill_parent" layout_height="fill_parent" type="android.support.design.widget.CoordinatorLayout" isMerged="activity_main.xml">
+    <android.widget.LinearLayout index="0" class="android.widget.LinearLayout" text="" bounds="[0,84][1440,448]" theme="@style/AppTheme.AppBarOverlay" layout_width="fill_parent" layout_height="wrap_content" type="android.support.design.widget.AppBarLayout" isMerged="activity_main.xml">
+      <android.view.ViewGroup index="0" class="android.view.ViewGroup" text="" resource-id="com.workingagenda.democracydroid:id/toolbar" bounds="[0,84][1440,280]" id="@id/toolbar" background="?colorPrimary" layout_width="fill_parent" layout_height="56dp" layout_scrollFlags="enterAlways|scroll" popupTheme="@style/AppTheme.PopupOverlay" type="android.support.v7.widget.Toolbar" isMerged="activity_main.xml">
+        <android.widget.TextView index="0" class="android.widget.TextView" text="Democracy Droid" bounds="[56,135][596,228]"/>
+        <android.support.v7.widget.LinearLayoutCompat index="1" class="android.support.v7.widget.LinearLayoutCompat" text="" bounds="[964,84][1440,280]">
+          <android.widget.TextView index="0" class="android.widget.TextView" text="" resource-id="com.workingagenda.democracydroid:id/action_site" bounds="[964,98][1132,266]"/>
+          <android.widget.TextView index="1" class="android.widget.TextView" text="" resource-id="com.workingagenda.democracydroid:id/action_settings" bounds="[1132,98][1300,266]"/>
+          <android.widget.ImageView index="2" class="android.widget.ImageView" text="" bounds="[1300,98][1440,266]"/>
+        </android.support.v7.widget.LinearLayoutCompat>
+      </android.view.ViewGroup>
+      <android.widget.HorizontalScrollView index="1" class="android.widget.HorizontalScrollView" text="" resource-id="com.workingagenda.democracydroid:id/tab_layout" bounds="[0,280][1440,448]" theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" id="@id/tab_layout" background="?colorPrimary" layout_width="fill_parent" layout_height="wrap_content" minHeight="?actionBarSize" layout_below="@id/toolbar" type="android.support.design.widget.TabLayout" isMerged="activity_main.xml">
+        <android.widget.LinearLayout index="0" class="android.widget.LinearLayout" text="" bounds="[0,280][1440,448]">
+          <android.support.v7.app.ActionBar.Tab index="0" class="android.support.v7.app.ActionBar$Tab" text="" bounds="[0,280][480,448]">
+            <android.widget.ImageView index="0" class="android.widget.ImageView" text="" bounds="[198,322][282,406]"/>
+          </android.support.v7.app.ActionBar.Tab>
+          <android.support.v7.app.ActionBar.Tab index="1" class="android.support.v7.app.ActionBar$Tab" text="" bounds="[480,280][960,448]">
+            <android.widget.ImageView index="0" class="android.widget.ImageView" text="" bounds="[678,322][762,406]"/>
+          </android.support.v7.app.ActionBar.Tab>
+          <android.support.v7.app.ActionBar.Tab index="2" class="android.support.v7.app.ActionBar$Tab" text="" bounds="[960,280][1440,448]">
+            <android.widget.ImageView index="0" class="android.widget.ImageView" text="" bounds="[1158,322][1242,406]"/>
+          </android.support.v7.app.ActionBar.Tab>
+        </android.widget.LinearLayout>
+      </android.widget.HorizontalScrollView>
+    </android.widget.LinearLayout>
+    <android.support.v4.view.ViewPager index="1" class="android.support.v4.view.ViewPager" text="" resource-id="com.workingagenda.democracydroid:id/container" scrollable="true" bounds="[0,448][1440,2392]" id="@id/container" layout_width="fill_parent" layout_height="fill_parent" layout_behavior="@string/appbar_scrolling_view_behavior" type="android.support.v4.view.ViewPager" isMerged="activity_main.xml">
+      <android.widget.RelativeLayout index="1" class="android.widget.RelativeLayout" text="" bounds="[0,448][1440,2392]" orientation="vertical" layout_width="fill_parent" layout_height="fill_parent" type="RelativeLayout" isMerged="fragment_main.xml">
+        <android.view.ViewGroup index="0" class="android.view.ViewGroup" text="" resource-id="com.workingagenda.democracydroid:id/swiperefresh" bounds="[0,448][1440,2392]" id="@id/swiperefresh" layout_width="fill_parent" layout_height="fill_parent" type="android.support.v4.widget.SwipeRefreshLayout" isMerged="fragment_main.xml">
+          <android.support.v7.widget.RecyclerView index="0" class="android.support.v7.widget.RecyclerView" text="" resource-id="com.workingagenda.democracydroid:id/recycler_view" scrollable="true" bounds="[0,448][1440,2392]" id="@id/recycler_view" layout_width="fill_parent" layout_height="fill_parent" type="android.support.v7.widget.RecyclerView" isMerged="fragment_main.xml">
+            <android.widget.LinearLayout index="0" class="android.widget.LinearLayout" text="" bounds="[14,448][1426,734]" orientation="vertical" layout_width="fill_parent" layout_height="fill_parent" type="LinearLayout" isMerged="row_episodes.xml">
+              <android.widget.FrameLayout index="0" class="android.widget.FrameLayout" text="" bounds="[14,448][1426,734]" layout_width="fill_parent" layout_height="wrap_content" cardBackgroundColor="@color/white" cardCornerRadius="4.0dip" cardElevation="2.0dip" cardUseCompatPadding="true" type="android.support.v7.widget.CardView" isMerged="row_episodes.xml">
+                <android.widget.RelativeLayout index="0" class="android.widget.RelativeLayout" text="" bounds="[26,463][1414,719]" layout_width="fill_parent" layout_height="fill_parent" type="RelativeLayout" isMerged="row_episodes.xml">
+                  <android.widget.ImageView index="0" class="android.widget.ImageView" text="" resource-id="com.workingagenda.democracydroid:id/row_image" bounds="[26,463][481,719]" id="@id/row_image" layout_width="130.0dip" layout_height="73.0dip" scaleType="fitCenter" type="com.facebook.drawee.view.SimpleDraweeView" isMerged="row_episodes.xml"/>
+                  <android.widget.TextView index="1" class="android.widget.TextView" text="Headlines for June 28, 2024; &#8220;Step Aside Joe&#8221;: After First Pres. Debate, Democrats Reeling from Biden Missteps &amp; Trump Lies; &#8220;Taking Black Jobs&#8221;? Economists Darrick Hamilton &amp; Dean Baker on Inflation &amp; Taxes in Pres. Debate; 2024 Debate: Trump Lies About Abortions After Birth as Biden Fails to Defend Reproductive Rights; Biden-Trump Debate: Silky Shah on How Both Candidates Scapegoat Immigrants, Promote Xenophobic Myths; Biden Boasts of Israel Support in Gaza Assault as Trump Uses &#8220;Palestinian&#8221; as Slur Against Biden" resource-id="com.workingagenda.democracydroid:id/row_tag" bounds="[509,477][1302,632]" textSize="12.0sp" textStyle="bold" textColor="@color/black" id="@id/row_tag" layout_width="wrap_content" layout_height="wrap_content" layout_marginLeft="8.0dip" layout_marginTop="4.0dip" layout_marginRight="4.0dip" layout_marginBottom="4.0dip" maxLines="3" minLines="1" layout_toLeftOf="@id/row_options" layout_toRightOf="@id/row_image" type="TextView" isMerged="row_episodes.xml"/>
+                  <android.widget.ImageView index="2" class="android.widget.ImageView" text="" resource-id="com.workingagenda.democracydroid:id/row_options" bounds="[1330,477][1414,589]" id="@id/row_options" layout_width="wrap_content" layout_height="32.0dip" layout_marginTop="4.0dip" layout_marginBottom="4.0dip" src="@drawable/ic_more_vert_black_24dp" layout_alignParentRight="true" type="ImageView" isMerged="row_episodes.xml"/>
+                  <android.widget.TextView index="3" class="android.widget.TextView" text="2024-06-28 Friday" resource-id="com.workingagenda.democracydroid:id/row_title" bounds="[509,648][1316,705]" textSize="12.0sp" textStyle="italic" id="@id/row_title" layout_width="wrap_content" layout_height="wrap_content" layout_marginLeft="8.0dip" layout_marginTop="4.0dip" layout_marginRight="4.0dip" layout_marginBottom="4.0dip" maxLines="1" layout_toLeftOf="@id/row_options" layout_toRightOf="@id/row_image" layout_alignBottom="@id/row_image" type="TextView" isMerged="row_episodes.xml"/>
+                  <android.widget.ImageView index="4" class="android.widget.ImageView" text="" resource-id="com.workingagenda.democracydroid:id/row_download" bounds="[1330,579][1414,705]" id="@id/row_download" layout_width="wrap_content" layout_height="36.0dip" layout_marginTop="4.0dip" layout_marginBottom="4.0dip" src="@drawable/ic_file_download_black_24dp" layout_toRightOf="@id/row_title" layout_alignBottom="@id/row_image" type="ImageView" isMerged="row_episodes.xml"/>
+                </android.widget.RelativeLayout>
+              </android.widget.FrameLayout>
+            </android.widget.LinearLayout>
+          </android.support.v7.widget.RecyclerView>
+        </android.view.ViewGroup>
+      </android.widget.RelativeLayout>
+    </android.support.v4.view.ViewPager>
+  </android.view.ViewGroup>
+</android.widget.FrameLayout>
