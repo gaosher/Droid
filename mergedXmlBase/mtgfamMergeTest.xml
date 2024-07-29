@@ -11,12 +11,10 @@
                   </androidx.appcompat.widget.LinearLayoutCompat>
                 </android.view.ViewGroup>
                 <android.view.ViewGroup index="1" class="android.view.ViewGroup" text="" resource-id="com.gelakinetic.mtgfam:id/myCoordinatorLayout" bounds="[0,280][1440,2392]" id="@id/myCoordinatorLayout" layout_width="fill_parent" layout_height="fill_parent" type="androidx.coordinatorlayout.widget.CoordinatorLayout" isMerged="activity_main.xml">
-                  <android.widget.RelativeLayout index="0" class="android.widget.RelativeLayout" text="" bounds="[0,280][1440,2392]" layout_width="fill_parent" layout_height="fill_parent" type="RelativeLayout" isMerged="activity_main.xml">
-                    <android.widget.FrameLayout index="0" class="android.widget.FrameLayout" text="" resource-id="com.gelakinetic.mtgfam:id/fragment_container" bounds="[0,280][1440,2392]" id="@id/fragment_container" layout_width="fill_parent" layout_height="fill_parent" type="FrameLayout" isMerged="activity_main.xml">
-                      <android.widget.LinearLayout index="0" class="android.widget.LinearLayout" text="" bounds="[0,280][1440,2392]" orientation="vertical" layout_width="fill_parent" layout_height="fill_parent" type="LinearLayout" isMerged="search_frag.xml">
+                  <android.widget.LinearLayout index="0" class="android.widget.LinearLayout" text="" bounds="[0,280][1440,2392]" orientation="vertical" layout_width="fill_parent" layout_height="fill_parent" type="LinearLayout" isMerged="search_frag.xml">
                         <android.widget.ScrollView index="0" class="android.widget.ScrollView" text="" scrollable="true" bounds="[0,280][1440,2220]" layout_width="fill_parent" layout_height="0.0dip" layout_weight="1.0" type="ScrollView" isMerged="search_frag.xml">
-                          <android.widget.LinearLayout index="0" class="android.widget.LinearLayout" text="" bounds="[0,280][1440,2220]" orientation="vertical" layout_width="fill_parent" layout_height="wrap_content" type="LinearLayout" isMerged="search_frag.xml">
-                            <android.widget.LinearLayout index="0" class="android.widget.LinearLayout" text="" bounds="[56,294][1384,452]" orientation="horizontal" layout_width="fill_parent" layout_height="wrap_content" style="@style/forty_eight" type="LinearLayout" isMerged="search_frag.xml">
+                          <android.widget.LinearLayout index="0" class="android.widget.LinearLayout" text="" bounds="[0,280][1440,2220]" id="@id/scroll_child" orientation="vertical" layout_width="fill_parent" layout_height="wrap_content" type="LinearLayout" isMerged="search_frag.xml">
+                            <android.widget.LinearLayout index="0" class="android.widget.LinearLayout" text="" bounds="[56,294][1384,452]" id="@id/name_search_linear" orientation="horizontal" layout_width="fill_parent" layout_height="wrap_content" style="@style/forty_eight" type="LinearLayout" isMerged="search_frag.xml">
                               <android.widget.EditText index="0" class="android.widget.EditText" text="Name" resource-id="com.gelakinetic.mtgfam:id/name_search" bounds="[56,294][1384,452]" gravity="center_vertical" id="@id/name_search" layout_width="0.0dip" layout_height="fill_parent" hint="@string/search_name" maxLines="1" layout_weight="1.0" inputType="text" imeOptions="actionSearch" type="AutoCompleteTextView" isMerged="search_frag.xml"/>
                             </android.widget.LinearLayout>
                             <android.view.View index="1" class="android.view.View" text="" bounds="[0,466][1440,470]"/>
@@ -36,7 +34,7 @@
                             <android.widget.LinearLayout index="8" class="android.widget.LinearLayout" text="" bounds="[56,1182][1384,1322]">
                               <android.widget.TextView index="0" class="android.widget.TextView" text="Color" bounds="[56,1182][1384,1322]"/>
                             </android.widget.LinearLayout>
-                            <android.widget.LinearLayout index="9" class="android.widget.LinearLayout" text="" bounds="[56,1350][1384,1490]" orientation="horizontal" layout_width="fill_parent" baselineAligned="false" style="@style/forty_eight" type="LinearLayout" isMerged="search_frag.xml">
+                            <android.widget.LinearLayout index="9" class="android.widget.LinearLayout" text="" bounds="[56,1350][1384,1490]" id="checkbox_layout" orientation="horizontal" layout_width="fill_parent" baselineAligned="false" style="@style/forty_eight" type="LinearLayout" isMerged="search_frag.xml">
                               <android.widget.LinearLayout index="0" class="android.widget.LinearLayout" text="" bounds="[56,1350][277,1490]" gravity="center" layout_width="0.0dip" layout_height="fill_parent" layout_weight="1.0" type="LinearLayout" isMerged="search_frag.xml">
                                 <android.widget.CheckBox index="0" class="android.widget.CheckBox" text="" resource-id="com.gelakinetic.mtgfam:id/checkBoxW" bounds="[110,1350][222,1490]" id="@id/checkBoxW" layout_width="wrap_content" layout_height="fill_parent" button="@drawable/btn_check_w" type="CheckBox" isMerged="search_frag.xml"/>
                               </android.widget.LinearLayout>
@@ -99,8 +97,6 @@
                           <android.widget.Button index="0" class="android.widget.Button" text="SEARCH!" resource-id="com.gelakinetic.mtgfam:id/searchbutton" bounds="[0,2224][1440,2392]" textStyle="bold" id="@id/searchbutton" layout_width="fill_parent" layout_height="fill_parent" style="?android:buttonBarButtonStyle" type="Button" isMerged="search_frag.xml"/>
                         </android.widget.LinearLayout>
                       </android.widget.LinearLayout>
-                    </android.widget.FrameLayout>
-                  </android.widget.RelativeLayout>
                 </android.view.ViewGroup>
               </android.widget.LinearLayout>
             </androidx.drawerlayout.widget.DrawerLayout>

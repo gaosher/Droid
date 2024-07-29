@@ -1,0 +1,4 @@
+{
+  "buttonBarButtonStyle": "@style/Widget.MaterialComponents.Button.TextButton",
+  "dialogPreferredPadding": "@dimen/abc_dialog_padding_material"
+}
