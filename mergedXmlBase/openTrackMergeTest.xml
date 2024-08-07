@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<android.widget.FrameLayout index="0" class="android.widget.FrameLayout" text="" resource-id="android:id/content" bounds="[0,84][1440,2392]">
+            <android.widget.RelativeLayout index="0" class="android.widget.RelativeLayout" text="" bounds="[0,84][1440,2392]" layout_width="fill_parent" layout_height="fill_parent" type="RelativeLayout" isMerged="activity_main.xml">
+              <android.widget.ImageView index="0" class="android.widget.ImageView" text="" resource-id="de.storchp.opentracks.osmplugin:id/app_logo" bounds="[0,84][224,448]" id="@id/app_logo" paddingTop="80.0sp" layout_width="wrap_content" layout_height="wrap_content" src="@drawable/ic_logo_color_24dp" contentDescription="@string/app_logo_description" paddingStart="20.0sp" paddingEnd="20.0sp" layout_alignParentStart="true" type="ImageView" isMerged="activity_main.xml"/>
+              <android.widget.LinearLayout index="1" class="android.widget.LinearLayout" text="" bounds="[0,84][1440,280]" theme="@style/AppTheme.AppBarOverlay" layout_width="fill_parent" layout_height="wrap_content" type="com.google.android.material.appbar.AppBarLayout" isMerged="activity_main.xml">
+                <android.view.ViewGroup index="0" class="android.view.ViewGroup" text="" resource-id="de.storchp.opentracks.osmplugin:id/maps_toolbar" bounds="[0,84][1440,280]" id="@id/maps_toolbar" background="@color/colorPrimary" layout_width="fill_parent" layout_height="?actionBarSize" paddingStart="10.0dip" paddingEnd="10.0dip" elevation="4.0dip" navigationIcon="@drawable/ic_nav_icon" popupTheme="@style/AppTheme.PopupOverlay" type="androidx.appcompat.widget.Toolbar" isMerged="activity_main.xml">
+                  <android.widget.ImageButton index="0" class="android.widget.ImageButton" text="" bounds="[35,84][231,280]"/>
+                  <android.widget.TextView index="1" class="android.widget.TextView" text="OpenTracks - OSM Dashboard" bounds="[252,135][1194,228]"/>
+                  <androidx.appcompat.widget.LinearLayoutCompat index="2" class="androidx.appcompat.widget.LinearLayoutCompat" text="" bounds="[1265,84][1405,280]">
+                    <android.widget.ImageView index="0" class="android.widget.ImageView" text="" bounds="[1265,98][1405,266]"/>
+                  </androidx.appcompat.widget.LinearLayoutCompat>
+                </android.view.ViewGroup>
+              </android.widget.LinearLayout>
+              <android.widget.TextView index="2" class="android.widget.TextView" text="Use OpenTracks, select a Track and click the map icon to show the track on the map. 
+
+The default map is provided by OpenStreetMap.org. 
+Join the community and help to improve the map, see www.openstreetmap.org/fixthemap 
+
+Please consider downloading an offline map to decrease the server load and save your mobile data plan. 
+Some offline maps can be found here: 
+- Mapsforge 
+- Freizeitkarte Android 
+- OpenAndroMaps 
+
+Some maps require special themes to render correctly! These need to be downloaded and configured accordingly. 
+
+To use offline maps, put them in a folder on your Android device external storage (e.g. /storage/emulated/0, depending on your device) and select the directory in the App menu Maps / Offline Map Directory. " resource-id="de.storchp.opentracks.osmplugin:id/app_info" bounds="[0,448][1440,1754]" textColor="@color/colorPrimary" linksClickable="true" id="@id/app_info" paddingTop="40.0sp" layout_width="wrap_content" layout_height="wrap_content" layout_below="@id/app_logo" paddingStart="20.0sp" paddingEnd="20.0sp" type="TextView" isMerged="activity_main.xml"/>
+              <android.widget.TextView index="3" class="android.widget.TextView" text="OpenTracks - OSM Dashboard" resource-id="de.storchp.opentracks.osmplugin:id/app_title" bounds="[224,84][1172,457]" textSize="20.0sp" textStyle="bold" textColor="@color/colorPrimary" linksClickable="true" id="@id/app_title" paddingTop="80.0sp" layout_width="wrap_content" layout_height="wrap_content" layout_toEndOf="@id/app_logo" type="TextView" isMerged="activity_main.xml"/>
+            </android.widget.RelativeLayout>
+          </android.widget.FrameLayout>

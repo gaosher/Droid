@@ -1,0 +1,22 @@
+-------------------BUG 1-----------------
+TEXT CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: activity_main.xml
+bug view class name: android.widget.TextView
+bug view id: @id/app_info
+bug view bounds: [0, 448, 1440, 1754]
+bug view text: Use OpenTracks, select a Track and click the map icon to show the track on the map.   The default map is provided by OpenStreetMap.org.  Join the community and help to improve the map, see www.openstreetmap.org/fixthemap   Please consider downloading an offline map to decrease the server load and save your mobile data plan.  Some offline maps can be found here:  - Mapsforge  - Freizeitkarte Android  - OpenAndroMaps   Some maps require special themes to render correctly! These need to be downloaded and configured accordingly.   To use offline maps, put them in a folder on your Android device external storage (e.g. /storage/emulated/0, depending on your device) and select the directory in the App menu Maps / Offline Map Directory. 
+text height = 2479; view height = 1744
+-------------------BUG 2-----------------
+VIEWS OVERLAP WITH EACH OTHER, DETAILED INFO:
+bug view 1 info:
+bug view is in file: activity_main.xml
+bug view class name: android.widget.TextView
+bug view id: @id/app_info
+bug view bounds: [0, 448, 1440, 1754]
+bug view text: Use OpenTracks, select a Track and click the map icon to show the track on the map.   The default map is provided by OpenStreetMap.org.  Join the community and help to improve the map, see www.openstreetmap.org/fixthemap   Please consider downloading an offline map to decrease the server load and save your mobile data plan.  Some offline maps can be found here:  - Mapsforge  - Freizeitkarte Android  - OpenAndroMaps   Some maps require special themes to render correctly! These need to be downloaded and configured accordingly.   To use offline maps, put them in a folder on your Android device external storage (e.g. /storage/emulated/0, depending on your device) and select the directory in the App menu Maps / Offline Map Directory. 
+bug view 2 info:
+bug view is in file: activity_main.xml
+bug view class name: android.widget.TextView
+bug view id: @id/app_title
+bug view bounds: [224, 84, 1172, 457]
+bug view text: OpenTracks - OSM Dashboard

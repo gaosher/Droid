@@ -1,0 +1,98 @@
+-------------------BUG 1-----------------
+VIEWS OVERLAP WITH EACH OTHER, DETAILED INFO:
+bug view 1 info:
+bug view is in file: row_episodes.xml
+bug view class name: android.widget.TextView
+bug view id: @id/row_tag
+bug view bounds: [509, 477, 1302, 632]
+bug view text: <p>Headlines for June 28, 2024; &#8220;Step Aside Joe&#8221;: After First Pres. Debate, Democrats Reeling from Biden Missteps &amp; Trump Lies; &#8220;Taking Black Jobs&#8221;? Economists Darrick Hamilton &amp; Dean Baker on Inflation &amp; Taxes in Pres. Debate; 2024 Debate: Trump Lies About Abortions After Birth as Biden Fails to Defend Reproductive Rights; Biden-Trump Debate: Silky Shah on How Both Candidates Scapegoat Immigrants, Promote Xenophobic Myths; Biden Boasts of Israel Support in Gaza Assault as Trump Uses &#8220;Palestinian&#8221; as Slur Against Biden</p>
+bug view 2 info:
+bug view is in file: row_episodes.xml
+bug view class name: android.widget.TextView
+bug view id: @id/row_title
+bug view bounds: [509, 648, 1316, 705]
+bug view text: 2024-06-28 Friday
+-------------------BUG 2-----------------
+VIEWS OVERLAP WITH EACH OTHER, DETAILED INFO:
+bug view 1 info:
+bug view is in file: row_episodes.xml
+bug view class name: android.widget.TextView
+bug view id: @id/row_tag
+bug view bounds: [509, 763, 1302, 918]
+bug view text: <p>Headlines for June 27, 2024; Kenya Protests: Police Abduct Activists as Pres. Ruto Rejects Tax Bill Linked to Foreign Debt Crisis; The Gaza Project: Investigation Details Israel&#8217;s &#8220;Unprecedented&#8221; Targeting of Palestinian Journalists; Gaza Journalist Shrouq Aila on Continuing to Report After Journalist Husband Killed in Israeli Airstrike</p>
+bug view 2 info:
+bug view is in file: row_episodes.xml
+bug view class name: android.widget.TextView
+bug view id: @id/row_title
+bug view bounds: [509, 934, 1316, 991]
+bug view text: 2024-06-27 Thursday
+-------------------BUG 3-----------------
+VIEWS OVERLAP WITH EACH OTHER, DETAILED INFO:
+bug view 1 info:
+bug view is in file: row_episodes.xml
+bug view class name: android.widget.TextView
+bug view id: @id/row_tag
+bug view bounds: [509, 1049, 1302, 1204]
+bug view text: <p>Headlines for June 26, 2024; &#8220;Julian Is Free&#8221;: Assange Back Home in Australia After Taking U.S. Plea Deal in &#8220;Espionage&#8221; Case; &#8220;A Big Deal&#8221;: Julian Assange&#8217;s Release Welcomed by Australian Senator After Grassroots Campaign; Julian Assange&#8217;s Release &#8220;Averted a Press Freedom Catastrophe&#8221; But Still Set Bad Precedent: Jameel Jaffer; Auma Obama, Sister of Pres. Obama, on Kenyan Police Attacks on Youth-Led Tax Protests, 22+ Killed</p>
+bug view 2 info:
+bug view is in file: row_episodes.xml
+bug view class name: android.widget.TextView
+bug view id: @id/row_title
+bug view bounds: [509, 1220, 1316, 1277]
+bug view text: 2024-06-26 Wednesday
+-------------------BUG 4-----------------
+VIEWS OVERLAP WITH EACH OTHER, DETAILED INFO:
+bug view 1 info:
+bug view is in file: row_episodes.xml
+bug view class name: android.widget.TextView
+bug view id: @id/row_tag
+bug view bounds: [509, 1335, 1302, 1490]
+bug view text: <p>Headlines for June 25, 2024; Julian Assange Is Free: WikiLeaks Founder&#8217;s Brother Gabriel Shipton on End of Decadelong Legal Saga; Press Freedom Advocates Celebrate Julian Assange&#8217;s Release, But Warn of Impact of Plea Deal; Journalist Antony Loewenstein on Assange&#8217;s Release, WikiLeaks &amp; Israeli Drones Killing Gaza Reporters; <span class="caps">NYC</span> Congestion Pricing: Advocates Slam NY Gov for Halting Plan to Reduce Emissions, Fund Mass Transit</p>
+bug view 2 info:
+bug view is in file: row_episodes.xml
+bug view class name: android.widget.TextView
+bug view id: @id/row_title
+bug view bounds: [509, 1506, 1316, 1563]
+bug view text: 2024-06-25 Tuesday
+-------------------BUG 5-----------------
+VIEWS OVERLAP WITH EACH OTHER, DETAILED INFO:
+bug view 1 info:
+bug view is in file: row_episodes.xml
+bug view class name: android.widget.TextView
+bug view id: @id/row_tag
+bug view bounds: [509, 1621, 1302, 1776]
+bug view text: <p>Headlines for June 24, 2024; <span class="caps">AIPAC</span> vs. Jamaal Bowman: Rep. Ayanna Pressley on Pro-Israel Lobby Push to Defeat Pro-Ceasefire Lawmaker; &#8220;These Are Not Just Threats&#8221;: Rep. Ayanna Pressley on Project 2025 &amp; Dangers of a Second Trump Term; Will Israel Expand Its War into Lebanon? Rami Khouri on Netanyahu&#8217;s Latest Threats; Meet Maha Hussaini, Gaza Journalist Whose Courage Award Was Rescinded After Pro-Israel Smear Campaign</p>
+bug view 2 info:
+bug view is in file: row_episodes.xml
+bug view class name: android.widget.TextView
+bug view id: @id/row_title
+bug view bounds: [509, 1792, 1316, 1849]
+bug view text: 2024-06-24 Monday
+-------------------BUG 6-----------------
+VIEWS OVERLAP WITH EACH OTHER, DETAILED INFO:
+bug view 1 info:
+bug view is in file: row_episodes.xml
+bug view class name: android.widget.TextView
+bug view id: @id/row_tag
+bug view bounds: [509, 1907, 1302, 2062]
+bug view text: <p>Headlines for June 21, 2024; &#8220;The Night Won&#8217;t End&#8221;: New Film Investigates Civilian Killings in Gaza and U.S. Backing of Israeli Assault; &#8220;Green Border&#8221;: Agnieszka Holland&#8217;s New Film Shows &#8220;Impossible Choices&#8221; Facing Refugees in Europe</p>
+bug view 2 info:
+bug view is in file: row_episodes.xml
+bug view class name: android.widget.TextView
+bug view id: @id/row_title
+bug view bounds: [509, 2078, 1316, 2135]
+bug view text: 2024-06-21 Friday
+-------------------BUG 7-----------------
+VIEWS OVERLAP WITH EACH OTHER, DETAILED INFO:
+bug view 1 info:
+bug view is in file: row_episodes.xml
+bug view class name: android.widget.TextView
+bug view id: @id/row_tag
+bug view bounds: [509, 2193, 1302, 2348]
+bug view text: <p>Headlines for June 20, 2024; Meet Nadia Milleron: Her Daughter Was Killed in 2019 Boeing Crash, Now She&#8217;s Running for Congress; Pentagon Ran a Secret Anti-Vax Campaign to Undermine China at the Height of the Pandemic: Reuters; First Illinois Latina Rep. Praises Biden&#8217;s New Immigration Executive Order But Slams Border Shutdown; &#8220;Congress Is Not for Sale&#8221;: Rep. Ramirez Slams <span class="caps">AIPAC</span>-Led Campaign Against Jamaal Bowman in NY Primary</p>
+bug view 2 info:
+bug view is in file: row_episodes.xml
+bug view class name: android.widget.TextView
+bug view id: @id/row_title
+bug view bounds: [509, 2364, 1316, 2392]
+bug view text: 2024-06-20 Thursday

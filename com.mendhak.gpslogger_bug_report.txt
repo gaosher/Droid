@@ -1,0 +1,24 @@
+-------------------BUG 1-----------------
+THE UNIT USED IS NOT APPROPRIATE, DETAILED INFO:
+bug view is in file: fragment_simple_view.xml
+bug view class name: android.widget.EditText
+bug view id: @id/simple_lat_text
+bug view bounds: [147, 333, 1293, 538]
+bug view text: 37° 25' 19.194" N
+BUG UNIT ->  textSize
+-------------------BUG 2-----------------
+THE UNIT USED IS NOT APPROPRIATE, DETAILED INFO:
+bug view is in file: fragment_simple_view.xml
+bug view class name: android.widget.EditText
+bug view id: @id/simple_lon_text
+bug view bounds: [147, 538, 1293, 743]
+bug view text: 122° 5' 2.4" W
+BUG UNIT ->  textSize
+-------------------BUG 3-----------------
+TEXT CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: fragment_simple_view.xml
+bug view class name: android.widget.TextView
+bug view id: @id/simpleview_txtSatelliteCount
+bug view bounds: [287, 1097, 620, 1174]
+bug view text: 1
+text height = 107; view height = 99

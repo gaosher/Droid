@@ -1,0 +1,6 @@
+-------------------BUG 1-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: recycle_view.xml
+bug view class name: android.widget.LinearLayout
+bug view bounds: [211, 453, 1404, 666]
+bottom side out of boundary 673 0 651

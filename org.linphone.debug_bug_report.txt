@@ -1,0 +1,7 @@
+-------------------BUG 1-----------------
+TEXT CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: assistant_toolbar.xml
+bug view class name: android.widget.TextView
+bug view bounds: [288, 84, 1152, 294]
+bug view text: ASSISTANT
+text height = 186; view height = 270

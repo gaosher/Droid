@@ -1,0 +1,13 @@
+-------------------BUG 1-----------------
+VIEWS OVERLAP WITH EACH OTHER, DETAILED INFO:
+bug view 1 info:
+bug view is in file: add_funds_bottomsheet.xml
+bug view class name: android.widget.TextView
+bug view id: @id/textView3
+bug view bounds: [510, 1874, 930, 1991]
+bug view text: Add Funds
+bug view 2 info:
+bug view is in file: add_funds_bottomsheet.xml
+bug view class name: android.widget.LinearLayout
+bug view id: @id/textInputLayout2
+bug view bounds: [56, 2070, 693, 2294]

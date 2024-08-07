@@ -1,0 +1,141 @@
+-------------------BUG 1-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: fragment_apks.xml
+bug view class name: android.widget.LinearLayout
+bug view bounds: [0, 84, 1440, 2129]
+left side out of boundary -2147483648
+top side out of boundary -2147483648
+-------------------BUG 2-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: fragment_apks.xml
+bug view class name: android.widget.FrameLayout
+bug view bounds: [0, 84, 1440, 249]
+left side out of boundary -2147483648
+top side out of boundary -2147483648
+-------------------BUG 3-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: fragment_apks.xml
+bug view class name: android.widget.HorizontalScrollView
+bug view id: @id/tab_layout
+bug view bounds: [0, 249, 1440, 417]
+top side out of boundary -2147483648
+-------------------BUG 4-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: fragment_apks.xml
+bug view class name: androidx.recyclerview.widget.RecyclerView
+bug view id: @id/recycler_view
+bug view bounds: [0, 417, 1440, 2129]
+left side out of boundary -2147483648
+top side out of boundary -2147483648
+-------------------BUG 5-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: fragment_apks.xml
+bug view class name: android.widget.LinearLayout
+bug view bounds: [53, 120, 1387, 213]
+left side out of boundary -2147483648
+top side out of boundary -2147483648
+-------------------BUG 6-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: fragment_apks.xml
+bug view class name: android.widget.ImageButton
+bug view id: @id/search_button
+bug view bounds: [1160, 114, 1265, 219]
+left side out of boundary -2147483648
+top side out of boundary -2147483648
+-------------------BUG 7-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: fragment_apks.xml
+bug view class name: android.widget.ImageButton
+bug view id: @id/sort_button
+bug view bounds: [1300, 114, 1405, 219]
+left side out of boundary -2147483648
+top side out of boundary -2147483648
+-------------------BUG 8-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: fragment_apks.xml
+bug view class name: android.widget.TextView
+bug view id: @id/app_title
+bug view bounds: [53, 120, 1387, 213]
+bug view text: Installed Apps
+left side out of boundary -2147483648
+top side out of boundary -2147483648
+-------------------BUG 9-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: recycle_view.xml
+bug view class name: androidx.cardview.widget.CardView
+bug view id: @id/card
+bug view bounds: [18, 435, 1422, 684]
+left side out of boundary -2147483648
+top side out of boundary -2147483648
+-------------------BUG 10-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: recycle_view.xml
+bug view class name: android.widget.LinearLayout
+bug view bounds: [18, 435, 1422, 684]
+left side out of boundary -2147483648
+top side out of boundary -2147483648
+-------------------BUG 11-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: recycle_view.xml
+bug view class name: android.widget.ImageButton
+bug view id: @id/icon
+bug view bounds: [36, 489, 176, 629]
+left side out of boundary -2147483648
+top side out of boundary -2147483648
+-------------------BUG 12-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: recycle_view.xml
+bug view class name: android.widget.LinearLayout
+bug view bounds: [211, 453, 1404, 666]
+left side out of boundary -2147483648
+top side out of boundary -2147483648
+-------------------BUG 13-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: recycle_view.xml
+bug view class name: android.widget.LinearLayout
+bug view bounds: [211, 453, 1404, 600]
+left side out of boundary -2147483648
+top side out of boundary -2147483648
+-------------------BUG 14-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: recycle_view.xml
+bug view class name: android.widget.FrameLayout
+bug view bounds: [211, 600, 1404, 666]
+left side out of boundary -2147483648
+top side out of boundary -2147483648
+-------------------BUG 15-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: recycle_view.xml
+bug view class name: android.widget.TextView
+bug view id: @id/title
+bug view bounds: [211, 453, 845, 534]
+bug view text: 2 Button Navigation Bar
+left side out of boundary -2147483648
+top side out of boundary -2147483648
+-------------------BUG 16-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: recycle_view.xml
+bug view class name: android.widget.TextView
+bug view id: @id/description
+bug view bounds: [211, 534, 1271, 600]
+bug view text: com.android.internal.systemui.navbar.twobutton
+left side out of boundary -2147483648
+top side out of boundary -2147483648
+-------------------BUG 17-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: recycle_view.xml
+bug view class name: android.widget.TextView
+bug view id: @id/version
+bug view bounds: [211, 600, 1054, 666]
+bug view text: Version: 1.0
+left side out of boundary -2147483648
+top side out of boundary -2147483648
+-------------------BUG 18-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: recycle_view.xml
+bug view class name: android.widget.TextView
+bug view id: @id/size
+bug view bounds: [1159, 600, 1404, 666]
+bug view text: Size: 12 KB
+left side out of boundary -2147483648
+top side out of boundary -2147483648

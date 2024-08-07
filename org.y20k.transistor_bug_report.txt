@@ -1,0 +1,16 @@
+-------------------BUG 1-----------------
+TEXT CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: fragment_main_onboarding.xml
+bug view class name: android.widget.TextView
+bug view id: @id/rodriguez_quote_1
+bug view bounds: [419, 1308, 1022, 1385]
+bug view text: It started out with butterflies
+text height = 107; view height = 99
+-------------------BUG 2-----------------
+TEXT CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: fragment_main_onboarding.xml
+bug view class name: android.widget.TextView
+bug view id: @id/rodriguez_quote_2
+bug view bounds: [495, 1385, 946, 1448]
+bug view text: On a velvet afternoon
+text height = 107; view height = 81

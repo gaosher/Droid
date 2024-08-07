@@ -1,0 +1,58 @@
+-------------------BUG 1-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: fragment_graph.xml
+bug view class name: android.widget.ImageButton
+bug view id: @id/inheritance_button
+bug view bounds: [0, 2042, 360, 2217]
+bottom side out of boundary 225 0 0
+-------------------BUG 2-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: fragment_graph.xml
+bug view class name: android.widget.ImageButton
+bug view id: @id/realization_button
+bug view bounds: [360, 2042, 720, 2217]
+bottom side out of boundary 225 0 0
+-------------------BUG 3-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: fragment_graph.xml
+bug view class name: android.widget.ImageButton
+bug view id: @id/aggregation_button
+bug view bounds: [720, 2042, 1080, 2217]
+bottom side out of boundary 225 0 0
+-------------------BUG 4-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: fragment_graph.xml
+bug view class name: android.widget.Button
+bug view id: @id/escape_button
+bug view bounds: [1080, 2042, 1440, 2217]
+bug view text: ESC
+bottom side out of boundary 225 0 0
+-------------------BUG 5-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: fragment_graph.xml
+bug view class name: android.widget.ImageButton
+bug view id: @id/association_button
+bug view bounds: [0, 2217, 360, 2392]
+bottom side out of boundary 225 0 0
+-------------------BUG 6-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: fragment_graph.xml
+bug view class name: android.widget.ImageButton
+bug view id: @id/dependency_button
+bug view bounds: [360, 2217, 720, 2392]
+bottom side out of boundary 225 0 0
+-------------------BUG 7-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: fragment_graph.xml
+bug view class name: android.widget.ImageButton
+bug view id: @id/composition_button
+bug view bounds: [720, 2217, 1080, 2392]
+bottom side out of boundary 225 0 0
+-------------------BUG 8-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: fragment_graph.xml
+bug view class name: android.widget.Button
+bug view id: @id/new_class_button
+bug view bounds: [1080, 2217, 1440, 2392]
+bug view text: + CLASS
+bottom side out of boundary 225 0 0

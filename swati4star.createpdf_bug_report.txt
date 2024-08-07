@@ -1,0 +1,27 @@
+-------------------BUG 1-----------------
+VIEWS OVERLAP WITH EACH OTHER, DETAILED INFO:
+bug view 1 info:
+bug view is in file: fragment_view_files.xml
+bug view class name: android.widget.ImageView
+bug view id: @id/emptyBackgroundImage
+bug view bounds: [0, 280, 1440, 1684]
+bug view 2 info:
+bug view is in file: fragment_view_files.xml
+bug view class name: android.widget.TextView
+bug view id: @id/emptyTagLine
+bug view bounds: [355, 1777, 1085, 1843]
+bug view text: View all your converted files here!
+-------------------BUG 2-----------------
+VIEWS OVERLAP WITH EACH OTHER, DETAILED INFO:
+bug view 1 info:
+bug view is in file: fragment_view_files.xml
+bug view class name: android.widget.Button
+bug view id: @id/getStarted
+bug view bounds: [419, 1549, 1049, 1717]
+bug view text: GET STARTED NOW
+bug view 2 info:
+bug view is in file: fragment_view_files.xml
+bug view class name: android.widget.TextView
+bug view id: @id/emptyTagLine
+bug view bounds: [355, 1777, 1085, 1843]
+bug view text: View all your converted files here!

@@ -1,0 +1,38 @@
+-------------------BUG 1-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: activity_main.xml
+bug view class name: android.widget.FrameLayout
+bug view id: @id/nav_host_fragment
+bug view bounds: [0, 280, 1440, 2392]
+bottom side out of boundary 2336 0 2308
+-------------------BUG 2-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: fragment_dashboard.xml
+bug view class name: android.widget.TextView
+bug view id: @id/textView7
+bug view bounds: [120, 630, 1321, 1008]
+bug view text: $0.00
+left side out of boundary -51
+right side out of boundary 1492 0 1440
+-------------------BUG 3-----------------
+TEXT CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: fragment_dashboard.xml
+bug view class name: android.widget.TextView
+bug view id: @id/textView7
+bug view bounds: [120, 630, 1321, 1008]
+bug view text: $0.00
+text height = 543; view height = 486
+-------------------BUG 4-----------------
+VIEWS OVERLAP WITH EACH OTHER, DETAILED INFO:
+bug view 1 info:
+bug view is in file: fragment_dashboard.xml
+bug view class name: android.widget.TextView
+bug view id: @id/textView9
+bug view bounds: [65, 1456, 1375, 1527]
+bug view text: This will be added to the available amount every Sunday
+bug view 2 info:
+bug view is in file: fragment_dashboard.xml
+bug view class name: android.widget.Button
+bug view id: @id/button5
+bug view bounds: [368, 1765, 1068, 2070]
+bug view text: CHANGE BUDGET

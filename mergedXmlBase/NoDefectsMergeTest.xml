@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<android.widget.FrameLayout index="1" class="android.widget.FrameLayout" text="" resource-id="android:id/content" bounds="[0,280][1440,2392]">
+            <android.widget.LinearLayout index="0" class="android.widget.LinearLayout" text="" bounds="[0,280][1440,2392]">
+              <android.widget.LinearLayout index="0" class="android.widget.LinearLayout" text="" bounds="[0,280][1440,2392]">
+                <android.widget.LinearLayout index="0" class="android.widget.LinearLayout" text="" resource-id="android:id/headers" bounds="[0,280][1440,2392]">
+                  <android.widget.ListView index="0" class="android.widget.ListView" text="" resource-id="android:id/list" scrollable="true" bounds="[0,280][1440,2392]">
+                    <android.widget.LinearLayout index="0" class="android.widget.LinearLayout" text="" bounds="[0,280][1440,534]">
+                      <android.widget.RelativeLayout index="0" class="android.widget.RelativeLayout" text="" bounds="[56,280][1384,534]">
+                        <android.widget.TextView index="0" class="android.widget.TextView" text="What's New In This Version" resource-id="android:id/title" bounds="[56,336][733,412]"/>
+                        <android.widget.TextView index="1" class="android.widget.TextView" text="Features and Bug Fixes (press here)" resource-id="android:id/summary" bounds="[56,412][839,478]"/>
+                      </android.widget.RelativeLayout>
+                    </android.widget.LinearLayout>
+                    <android.widget.TextView index="1" class="android.widget.TextView" text="Application Settings" resource-id="android:id/title" bounds="[0,538][1440,660]"/>
+                    <android.widget.LinearLayout index="2" class="android.widget.LinearLayout" text="" bounds="[0,664][1440,918]">
+                      <android.widget.RelativeLayout index="0" class="android.widget.RelativeLayout" text="" bounds="[56,664][1216,918]">
+                        <android.widget.TextView index="0" class="android.widget.TextView" text="Difusión de Audio en Español" resource-id="android:id/title" bounds="[56,720][787,796]"/>
+                        <android.widget.TextView index="1" class="android.widget.TextView" text="Spanish language Audio broadcast" resource-id="android:id/summary" bounds="[56,796][818,862]"/>
+                      </android.widget.RelativeLayout>
+                      <android.widget.LinearLayout index="1" class="android.widget.LinearLayout" text="" resource-id="android:id/widget_frame" bounds="[1216,664][1384,918]">
+                        <android.widget.CheckBox index="0" class="android.widget.CheckBox" text="" resource-id="android:id/checkbox" bounds="[1272,735][1384,847]"/>
+                      </android.widget.LinearLayout>
+                    </android.widget.LinearLayout>
+                    <android.widget.LinearLayout index="3" class="android.widget.LinearLayout" text="" bounds="[0,922][1440,1176]">
+                      <android.widget.RelativeLayout index="0" class="android.widget.RelativeLayout" text="" bounds="[56,922][1384,1176]">
+                        <android.widget.TextView index="0" class="android.widget.TextView" text="Default Tab on Start Up" resource-id="android:id/title" bounds="[56,978][631,1054]"/>
+                        <android.widget.TextView index="1" class="android.widget.TextView" text="Broadcast Tab" resource-id="android:id/summary" bounds="[56,1054][374,1120]"/>
+                      </android.widget.RelativeLayout>
+                    </android.widget.LinearLayout>
+                    <android.widget.LinearLayout index="4" class="android.widget.LinearLayout" text="" bounds="[0,1180][1440,1434]">
+                      <android.widget.RelativeLayout index="0" class="android.widget.RelativeLayout" text="" bounds="[56,1180][1384,1434]">
+                        <android.widget.TextView index="0" class="android.widget.TextView" text="Default Stream on Select" resource-id="android:id/title" bounds="[56,1236][672,1312]"/>
+                        <android.widget.TextView index="1" class="android.widget.TextView" text="Video Stream" resource-id="android:id/summary" bounds="[56,1312][351,1378]"/>
+                      </android.widget.RelativeLayout>
+                    </android.widget.LinearLayout>
+                    <android.widget.LinearLayout index="5" class="android.widget.LinearLayout" text="" bounds="[0,1438][1440,1692]">
+                      <android.widget.RelativeLayout index="0" class="android.widget.RelativeLayout" text="" bounds="[56,1438][1384,1692]">
+                        <android.widget.TextView index="0" class="android.widget.TextView" text="Default Application to Play Media" resource-id="android:id/title" bounds="[56,1494][882,1570]"/>
+                        <android.widget.TextView index="1" class="android.widget.TextView" text="Open Stream In This Application" resource-id="android:id/summary" bounds="[56,1570][758,1636]"/>
+                      </android.widget.RelativeLayout>
+                    </android.widget.LinearLayout>
+                    <android.widget.TextView index="6" class="android.widget.TextView" text="Application Information" resource-id="android:id/title" bounds="[0,1696][1440,1818]"/>
+                    <android.widget.LinearLayout index="7" class="android.widget.LinearLayout" text="" bounds="[0,1822][1440,2076]">
+                      <android.widget.RelativeLayout index="0" class="android.widget.RelativeLayout" text="" bounds="[56,1822][1384,2076]">
+                        <android.widget.TextView index="0" class="android.widget.TextView" text="Application Version" resource-id="android:id/title" bounds="[56,1878][541,1954]"/>
+                        <android.widget.TextView index="1" class="android.widget.TextView" text="Democracy Droid! 3.7.1" resource-id="android:id/summary" bounds="[56,1954][567,2020]"/>
+                      </android.widget.RelativeLayout>
+                    </android.widget.LinearLayout>
+                    <android.widget.LinearLayout index="8" class="android.widget.LinearLayout" text="" bounds="[0,2080][1440,2334]">
+                      <android.widget.RelativeLayout index="0" class="android.widget.RelativeLayout" text="" bounds="[56,2080][1384,2334]">
+                        <android.widget.TextView index="0" class="android.widget.TextView" text="Software License" resource-id="android:id/title" bounds="[56,2136][485,2212]"/>
+                        <android.widget.TextView index="1" class="android.widget.TextView" text="GNU General Public License v3" resource-id="android:id/summary" bounds="[56,2212][727,2278]"/>
+                      </android.widget.RelativeLayout>
+                    </android.widget.LinearLayout>
+                    <android.widget.LinearLayout index="9" class="android.widget.LinearLayout" text="" bounds="[0,2338][1440,2392]">
+                      <android.widget.RelativeLayout index="0" class="android.widget.RelativeLayout" text="" bounds="[56,2338][1384,2392]"/>
+                    </android.widget.LinearLayout>
+                  </android.widget.ListView>
+                </android.widget.LinearLayout>
+              </android.widget.LinearLayout>
+            </android.widget.LinearLayout>
+          </android.widget.FrameLayout>

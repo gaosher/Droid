@@ -1,0 +1,16 @@
+-------------------BUG 1-----------------
+TEXT CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: item_list_preference_multi_drag.xml
+bug view class name: android.widget.CheckedTextView
+bug view id: @id/text
+bug view bounds: [726, 801, 1384, 913]
+bug view text: Touch turn page
+text height = 262; view height = 216
+-------------------BUG 2-----------------
+TEXT CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: item_list_preference_multi_drag.xml
+bug view class name: android.widget.CheckedTextView
+bug view id: @id/text
+bug view bounds: [726, 2005, 1384, 2117]
+bug view text: Toolbar setting
+text height = 262; view height = 216

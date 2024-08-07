@@ -1,0 +1,135 @@
+-------------------BUG 1-----------------
+VIEWS OVERLAP WITH EACH OTHER, DETAILED INFO:
+bug view 1 info:
+bug view is in file: fragment_onboarding_icons.xml
+bug view class name: android.widget.ImageView
+bug view id: @id/icon1
+bug view bounds: [135, 930, 233, 1084]
+bug view 2 info:
+bug view is in file: fragment_onboarding_icons.xml
+bug view class name: android.widget.TextView
+bug view id: @id/welcomeTitle
+bug view bounds: [112, 1462, 1328, 1555]
+bug view text: You've got the power
+-------------------BUG 2-----------------
+VIEWS OVERLAP WITH EACH OTHER, DETAILED INFO:
+bug view 1 info:
+bug view is in file: fragment_onboarding_icons.xml
+bug view class name: android.widget.ImageView
+bug view id: @id/icon2
+bug view bounds: [396, 930, 494, 1084]
+bug view 2 info:
+bug view is in file: fragment_onboarding_icons.xml
+bug view class name: android.widget.TextView
+bug view id: @id/welcomeTitle
+bug view bounds: [112, 1462, 1328, 1555]
+bug view text: You've got the power
+-------------------BUG 3-----------------
+VIEWS OVERLAP WITH EACH OTHER, DETAILED INFO:
+bug view 1 info:
+bug view is in file: fragment_onboarding_icons.xml
+bug view class name: android.widget.ImageView
+bug view id: @id/icon3
+bug view bounds: [658, 930, 756, 1084]
+bug view 2 info:
+bug view is in file: fragment_onboarding_icons.xml
+bug view class name: android.widget.TextView
+bug view id: @id/welcomeTitle
+bug view bounds: [112, 1462, 1328, 1555]
+bug view text: You've got the power
+-------------------BUG 4-----------------
+VIEWS OVERLAP WITH EACH OTHER, DETAILED INFO:
+bug view 1 info:
+bug view is in file: fragment_onboarding_icons.xml
+bug view class name: android.widget.ImageView
+bug view id: @id/icon4
+bug view bounds: [920, 930, 1018, 1084]
+bug view 2 info:
+bug view is in file: fragment_onboarding_icons.xml
+bug view class name: android.widget.TextView
+bug view id: @id/welcomeTitle
+bug view bounds: [112, 1462, 1328, 1555]
+bug view text: You've got the power
+-------------------BUG 5-----------------
+VIEWS OVERLAP WITH EACH OTHER, DETAILED INFO:
+bug view 1 info:
+bug view is in file: fragment_onboarding_icons.xml
+bug view class name: android.widget.ImageView
+bug view id: @id/icon5
+bug view bounds: [1194, 930, 1292, 1084]
+bug view 2 info:
+bug view is in file: fragment_onboarding_icons.xml
+bug view class name: android.widget.TextView
+bug view id: @id/welcomeTitle
+bug view bounds: [112, 1462, 1328, 1555]
+bug view text: You've got the power
+-------------------BUG 6-----------------
+VIEWS OVERLAP WITH EACH OTHER, DETAILED INFO:
+bug view 1 info:
+bug view is in file: fragment_onboarding_icons.xml
+bug view class name: android.widget.TextView
+bug view id: @id/iconLabel1
+bug view bounds: [107, 1098, 261, 1155]
+bug view text: < 11 kW
+bug view 2 info:
+bug view is in file: fragment_onboarding_icons.xml
+bug view class name: android.widget.TextView
+bug view id: @id/welcomeTitle
+bug view bounds: [112, 1462, 1328, 1555]
+bug view text: You've got the power
+-------------------BUG 7-----------------
+VIEWS OVERLAP WITH EACH OTHER, DETAILED INFO:
+bug view 1 info:
+bug view is in file: fragment_onboarding_icons.xml
+bug view class name: android.widget.TextView
+bug view id: @id/iconLabel2
+bug view bounds: [368, 1098, 523, 1155]
+bug view text: ≥ 11 kW
+bug view 2 info:
+bug view is in file: fragment_onboarding_icons.xml
+bug view class name: android.widget.TextView
+bug view id: @id/welcomeTitle
+bug view bounds: [112, 1462, 1328, 1555]
+bug view text: You've got the power
+-------------------BUG 8-----------------
+VIEWS OVERLAP WITH EACH OTHER, DETAILED INFO:
+bug view 1 info:
+bug view is in file: fragment_onboarding_icons.xml
+bug view class name: android.widget.TextView
+bug view id: @id/iconLabel3
+bug view bounds: [630, 1098, 785, 1155]
+bug view text: ≥ 20 kW
+bug view 2 info:
+bug view is in file: fragment_onboarding_icons.xml
+bug view class name: android.widget.TextView
+bug view id: @id/welcomeTitle
+bug view bounds: [112, 1462, 1328, 1555]
+bug view text: You've got the power
+-------------------BUG 9-----------------
+VIEWS OVERLAP WITH EACH OTHER, DETAILED INFO:
+bug view 1 info:
+bug view is in file: fragment_onboarding_icons.xml
+bug view class name: android.widget.TextView
+bug view id: @id/iconLabel4
+bug view bounds: [891, 1098, 1046, 1155]
+bug view text: ≥ 43 kW
+bug view 2 info:
+bug view is in file: fragment_onboarding_icons.xml
+bug view class name: android.widget.TextView
+bug view id: @id/welcomeTitle
+bug view bounds: [112, 1462, 1328, 1555]
+bug view text: You've got the power
+-------------------BUG 10-----------------
+VIEWS OVERLAP WITH EACH OTHER, DETAILED INFO:
+bug view 1 info:
+bug view is in file: fragment_onboarding_icons.xml
+bug view class name: android.widget.TextView
+bug view id: @id/iconLabel5
+bug view bounds: [1153, 1098, 1333, 1155]
+bug view text: ≥ 100 kW
+bug view 2 info:
+bug view is in file: fragment_onboarding_icons.xml
+bug view class name: android.widget.TextView
+bug view id: @id/welcomeTitle
+bug view bounds: [112, 1462, 1328, 1555]
+bug view text: You've got the power

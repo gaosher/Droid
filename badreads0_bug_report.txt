@@ -1,0 +1,14 @@
+-------------------BUG 1-----------------
+VIEWS OVERLAP WITH EACH OTHER, DETAILED INFO:
+bug view 1 info:
+bug view is in file: new_book_content.xml
+bug view class name: android.widget.TextView
+bug view id: @id/new_book_title
+bug view bounds: [148, 430, 1077, 617]
+bug view text: Harry Potter and the Order of the Phoenix
+bug view 2 info:
+bug view is in file: new_book_content.xml
+bug view class name: android.widget.TextView
+bug view id: @id/new_book_publisher
+bug view bounds: [148, 782, 1077, 879]
+bug view text: Salamandra Infantil y Juvenil

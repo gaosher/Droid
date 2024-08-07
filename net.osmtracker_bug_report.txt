@@ -1,0 +1,8 @@
+-------------------BUG 1-----------------
+TEXT CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: appintro_fragment_intro.xml
+bug view class name: android.widget.TextView
+bug view id: @id/title
+bug view bounds: [0, 84, 1440, 483]
+bug view text: Welcome to OSMTracker for Android™ 👋
+text height = 598; view height = 375

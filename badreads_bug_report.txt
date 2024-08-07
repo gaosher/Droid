@@ -1,0 +1,95 @@
+-------------------BUG 1-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: new_book_content.xml
+bug view class name: android.widget.TextView
+bug view id: @id/new_book_title
+bug view bounds: [148, 430, 1077, 617]
+bug view text: Harry Potter and the Order of the Phoenix
+left side out of boundary -96
+bottom side out of boundary 394 0 -2147483559
+-------------------BUG 2-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: new_book_content.xml
+bug view class name: android.widget.TextView
+bug view id: @id/new_book_author
+bug view bounds: [148, 645, 1042, 750]
+bug view text: J. K. Rowling
+bottom side out of boundary 571 0 -2147483559
+-------------------BUG 3-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: new_book_content.xml
+bug view class name: android.widget.ImageView
+bug view id: @id/new_book_cover_image
+bug view bounds: [1077, 465, 1257, 755]
+bottom side out of boundary 90 0 -2147483559
+-------------------BUG 4-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: new_book_content.xml
+bug view class name: android.widget.TextView
+bug view id: @id/new_book_publisher
+bug view bounds: [148, 782, 1077, 879]
+bug view text: Salamandra Infantil y Juvenil
+left side out of boundary -1
+bottom side out of boundary 732 0 -2147483559
+-------------------BUG 5-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: new_book_content.xml
+bug view class name: android.widget.TextView
+bug view id: @id/new_book_year
+bug view bounds: [148, 914, 422, 969]
+bug view text: 2015 (2003)
+bottom side out of boundary 839 0 -2147483559
+-------------------BUG 6-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: new_book_content.xml
+bug view class name: android.widget.TextView
+bug view id: @id/new_book_isbn13
+bug view bounds: [148, 1011, 1077, 1058]
+bug view text: 9788498386356
+bottom side out of boundary 932 0 -2147483559
+-------------------BUG 7-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: new_book_content.xml
+bug view class name: android.widget.Button
+bug view id: @id/new_book_shelf_dropdown
+bug view bounds: [837, 860, 1292, 1028]
+bug view text: TO-READ
+bottom side out of boundary 197 0 -2147483559
+-------------------BUG 8-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: new_book_content.xml
+bug view class name: android.widget.TextView
+bug view id: @id/new_book_isbn10
+bug view bounds: [148, 1100, 1077, 1147]
+bug view text: 8498386357
+bottom side out of boundary 1025 0 -2147483559
+-------------------BUG 9-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: new_book_content.xml
+bug view class name: android.widget.TextView
+bug view id: @id/new_book_page_numbers
+bug view bounds: [148, 1189, 1077, 1236]
+bug view text: Pages: 928
+bottom side out of boundary 1118 0 -2147483559
+-------------------BUG 10-----------------
+VIEW CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: new_book_content.xml
+bug view class name: android.widget.TextView
+bug view id: @id/new_book_description
+bug view bounds: [148, 1278, 1292, 1341]
+bug view text: Description
+bottom side out of boundary 1241 0 -2147483559
+-------------------BUG 11-----------------
+VIEWS OVERLAP WITH EACH OTHER, DETAILED INFO:
+bug view 1 info:
+bug view is in file: new_book_content.xml
+bug view class name: android.widget.TextView
+bug view id: @id/new_book_title
+bug view bounds: [148, 430, 1077, 617]
+bug view text: Harry Potter and the Order of the Phoenix
+bug view 2 info:
+bug view is in file: new_book_content.xml
+bug view class name: android.widget.Button
+bug view id: @id/new_book_shelf_dropdown
+bug view bounds: [837, 860, 1292, 1028]
+bug view text: TO-READ

@@ -1,0 +1,26 @@
+-------------------BUG 1-----------------
+VIEWS OVERLAP WITH EACH OTHER, DETAILED INFO:
+bug view 1 info:
+bug view is in file: fragment_onboarding_welcome.xml
+bug view class name: android.widget.ImageView
+bug view id: @id/animation_view
+bug view bounds: [272, 594, 1168, 1490]
+bug view 2 info:
+bug view is in file: fragment_onboarding_welcome.xml
+bug view class name: android.widget.TextView
+bug view id: @id/welcomeTitle
+bug view bounds: [112, 1519, 1328, 1612]
+bug view text: Welcome to EVMap
+-------------------BUG 2-----------------
+VIEWS OVERLAP WITH EACH OTHER, DETAILED INFO:
+bug view 1 info:
+bug view is in file: fragment_onboarding_welcome.xml
+bug view class name: android.widget.ImageView
+bug view id: @id/animation_view
+bug view bounds: [272, 594, 1168, 1490]
+bug view 2 info:
+bug view is in file: fragment_onboarding_welcome.xml
+bug view class name: android.widget.TextView
+bug view id: @id/welcomeText1
+bug view bounds: [112, 1668, 1328, 1734]
+bug view text: Find electric vehicle chargers around you.

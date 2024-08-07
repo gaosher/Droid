@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<android.widget.FrameLayout index="1" class="android.widget.FrameLayout" text="" resource-id="android:id/content" bounds="[0,280][1440,2392]">
+            <android.widget.LinearLayout index="0" class="android.widget.LinearLayout" text="" bounds="[0,280][1440,2392]" orientation="vertical" layout_width="fill_parent" layout_height="fill_parent" type="LinearLayout" isMerged="list_activity.xml">
+              <android.widget.FrameLayout index="0" class="android.widget.FrameLayout" text="" resource-id="com.better.alarm.debug:id/main_fragment_container" bounds="[0,280][1440,2392]" id="@id/main_fragment_container" layout_width="fill_parent" layout_height="fill_parent" type="FrameLayout" isMerged="list_activity.xml">
+                <android.view.ViewGroup index="0" class="android.view.ViewGroup" text="" bounds="[0,280][1440,2392]" orientation="vertical" layout_width="fill_parent" layout_height="fill_parent" type="LinearLayout" isMerged="list_fragment.xml">
+                  <android.widget.LinearLayout index="0" class="android.widget.LinearLayout" text="" resource-id="com.better.alarm.debug:id/bottom_drawer_container" bounds="[0,1376][1440,2392]">
+                    <android.widget.LinearLayout index="0" class="android.widget.LinearLayout" text="" resource-id="com.better.alarm.debug:id/bottom_drawer_content" bounds="[0,1376][1440,2392]">
+                      <android.view.ViewGroup index="0" class="android.view.ViewGroup" text="" resource-id="com.better.alarm.debug:id/bottom_drawer_toolbar" bounds="[0,1376][1440,1628]">
+                        <android.widget.LinearLayout index="0" class="android.widget.LinearLayout" text="" bounds="[0,1427][1440,1577]">
+                          <android.widget.ImageView index="0" class="android.widget.ImageView" text="" bounds="[636,1427][804,1511]"/>
+                          <android.widget.FrameLayout index="1" class="android.widget.FrameLayout" text="" bounds="[0,1511][1440,1577]"/>
+                        </android.widget.LinearLayout>
+                      </android.view.ViewGroup>
+                      <android.widget.LinearLayout index="1" class="android.widget.LinearLayout" text="" bounds="[0,1628][1440,2392]">
+                        <android.widget.TextView index="0" class="android.widget.TextView" text="Layout style" resource-id="com.better.alarm.debug:id/appearance_arrows_text" bounds="[105,1628][485,1755]"/>
+                        <android.widget.LinearLayout index="1" class="android.widget.LinearLayout" text="" resource-id="com.better.alarm.debug:id/appearance_row_layout" bounds="[105,1755][1335,1917]">
+                          <android.widget.LinearLayout index="0" class="android.widget.LinearLayout" text="" bounds="[105,1755][503,1917]">
+                            <android.widget.ImageButton index="0" class="android.widget.ImageButton" text="" resource-id="com.better.alarm.debug:id/appearance_fragment_layout_button" bounds="[123,1773][249,1899]"/>
+                            <android.widget.TextView index="1" class="android.widget.TextView" text="Compact" resource-id="com.better.alarm.debug:id/appearance_fragment_layout_text" bounds="[285,1803][485,1869]"/>
+                          </android.widget.LinearLayout>
+                          <android.view.View index="1" class="android.view.View" text="" bounds="[503,1755][592,1917]"/>
+                          <android.widget.LinearLayout index="2" class="android.widget.LinearLayout" text="" bounds="[592,1755][889,1917]">
+                            <android.widget.ImageButton index="0" class="android.widget.ImageButton" text="" resource-id="com.better.alarm.debug:id/appearance_fragment_layout_button" bounds="[610,1773][736,1899]"/>
+                            <android.widget.TextView index="1" class="android.widget.TextView" text="Bold" resource-id="com.better.alarm.debug:id/appearance_fragment_layout_text" bounds="[772,1803][871,1869]"/>
+                          </android.widget.LinearLayout>
+                          <android.view.View index="3" class="android.view.View" text="" bounds="[889,1755][978,1917]"/>
+                          <android.widget.LinearLayout index="4" class="android.widget.LinearLayout" text="" bounds="[978,1755][1335,1917]">
+                            <android.widget.ImageButton index="0" class="android.widget.ImageButton" text="" resource-id="com.better.alarm.debug:id/appearance_fragment_layout_button" bounds="[996,1773][1122,1899]"/>
+                            <android.widget.TextView index="1" class="android.widget.TextView" text="Classic" resource-id="com.better.alarm.debug:id/appearance_fragment_layout_text" bounds="[1158,1803][1317,1869]"/>
+                          </android.widget.LinearLayout>
+                        </android.widget.LinearLayout>
+                        <android.widget.TextView index="2" class="android.widget.TextView" text="Interface theme" bounds="[105,1917][589,2044]"/>
+                        <android.widget.LinearLayout index="3" class="android.widget.LinearLayout" text="" resource-id="com.better.alarm.debug:id/appearance_row_0" bounds="[105,2086][1335,2350]">
+                          <android.widget.LinearLayout index="0" class="android.widget.LinearLayout" text="" bounds="[105,2086][303,2350]">
+                            <android.widget.RelativeLayout index="0" class="android.widget.RelativeLayout" text="" resource-id="com.better.alarm.debug:id/appearance_fragment_theme_button_container" bounds="[123,2104][285,2266]">
+                              <android.widget.ImageButton index="0" class="android.widget.ImageButton" text="" resource-id="com.better.alarm.debug:id/appearance_fragment_theme_button" bounds="[141,2122][267,2248]"/>
+                              <android.widget.ImageView index="1" class="android.widget.ImageView" text="" resource-id="com.better.alarm.debug:id/appearance_fragment_fab_image" bounds="[214,2195][267,2248]"/>
+                            </android.widget.RelativeLayout>
+                            <android.widget.TextView index="1" class="android.widget.TextView" text="Neon" resource-id="com.better.alarm.debug:id/appearance_fragment_theme_text" bounds="[146,2284][262,2350]"/>
+                          </android.widget.LinearLayout>
+                          <android.view.View index="1" class="android.view.View" text="" bounds="[303,2086][363,2350]"/>
+                          <android.widget.LinearLayout index="2" class="android.widget.LinearLayout" text="" bounds="[363,2086][561,2350]">
+                            <android.widget.RelativeLayout index="0" class="android.widget.RelativeLayout" text="" resource-id="com.better.alarm.debug:id/appearance_fragment_theme_button_container" bounds="[381,2104][543,2266]">
+                              <android.widget.ImageButton index="0" class="android.widget.ImageButton" text="" resource-id="com.better.alarm.debug:id/appearance_fragment_theme_button" bounds="[399,2122][525,2248]"/>
+                              <android.widget.ImageView index="1" class="android.widget.ImageView" text="" resource-id="com.better.alarm.debug:id/appearance_fragment_fab_image" bounds="[472,2195][525,2248]"/>
+                            </android.widget.RelativeLayout>
+                            <android.widget.TextView index="1" class="android.widget.TextView" text="Light" resource-id="com.better.alarm.debug:id/appearance_fragment_theme_text" bounds="[407,2284][516,2350]"/>
+                          </android.widget.LinearLayout>
+                          <android.view.View index="3" class="android.view.View" text="" bounds="[561,2086][621,2350]"/>
+                          <android.widget.LinearLayout index="4" class="android.widget.LinearLayout" text="" bounds="[621,2086][819,2350]">
+                            <android.widget.RelativeLayout index="0" class="android.widget.RelativeLayout" text="" resource-id="com.better.alarm.debug:id/appearance_fragment_theme_button_container" bounds="[639,2104][801,2266]">
+                              <android.widget.ImageButton index="0" class="android.widget.ImageButton" text="" resource-id="com.better.alarm.debug:id/appearance_fragment_theme_button" bounds="[657,2122][783,2248]"/>
+                              <android.widget.ImageView index="1" class="android.widget.ImageView" text="" resource-id="com.better.alarm.debug:id/appearance_fragment_fab_image" bounds="[730,2195][783,2248]"/>
+                            </android.widget.RelativeLayout>
+                            <android.widget.TextView index="1" class="android.widget.TextView" text="Synth" resource-id="com.better.alarm.debug:id/appearance_fragment_theme_text" bounds="[659,2284][781,2350]"/>
+                          </android.widget.LinearLayout>
+                          <android.view.View index="5" class="android.view.View" text="" bounds="[819,2086][879,2350]"/>
+                          <android.widget.LinearLayout index="6" class="android.widget.LinearLayout" text="" bounds="[879,2086][1077,2350]">
+                            <android.widget.RelativeLayout index="0" class="android.widget.RelativeLayout" text="" resource-id="com.better.alarm.debug:id/appearance_fragment_theme_button_container" bounds="[897,2104][1059,2266]">
+                              <android.widget.ImageButton index="0" class="android.widget.ImageButton" text="" resource-id="com.better.alarm.debug:id/appearance_fragment_theme_button" bounds="[915,2122][1041,2248]"/>
+                              <android.widget.ImageView index="1" class="android.widget.ImageView" text="" resource-id="com.better.alarm.debug:id/appearance_fragment_fab_image" bounds="[988,2195][1041,2248]"/>
+                            </android.widget.RelativeLayout>
+                            <android.widget.TextView index="1" class="android.widget.TextView" text="Deus Ex" resource-id="com.better.alarm.debug:id/appearance_fragment_theme_text" bounds="[891,2284][1065,2350]"/>
+                          </android.widget.LinearLayout>
+                          <android.view.View index="7" class="android.view.View" text="" bounds="[1077,2086][1137,2350]"/>
+                          <android.widget.LinearLayout index="8" class="android.widget.LinearLayout" text="" bounds="[1137,2086][1335,2350]">
+                            <android.widget.RelativeLayout index="0" class="android.widget.RelativeLayout" text="" resource-id="com.better.alarm.debug:id/appearance_fragment_theme_button_container" bounds="[1155,2104][1317,2266]">
+                              <android.widget.ImageButton index="0" class="android.widget.ImageButton" text="" resource-id="com.better.alarm.debug:id/appearance_fragment_theme_button" bounds="[1173,2122][1299,2248]"/>
+                              <android.widget.ImageView index="1" class="android.widget.ImageView" text="" resource-id="com.better.alarm.debug:id/appearance_fragment_fab_image" bounds="[1246,2195][1299,2248]"/>
+                            </android.widget.RelativeLayout>
+                            <android.widget.TextView index="1" class="android.widget.TextView" text="Abyss" resource-id="com.better.alarm.debug:id/appearance_fragment_theme_text" bounds="[1169,2284][1302,2350]"/>
+                          </android.widget.LinearLayout>
+                        </android.widget.LinearLayout>
+                      </android.widget.LinearLayout>
+                    </android.widget.LinearLayout>
+                  </android.widget.LinearLayout>
+                  <android.widget.ListView index="1" class="android.widget.ListView" text="" resource-id="com.better.alarm.debug:id/list_fragment_list" bounds="[53,280][1387,2140]" id="@id/list_fragment_list" layout_width="fill_parent" layout_height="0.0dip" layout_weight="1.0" type="ListView" isMerged="list_fragment.xml">
+                    <android.widget.LinearLayout index="0" class="android.widget.LinearLayout" text="" bounds="[53,280][1387,518]" orientation="horizontal" layout_width="fill_parent" layout_height="wrap_content" baselineAligned="true" type="LinearLayout" isMerged="list_row_classic.xml">
+                      <android.widget.LinearLayout index="0" class="android.widget.LinearLayout" text="" resource-id="com.better.alarm.debug:id/list_row_on_off_checkbox_container" bounds="[53,280][291,518]" gravity="center" id="@id/list_row_on_off_checkbox_container" style="@style/alarm_list_left_column" type="com.better.alarm.view.DontPressWithParentLayout" isMerged="list_row_classic.xml">
+                        <android.view.View index="0" class="android.view.View" text="" bounds="[53,280][89,518]"/>
+                        <android.widget.Switch index="1" class="android.widget.Switch" text="OFF" resource-id="com.better.alarm.debug:id/list_row_on_off_switch" bounds="[89,280][255,518]" layout_gravity="center" id="@id/list_row_on_off_switch" focusable="false" clickable="false" duplicateParentState="true" layout_width="wrap_content" layout_height="wrap_content" type="CheckBox" isMerged="list_row_classic.xml"/>
+                        <android.view.View index="2" class="android.view.View" text="" bounds="[255,280][291,518]"/>
+                      </android.widget.LinearLayout>
+                      <android.widget.LinearLayout index="1" class="android.widget.LinearLayout" text="" resource-id="com.better.alarm.debug:id/list_row_digital_clock_container" bounds="[291,280][1149,518]" orientation="vertical" id="@id/list_row_digital_clock_container" longClickable="false" layout_width="0.0dip" layout_height="fill_parent" layout_weight="1.0" type="LinearLayout" isMerged="list_row_classic.xml">
+                        <android.widget.LinearLayout index="0" class="android.widget.LinearLayout" text="" resource-id="com.better.alarm.debug:id/list_row_digital_clock" bounds="[291,280][1149,420]" gravity="center" layout_gravity="center_horizontal" orientation="horizontal" id="@id/list_row_digital_clock" focusable="false" layout_width="fill_parent" layout_height="40.0dip" type="com.better.alarm.view.DigitalClock" isMerged="list_row_classic.xml">
+                          <android.widget.TextView index="0" class="android.widget.TextView" text="8:39" resource-id="com.better.alarm.debug:id/digital_clock_time" bounds="[584,280][780,420]" textSize="30.0dip" id="@id/digital_clock_time" layout_width="wrap_content" layout_height="wrap_content" fontFamily="sans-serif-thin" type="TextView" isMerged="list_row_classic.xml"/>
+                          <android.widget.TextView index="1" class="android.widget.TextView" text="AM" resource-id="com.better.alarm.debug:id/digital_clock_am_pm" bounds="[780,354][855,420]" layout_gravity="bottom" id="@id/digital_clock_am_pm" layout_width="wrap_content" layout_height="wrap_content" type="TextView" isMerged="list_row_classic.xml"/>
+                        </android.widget.LinearLayout>
+                      </android.widget.LinearLayout>
+                      <android.widget.LinearLayout index="2" class="android.widget.LinearLayout" text="" bounds="[1149,280][1387,518]" orientation="horizontal" layout_width="fill_parent" layout_height="wrap_content" baselineAligned="true" type="LinearLayout" isMerged="list_row_classic.xml">
+                        <android.widget.LinearLayout index="0" class="android.widget.LinearLayout" text="" resource-id="com.better.alarm.debug:id/details_button_container" bounds="[1149,280][1387,518]" gravity="center" id="@id/details_button_container" style="@style/alarm_list_left_column" type="com.better.alarm.view.DontPressWithParentLayout" isMerged="list_row_classic.xml">
+                          <android.view.View index="0" class="android.view.View" text="" bounds="[1149,280][1226,518]"/>
+                          <android.widget.RelativeLayout index="1" class="android.widget.RelativeLayout" text="" bounds="[1226,357][1310,441]" layout_width="wrap_content" layout_height="wrap_content" type="RelativeLayout" isMerged="list_row_classic.xml">
+                            <android.widget.ImageView index="1" class="android.widget.ImageView" text="" resource-id="com.better.alarm.debug:id/details_button_textview" bounds="[1226,357][1310,441]" textStyle="normal" id="@id/details_button_textview" focusable="false" clickable="false" layout_width="wrap_content" layout_height="wrap_content" src="@drawable/ic_baseline_more_horiz_24" tint="?android:textColorPrimary" type="ImageView" isMerged="list_row_classic.xml"/>
+                          </android.widget.RelativeLayout>
+                          <android.view.View index="2" class="android.view.View" text="" bounds="[1310,280][1387,518]"/>
+                        </android.widget.LinearLayout>
+                      </android.widget.LinearLayout>
+                    </android.widget.LinearLayout>
+                    <android.widget.LinearLayout index="1" class="android.widget.LinearLayout" text="" bounds="[53,522][1387,760]" orientation="horizontal" layout_width="fill_parent" layout_height="wrap_content" baselineAligned="true" type="LinearLayout" isMerged="list_row_classic.xml">
+                      <android.widget.LinearLayout index="0" class="android.widget.LinearLayout" text="" resource-id="com.better.alarm.debug:id/list_row_on_off_checkbox_container" bounds="[53,522][291,760]" gravity="center" id="@id/list_row_on_off_checkbox_container" style="@style/alarm_list_left_column" type="com.better.alarm.view.DontPressWithParentLayout" isMerged="list_row_classic.xml">
+                        <android.view.View index="0" class="android.view.View" text="" bounds="[53,522][89,760]"/>
+                        <android.widget.Switch index="1" class="android.widget.Switch" text="OFF" resource-id="com.better.alarm.debug:id/list_row_on_off_switch" bounds="[89,522][255,760]" layout_gravity="center" id="@id/list_row_on_off_switch" focusable="false" clickable="false" duplicateParentState="true" layout_width="wrap_content" layout_height="wrap_content" type="CheckBox" isMerged="list_row_classic.xml"/>
+                        <android.view.View index="2" class="android.view.View" text="" bounds="[255,522][291,760]"/>
+                      </android.widget.LinearLayout>
+                      <android.widget.LinearLayout index="1" class="android.widget.LinearLayout" text="" resource-id="com.better.alarm.debug:id/list_row_digital_clock_container" bounds="[291,522][1149,760]" orientation="vertical" id="@id/list_row_digital_clock_container" longClickable="false" layout_width="0.0dip" layout_height="fill_parent" layout_weight="1.0" type="LinearLayout" isMerged="list_row_classic.xml">
+                        <android.widget.LinearLayout index="0" class="android.widget.LinearLayout" text="" resource-id="com.better.alarm.debug:id/list_row_digital_clock" bounds="[291,522][1149,662]" gravity="center" layout_gravity="center_horizontal" orientation="horizontal" id="@id/list_row_digital_clock" focusable="false" layout_width="fill_parent" layout_height="40.0dip" type="com.better.alarm.view.DigitalClock" isMerged="list_row_classic.xml">
+                          <android.widget.TextView index="0" class="android.widget.TextView" text="8:30" resource-id="com.better.alarm.debug:id/digital_clock_time" bounds="[584,522][780,662]" textSize="30.0dip" id="@id/digital_clock_time" layout_width="wrap_content" layout_height="wrap_content" fontFamily="sans-serif-thin" type="TextView" isMerged="list_row_classic.xml"/>
+                          <android.widget.TextView index="1" class="android.widget.TextView" text="AM" resource-id="com.better.alarm.debug:id/digital_clock_am_pm" bounds="[780,596][855,662]" layout_gravity="bottom" id="@id/digital_clock_am_pm" layout_width="wrap_content" layout_height="wrap_content" type="TextView" isMerged="list_row_classic.xml"/>
+                        </android.widget.LinearLayout>
+                        <android.widget.LinearLayout index="1" class="android.widget.LinearLayout" text="" bounds="[291,662][1149,728]" gravity="center_horizontal" orientation="horizontal" layout_width="fill_parent" layout_height="20.0dip" type="LinearLayout" isMerged="list_row_classic.xml">
+                          <android.widget.TextView index="0" class="android.widget.TextView" text="Mon, Tue, Wed, Thu, Fri" resource-id="com.better.alarm.debug:id/list_row_daysOfWeek" bounds="[461,662][961,728]" textAppearance="?android:textAppearanceSmall" id="@id/list_row_daysOfWeek" layout_width="wrap_content" layout_height="wrap_content" layout_marginRight="5.0dip" type="TextView" isMerged="list_row_classic.xml"/>
+                        </android.widget.LinearLayout>
+                      </android.widget.LinearLayout>
+                      <android.widget.LinearLayout index="2" class="android.widget.LinearLayout" text="" bounds="[1149,522][1387,760]" orientation="horizontal" layout_width="fill_parent" layout_height="wrap_content" baselineAligned="true" type="LinearLayout" isMerged="list_row_classic.xml">
+                        <android.widget.LinearLayout index="0" class="android.widget.LinearLayout" text="" resource-id="com.better.alarm.debug:id/details_button_container" bounds="[1149,522][1387,760]" gravity="center" id="@id/details_button_container" style="@style/alarm_list_left_column" type="com.better.alarm.view.DontPressWithParentLayout" isMerged="list_row_classic.xml">
+                          <android.view.View index="0" class="android.view.View" text="" bounds="[1149,522][1226,760]"/>
+                          <android.widget.RelativeLayout index="1" class="android.widget.RelativeLayout" text="" bounds="[1226,599][1310,683]" layout_width="wrap_content" layout_height="wrap_content" type="RelativeLayout" isMerged="list_row_classic.xml">
+                            <android.widget.ImageView index="1" class="android.widget.ImageView" text="" resource-id="com.better.alarm.debug:id/details_button_textview" bounds="[1226,599][1310,683]" textStyle="normal" id="@id/details_button_textview" focusable="false" clickable="false" layout_width="wrap_content" layout_height="wrap_content" src="@drawable/ic_baseline_more_horiz_24" tint="?android:textColorPrimary" type="ImageView" isMerged="list_row_classic.xml"/>
+                          </android.widget.RelativeLayout>
+                          <android.view.View index="2" class="android.view.View" text="" bounds="[1310,522][1387,760]"/>
+                        </android.widget.LinearLayout>
+                      </android.widget.LinearLayout>
+                    </android.widget.LinearLayout>
+                    <android.widget.LinearLayout index="2" class="android.widget.LinearLayout" text="" bounds="[53,764][1387,1002]" orientation="horizontal" layout_width="fill_parent" layout_height="wrap_content" baselineAligned="true" type="LinearLayout" isMerged="list_row_classic.xml">
+                      <android.widget.LinearLayout index="0" class="android.widget.LinearLayout" text="" resource-id="com.better.alarm.debug:id/list_row_on_off_checkbox_container" bounds="[53,764][291,1002]" gravity="center" id="@id/list_row_on_off_checkbox_container" style="@style/alarm_list_left_column" type="com.better.alarm.view.DontPressWithParentLayout" isMerged="list_row_classic.xml">
+                        <android.view.View index="0" class="android.view.View" text="" bounds="[53,764][89,1002]"/>
+                        <android.widget.Switch index="1" class="android.widget.Switch" text="OFF" resource-id="com.better.alarm.debug:id/list_row_on_off_switch" bounds="[89,764][255,1002]" layout_gravity="center" id="@id/list_row_on_off_switch" focusable="false" clickable="false" duplicateParentState="true" layout_width="wrap_content" layout_height="wrap_content" type="CheckBox" isMerged="list_row_classic.xml"/>
+                        <android.view.View index="2" class="android.view.View" text="" bounds="[255,764][291,1002]"/>
+                      </android.widget.LinearLayout>
+                      <android.widget.LinearLayout index="1" class="android.widget.LinearLayout" text="" resource-id="com.better.alarm.debug:id/list_row_digital_clock_container" bounds="[291,764][1149,1002]" orientation="vertical" id="@id/list_row_digital_clock_container" longClickable="false" layout_width="0.0dip" layout_height="fill_parent" layout_weight="1.0" type="LinearLayout" isMerged="list_row_classic.xml">
+                        <android.widget.LinearLayout index="0" class="android.widget.LinearLayout" text="" resource-id="com.better.alarm.debug:id/list_row_digital_clock" bounds="[291,764][1149,904]" gravity="center" layout_gravity="center_horizontal" orientation="horizontal" id="@id/list_row_digital_clock" focusable="false" layout_width="fill_parent" layout_height="40.0dip" type="com.better.alarm.view.DigitalClock" isMerged="list_row_classic.xml">
+                          <android.widget.TextView index="0" class="android.widget.TextView" text="9:00" resource-id="com.better.alarm.debug:id/digital_clock_time" bounds="[584,764][780,904]" textSize="30.0dip" id="@id/digital_clock_time" layout_width="wrap_content" layout_height="wrap_content" fontFamily="sans-serif-thin" type="TextView" isMerged="list_row_classic.xml"/>
+                          <android.widget.TextView index="1" class="android.widget.TextView" text="AM" resource-id="com.better.alarm.debug:id/digital_clock_am_pm" bounds="[780,838][855,904]" layout_gravity="bottom" id="@id/digital_clock_am_pm" layout_width="wrap_content" layout_height="wrap_content" type="TextView" isMerged="list_row_classic.xml"/>
+                        </android.widget.LinearLayout>
+                        <android.widget.LinearLayout index="1" class="android.widget.LinearLayout" text="" bounds="[291,904][1149,970]" gravity="center_horizontal" orientation="horizontal" layout_width="fill_parent" layout_height="20.0dip" type="LinearLayout" isMerged="list_row_classic.xml">
+                          <android.widget.TextView index="0" class="android.widget.TextView" text="Sat, Sun" resource-id="com.better.alarm.debug:id/list_row_daysOfWeek" bounds="[622,904][799,970]" textAppearance="?android:textAppearanceSmall" id="@id/list_row_daysOfWeek" layout_width="wrap_content" layout_height="wrap_content" layout_marginRight="5.0dip" type="TextView" isMerged="list_row_classic.xml"/>
+                        </android.widget.LinearLayout>
+                      </android.widget.LinearLayout>
+                      <android.widget.LinearLayout index="2" class="android.widget.LinearLayout" text="" bounds="[1149,764][1387,1002]" orientation="horizontal" layout_width="fill_parent" layout_height="wrap_content" baselineAligned="true" type="LinearLayout" isMerged="list_row_classic.xml">
+                        <android.widget.LinearLayout index="0" class="android.widget.LinearLayout" text="" resource-id="com.better.alarm.debug:id/details_button_container" bounds="[1149,764][1387,1002]" gravity="center" id="@id/details_button_container" style="@style/alarm_list_left_column" type="com.better.alarm.view.DontPressWithParentLayout" isMerged="list_row_classic.xml">
+                          <android.view.View index="0" class="android.view.View" text="" bounds="[1149,764][1226,1002]"/>
+                          <android.widget.RelativeLayout index="1" class="android.widget.RelativeLayout" text="" bounds="[1226,841][1310,925]" layout_width="wrap_content" layout_height="wrap_content" type="RelativeLayout" isMerged="list_row_classic.xml">
+                            <android.widget.ImageView index="1" class="android.widget.ImageView" text="" resource-id="com.better.alarm.debug:id/details_button_textview" bounds="[1226,841][1310,925]" textStyle="normal" id="@id/details_button_textview" focusable="false" clickable="false" layout_width="wrap_content" layout_height="wrap_content" src="@drawable/ic_baseline_more_horiz_24" tint="?android:textColorPrimary" type="ImageView" isMerged="list_row_classic.xml"/>
+                          </android.widget.RelativeLayout>
+                          <android.view.View index="2" class="android.view.View" text="" bounds="[1310,764][1387,1002]"/>
+                        </android.widget.LinearLayout>
+                      </android.widget.LinearLayout>
+                    </android.widget.LinearLayout>
+                  </android.widget.ListView>
+                  <android.widget.ImageButton index="2" class="android.widget.ImageButton" text="" resource-id="com.better.alarm.debug:id/fab" bounds="[1146,1846][1342,2042]" id="@id/fab" layout_width="fill_parent" layout_height="wrap_content" style="?android:buttonBarButtonStyle" type="Button" isMerged="list_fragment.xml"/>
+                </android.view.ViewGroup>
+              </android.widget.FrameLayout>
+            </android.widget.LinearLayout>
+          </android.widget.FrameLayout>

@@ -1,0 +1,8 @@
+-------------------BUG 1-----------------
+TEXT CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: activity_about.xml
+bug view class name: android.widget.CheckedTextView
+bug view id: @id/about_description
+bug view bounds: [70, 495, 1370, 2392]
+bug view text: Tickmate is basically a one bit journal. For each day, you can specify whether something has occurred or not. The occurrences can be arbitrary things, like flossing your teeth or having a drink. You are able to quantify your habits and the accumulated data can be displayed for the past weeks or months to track changes over time. This way, it may help you to get over your old habits or embody new ones.   Tickmate is open source, GPLv3 licensed software.   Contains icons from the Glyphicons FREE icon set (CC-BY-3.0)  The backup folder is: /storage/emulated/0/Android/data/de.smasi.tickmate/files/backup
+text height = 1910; view height = 1853

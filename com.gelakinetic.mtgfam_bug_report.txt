@@ -1,0 +1,8 @@
+-------------------BUG 1-----------------
+TEXT CAN'T BE DISPLAYED COMPLETELY, DETAILED INFO:
+bug view is in file: search_frag.xml
+bug view class name: android.widget.EditText
+bug view id: @id/textsearch
+bug view bounds: [56, 842, 1384, 982]
+bug view text: Text
+text height = 200; view height = 180
