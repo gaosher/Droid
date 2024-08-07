@@ -22,7 +22,7 @@ import tool.staticFilesPreProcess;
 
 public class View {
 
-    public static String packageName = "text.app"; // todo 需要在入口初始化
+    public static String packageName; // todo 需要在入口初始化
     public String view_type = "view";
 
     int measuredWidth = 0;
@@ -55,6 +55,9 @@ public class View {
     public String xmlFileName;
 
     public boolean isNormal = false;
+
+    int minHeight = Integer.MAX_VALUE;
+    int maxHeight = Integer.MIN_VALUE;
 
 
     public View(){
@@ -102,7 +105,7 @@ public class View {
         }
         // initial index
         this.setIndex(attrMap.get("index"));
-        attrMap.remove("index");
+//        attrMap.remove("index");
 
         // initial padding
         for (String pad : Padding_Attr){
@@ -123,6 +126,8 @@ public class View {
             this.xmlFileName = attrMap.get("isMerged");
             attrMap.remove("isMerged");
         }
+
+        this.AttrMap = attrMap;
     }
 
     void parseStyles(String styleName, HashMap<String, String> attrMap){

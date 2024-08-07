@@ -30,9 +30,6 @@ public class LinearLayout extends ViewGroup {
             }
             attrMap.remove("orientation");
         }
-//        System.out.println("orientation: " + this.Orientation);
-
-
         this.AttrMap = attrMap;
     }
 
@@ -90,8 +87,8 @@ public class LinearLayout extends ViewGroup {
                     continue;
                 }
                 LayoutParams lp = (LayoutParams) child.mLayoutParams;
-                this.WeightSum += lp.Weight;
-
+                if(lp.height == 0) continue;
+//                this.WeightSum += lp.Weight;
                 measureChild(child, WidthMeasureSpecMode, WidthMeasureSpecSize, HeightMeasureSpecMode, left_height);
 
                 // left_height 迭代

@@ -2,7 +2,7 @@ package util;
 public class DisplayParams {
 
     final static public int DEFAULT_DPI = 560;
-    final static public int DPI = 560; // 720
+    final static public int DPI = 720; // 560
 
     final static public int SCREEN_WIDTH = 1440;
 
@@ -12,5 +12,6 @@ public class DisplayParams {
 
     final static public double TEXT_HEIGHT_PARAM = 1.327148462;
     final static public double TEXT_WIDTH_PARAM = 0.49604669;
+    final static public double CAPITAL_TEXT_WIDTH_PARAM = 0.632653;
 
 }

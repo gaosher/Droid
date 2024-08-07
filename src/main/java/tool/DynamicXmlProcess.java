@@ -3,6 +3,7 @@ package tool;
 import org.dom4j.*;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
+import view.View;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -79,6 +80,7 @@ public class DynamicXmlProcess {
                 package_name = a.getValue();
                 toBeDel.add(a);
                 System.out.println("package_name: " + package_name);
+                View.packageName = package_name;
             }
 
             if(a.getName().equals("scrollable") && a.getValue().equals("false")) {
@@ -380,8 +382,6 @@ public class DynamicXmlProcess {
     }
 
 
-
-
     //@id/simple_lat_text
     public static void main(String[] args){
 //        File dynamic_xml = new File("mergedXmlBase\\mtgfam_3.6.4.xml");
@@ -396,10 +396,10 @@ public class DynamicXmlProcess {
 //        File dynamic_xml = new File("C:\\Users\\gaoshu\\Desktop\\textExamples\\linphone\\linphone_call.xml");
 //        File layout_base = new File("C:\\Accessibility\\DataSet\\owleyeDataset\\linphone4.2.3\\linphone-android-debug-4.2.3\\res\\layout");
 
-        File dynamic_xml = new File("C:\\Users\\gaoshu\\Desktop\\textExamples\\NoDefects.xml");
-        File layout_base = new File("C:\\Accessibility\\DataSet\\owleyeDataset\\DemocracyDroid3.7.1\\apk\\DemocracyDroid-3.7.1\\res\\layout");
+        File dynamic_xml = new File("C:/Accessibility/DataSet/dVerminDataset/AlarmClock3.09.01/alarms.xml");
+        File layout_base = new File("C:\\Accessibility\\DataSet\\dVerminDataset\\AlarmClock3.09.01\\app-develop-debug\\res\\layout");
         String activity_name = "MainActivity";
-        String out_path = "mergedXmlBase\\NoDefectsMergeTest.xml";
+        String out_path = "mergedXmlBase\\alarmsMergeTest.xml";
         mergeXmls(dynamic_xml, layout_base, out_path);
     }
 

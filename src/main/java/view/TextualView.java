@@ -15,19 +15,22 @@ import util.MeasureSpec;
 import tool.staticFilesPreProcess;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 
 
 public class TextualView extends View {
 
     public String Text;
-    int TextSize =(int) (49 * DisplayParams.SCALING_PARAM); // 改成以px为单位，默认为14sp，受字体放大影响？
+    int TextSize =(int) (49 * DisplayParams.DPI/DisplayParams.DEFAULT_DPI * DisplayParams.SCALING_PARAM); // 改成以px为单位，默认为14sp，受字体放大影响？
     int maxLines = -1;
     int minLines = -1;
     int textHeight = -1;
+    int textWidth = -1;
 
     public static final int TEXTVIEW = 0;
     public static final int BUTTON = 1;
     public static final int EDITTEXT = 2;
+    public static final int CHECKEDTEXTVIEW = 3;
     
     int textual_view_type = TEXTVIEW;
 
@@ -36,7 +39,6 @@ public class TextualView extends View {
 
 
     public TextualView(ViewGroup.LayoutParams layoutParams, HashMap<String, String> attrMap, int type) {
-
         super(layoutParams, attrMap);
         // initial textual_view_type
         textual_view_type = type;
@@ -85,6 +87,22 @@ public class TextualView extends View {
             setMaxLines("1");
             attrMap.remove("singleLine");
         }
+
+        if(type == BUTTON){
+            if(paddingLeft == 0){
+                paddingLeft = 16 * DisplayParams.DPI / 160;
+            }
+            if(paddingRight == 0){
+                paddingRight = 16 * DisplayParams.DPI / 160;
+            }
+            if(paddingTop == 0){
+                paddingTop = 10 * DisplayParams.DPI / 160;
+            }
+            if(paddingBottom == 0){
+                paddingBottom = 10 * DisplayParams.DPI / 160;
+            }
+        }
+
         this.AttrMap = attrMap;
     }
 
@@ -190,7 +208,8 @@ public class TextualView extends View {
         return input.split("\\R");
     }
 
-    static int getTextLines(String text, int textSize, int width){
+    static int getTextLines(String text, int textSize, int width, int type){
+        System.out.println("width = " + width);
         if(text == null || text.length() == 0) return 0; // text为空直接返回
 
         if (textSize == Integer.MIN_VALUE) {
@@ -198,14 +217,19 @@ public class TextualView extends View {
             return 0;
         }
 
-        if(width == 0){
+        if(width <= 0){
             System.err.println("TextView: " + text + " has 0 width");
             return -1;
         }
 
         if(textSize < 0) textSize *= -1;
 
-        double space_width = textSize * DisplayParams.TEXT_WIDTH_PARAM ; // 单个字母的宽度 px
+        double space_width = 0;// 单个字母的宽度 px
+        if(type == BUTTON){
+            space_width = textSize * DisplayParams.CAPITAL_TEXT_WIDTH_PARAM ;
+        }else{
+            space_width = textSize * DisplayParams.TEXT_WIDTH_PARAM ;
+        }
 //        space_width = Math.abs(space_width);
 
         int lines = 1;
@@ -259,29 +283,46 @@ public class TextualView extends View {
     }
 
 
-    static int onMeasureCNT = 0;
-
     @Override
     public void onMeasure(int WidthMeasureSpecMode, int WidthMeasureSpecSize, int HeightMeasureSpecMode, int HeightMeasureSpecSize){
 //        System.out.println("TextualView.onMeasure Params: WidthMeasureSpecSize = " + WidthMeasureSpecSize +
 //                "; HeightMeasureSpecSize = " + HeightMeasureSpecMode);
         System.out.println("---------start TextualView measurement: " + this.Text + "------------");
         showMeasureParams(WidthMeasureSpecMode, WidthMeasureSpecSize, HeightMeasureSpecMode, HeightMeasureSpecSize);
+
         int lineSum = 0;
         int letters_cnt = 0;
 
         // 确定文字宽度，需要去掉水平padding所占的空间
         int textWidth = WidthMeasureSpecSize - (this.paddingLeft + this.paddingRight);
 
+        if(textual_view_type == BUTTON){
+            if(AttrMap.containsKey("icon")){
+                String icon = AttrMap.get("icon");
+                if(icon.startsWith("@drawable/")){
+                    icon = icon.replace("@drawable/", "");
+                    int icon_width = 0, icon_height = 0;
+                    int[] size = staticFilesPreProcess.getImages().get(icon);
+                    if(size != null){
+                        System.out.println("find icon in button!");
+                        icon_width = size[0];
+                        textWidth -= icon_width;
+                        icon_height = size[1];
+                        this.minHeight = icon_height;
+                    }
+                }
+            }
+        }
+
         for(String str : splitStringByNewline(this.Text)){
             // 记录字母最多的句子
             if(str.length() > letters_cnt) letters_cnt = str.length();
-            int lines = getTextLines(str, this.TextSize, textWidth);
+            int lines = getTextLines(str, this.TextSize, textWidth, textual_view_type);
             if(lines == -1){
                 System.out.println("0 width error");
                 showMeasureParams(WidthMeasureSpecMode, WidthMeasureSpecSize, HeightMeasureSpecMode, HeightMeasureSpecSize);
             }
-            lineSum += getTextLines(str, this.TextSize, textWidth);
+            lineSum += getTextLines(str, this.TextSize, textWidth, textual_view_type);
         }
 
         // 确定组件宽度
@@ -291,7 +332,8 @@ public class TextualView extends View {
             // 如果每行文字都很短的话，应该是使用最宽的文字
             int space_width = (int) (this.TextSize * DisplayParams.TEXT_WIDTH_PARAM); // 单字符的宽度
             space_width = Math.abs(space_width);
-            this.measuredWidth = Math.min(letters_cnt * space_width + paddingLeft + paddingRight, WidthMeasureSpecSize);
+            this.textWidth = letters_cnt * space_width;
+            this.measuredWidth = Math.min(textWidth + paddingLeft + paddingRight, WidthMeasureSpecSize);
         }else{
             System.err.println("unspecified width");
         }
@@ -299,6 +341,9 @@ public class TextualView extends View {
         // 确定文本高度
         if(this.maxLines > 0){
             lineSum = Math.min(lineSum, this.maxLines);
+            if(this.maxLines == 1){
+                System.out.println();
+            }
         }
 
         int textHeight;
@@ -308,8 +353,7 @@ public class TextualView extends View {
             textHeight = (int) Math.round(calTextHeight(lineSum, this.TextSize));
         }
         if(textual_view_type == EDITTEXT){
-            // TODO: 2024/7/26 73是否dpi相关？ 
-            textHeight += 73;
+            textHeight += (73 * DisplayParams.DPI / DisplayParams.DEFAULT_DPI);
         }
         this.textHeight = textHeight;
 
@@ -399,7 +443,7 @@ public class TextualView extends View {
 //        getTextSizeFromStyles("TextAppearance.AppCompat.Large");
 //        staticFilesPreProcess.initial("C:/Accessibility/DataSet/owleyeDataset/transistor3.2.4/transistor-app-release-3.2.4/res");
 //        setTextAppearance("@style/TextAppearance.AppCompat.Large");
-        int lines = getTextLines("OpenTracks - OSM Dashboard", 91, 1258);
+        int lines = getTextLines("OpenTracks - OSM Dashboard", 91, 1258, TEXTVIEW);
         System.out.println(lines);
     }
 }

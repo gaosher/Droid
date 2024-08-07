@@ -1,4 +1,4 @@
 {
-  "actionBarSize": "@dimen/mtrl_toolbar_default_height",
+  "actionBarSize": "56dip",
   "dialogPreferredPadding": "@dimen/abc_dialog_padding_material"
 }

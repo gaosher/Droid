@@ -1,3 +1,4 @@
 {
-  "textAppearanceMediumInverse": "@dimen/abc_text_size_medium_material"
+  "textAppearanceMediumInverse": "@dimen/abc_text_size_medium_material",
+  "textAppearanceMedium": "@dimen/abc_text_size_medium_material"
 }

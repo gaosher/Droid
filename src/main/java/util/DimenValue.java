@@ -106,9 +106,12 @@ public class DimenValue {
         if(dimenValue.equals("wrap_content")) return WRAP_CONTENT;
 
         if(dimenValue.startsWith("@dimen/")){
-            // TODO: 2024/5/17
             dimenValue = dimenValue.replace("@dimen/", "");
-            return parseDimenValue2Px(staticFilesPreProcess.Dimens.get(dimenValue));
+            if(staticFilesPreProcess.Dimens.get(dimenValue) != null){
+                return parseDimenValue2Px(staticFilesPreProcess.Dimens.get(dimenValue));
+            }else {
+                System.err.println("Unknown unit type: " + "@dimen/" + dimenValue);
+            }
         }
 
         if(dimenValue.startsWith("?")){

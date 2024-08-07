@@ -105,6 +105,7 @@ public class RelativeLayout extends ViewGroup {
         for(View child : this.Children){
             // children之间的 水平方向上的依赖关系
             for(int h=0; h<HorizontalRules.length; h++){
+                if(child.isNormal) continue;
                 if(child.AttrMap == null){
                     System.err.println(child.getId());
                 }
@@ -127,6 +128,7 @@ public class RelativeLayout extends ViewGroup {
 
             // child与parent之间的 水平方向上的依赖关系
             for (int p_h = 0; p_h < HorizontalParentRules.length; p_h++) {
+                if(child.isNormal) continue;
                 if(child.AttrMap.containsKey(HorizontalParentRules[p_h]) && // 如，layout_alignParentStart = “true”
                         child.AttrMap.get(HorizontalParentRules[p_h]).equals("true")){
                     int relation = RULES_HORIZONTAL_PARENT[p_h];
@@ -151,6 +153,7 @@ public class RelativeLayout extends ViewGroup {
         for(View child : this.Children){
             // children之间的 垂直方向上的依赖关系
             for(int v=0; v < VerticalRules.length; v++){
+                if(child.isNormal) continue;
                 if(child.AttrMap.containsKey(VerticalRules[v])){
                     String target_id = child.AttrMap.get(VerticalRules[v]);
                     int target_view_index = -2;
@@ -171,6 +174,7 @@ public class RelativeLayout extends ViewGroup {
 
             // child与parent之间的 垂直方向上的依赖关系
             for (int p_h = 0; p_h < VerticalParentRules.length; p_h++) {
+                if(child.isNormal) continue;
                 if(child.AttrMap.containsKey(VerticalParentRules[p_h]) && // layout_alignParentTop = "true"
                         child.AttrMap.get(VerticalParentRules[p_h]).equals("true")){
                     int relation = RULES_VERTICAL_PARENT[p_h];
@@ -245,6 +249,7 @@ public class RelativeLayout extends ViewGroup {
 //            System.out.println("HORIZONTAL");
             System.out.println("---------------child index " + index + "-------------------");
             View child = this.getChildren().get(index);
+            if(child.isNormal) continue;
             LayoutParams lp = (LayoutParams) child.mLayoutParams;
 //            List<Rule> rules = new ArrayList<>(); // child index 相关的水品规则
             boolean lFlag = false;
@@ -351,6 +356,7 @@ public class RelativeLayout extends ViewGroup {
 //            System.out.println("VERTICAL");
             System.out.println("---------------child index " + index + "-------------------");
             View child = this.getChildren().get(index);
+            if(child.isNormal) continue;
             System.out.println(child.getId());
             LayoutParams lp = (LayoutParams) child.mLayoutParams;
 
@@ -598,11 +604,13 @@ public class RelativeLayout extends ViewGroup {
             return;
         }
 
-        if((child1 instanceof ImageView || child1 instanceof TextualView) &&
-                (child2 instanceof ImageView || child2 instanceof TextualView)){
+//        if((child1 instanceof ImageView || child1 instanceof TextualView) &&
+//                (child2 instanceof ImageView || child2 instanceof TextualView)){
+//            if(view_overlap) BugReporter.writeViewBug(View.packageName, BugReporter.VIEW_OVERLAP, child1, child2);
+//        }
+        if(child1 instanceof TextualView && child2 instanceof TextualView){
             if(view_overlap) BugReporter.writeViewBug(View.packageName, BugReporter.VIEW_OVERLAP, child1, child2);
         }
-
 
     }
 

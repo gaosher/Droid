@@ -321,12 +321,20 @@ public class ViewGroup extends View{
             // initial height
             if(!attrMap.containsKey("layout_height")) {
                 System.err.println("can't find layout_height");
+                this.height = WRAP_CONTENT;
+            }else{
+                this.height = getDimen(attrMap.get("layout_height")); //px
+                attrMap.remove("layout_height");
             }
-            this.height = getDimen(attrMap.get("layout_height")); //px
-            attrMap.remove("layout_height");
+
             // initial width
-            this.width = getDimen(attrMap.get("layout_width")); // px
-            attrMap.remove("layout_width");
+            if(!attrMap.containsKey("layout_width")){
+                System.err.println("can't find layout_width");
+                this.width = WRAP_CONTENT;
+            }else {
+                this.width = getDimen(attrMap.get("layout_width")); // px
+                attrMap.remove("layout_width");
+            }
             // initial margin
             for (String margin : Margin_Attr) {
                 if (attrMap.containsKey(margin)) {

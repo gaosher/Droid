@@ -27,7 +27,9 @@ public class staticFilesPreProcess {
 
     static File ResBase;
     static File ValuesBase;
-    public static File DimensXML;
+    static File Value_xhdpiBase;
+    public static List<File> DimensXMLs;
+//    public static File Dimens_xhpidXML;
     public static File StylesXML;
 
     static HashMap<String, int[]> Images = new HashMap<>();
@@ -36,6 +38,7 @@ public class staticFilesPreProcess {
 
 
     static public void initial(String resBase) {
+        if(DimensXMLs == null) DimensXMLs = new ArrayList<>();
 
         System.out.println("------------------Start initial static files---------------");
         String valuesBase = resBase + "\\values";
@@ -44,18 +47,34 @@ public class staticFilesPreProcess {
             System.err.println(valuesBase + " is a invalid path");
         }
 
-        String dimenXml = valuesBase + "\\dimens.xml";
-        DimensXML = new File(dimenXml);
-        if (!DimensXML.exists()) {
-            System.err.println(dimenXml + " is a invalid path");
+        String values_xhdpiBase = resBase + "\\values-xhdpi";
+        Value_xhdpiBase = new File(values_xhdpiBase);
+        if (!Value_xhdpiBase.exists()) {
+            System.err.println(valuesBase + " is a invalid path");
         }
+
+        String dimenXml = valuesBase + "\\dimens.xml";
+        File Dimens = new File(dimenXml);
+        if (!Dimens.exists()) {
+            System.err.println(dimenXml + " is a invalid path");
+        }else{
+            DimensXMLs.add(Dimens);
+        }
+
+        String dimen_xhdpiXml = values_xhdpiBase + "\\dimens.xml";
+        File Dimens_xhdpi = new File(dimen_xhdpiXml);
+        if (!Dimens_xhdpi.exists()) {
+            System.err.println(dimen_xhdpiXml + " is a invalid path");
+        }else{
+            DimensXMLs.add(Dimens_xhdpi);
+        }
+
 
         String stylesXml = valuesBase + "\\styles.xml";
         StylesXML = new File(stylesXml);
         if (!StylesXML.exists()) {
             System.err.println(stylesXml + " is a invalid path");
         }
-
 
         System.out.println("start to parse dimens.xml...");
         parseDimens();
@@ -129,38 +148,37 @@ public class staticFilesPreProcess {
     static void parseDimens() { //dimens.xml
         try {
             SAXReader reader = new SAXReader();
-            Document document = reader.read(DimensXML);
-            Element root = document.getRootElement();
-            List<Element> dimens = root.elements();
-            HashMap<String, String> items = new HashMap<>();
-            for(Element dimen : dimens) {
-                String name = dimen.attributeValue("name");
-                String dimenVal = dimen.getText();
-
-                if(dimen.getName().equals("dimen")){ // <dimen>
-                    Dimens.put(name, dimenVal);
-                }else { // <item>
-                    if(dimenVal.contains("@dimen/")){
-                        dimenVal = dimenVal.replace("@dimen/", "");
-                        items.put(name, dimenVal);
-                    }else{
+            for(File dimensXml : DimensXMLs){
+                Document document = reader.read(dimensXml);
+                Element root = document.getRootElement();
+                List<Element> dimens = root.elements();
+                HashMap<String, String> items = new HashMap<>();
+                for(Element dimen : dimens) {
+                    String name = dimen.attributeValue("name");
+                    String dimenVal = dimen.getText();
+                    if(dimen.getName().equals("dimen")){ // <dimen>
                         Dimens.put(name, dimenVal);
+                    }else { // <item>
+                        if(dimenVal.contains("@dimen/")){
+                            dimenVal = dimenVal.replace("@dimen/", "");
+                            items.put(name, dimenVal);
+                        }else{
+                            Dimens.put(name, dimenVal);
+                        }
+                    }
+                }
+
+                // 处理<item>
+                for (HashMap.Entry<String, String> e : items.entrySet()) {
+                    String name = e.getKey();
+                    String item_val = e.getValue();
+                    if (Dimens.containsKey(item_val)) {
+                        Dimens.put(name, Dimens.get(item_val));
+                    } else {
+                        System.err.println("can't find " + item_val + " in dimens.xml");
                     }
                 }
             }
-
-            // 处理<item>
-            for (HashMap.Entry<String, String> e : items.entrySet()) {
-                String name = e.getKey();
-                String item_val = e.getValue();
-                if (Dimens.containsKey(item_val)) {
-                    Dimens.put(name, Dimens.get(item_val));
-                } else {
-                    System.err.println("can't find " + item_val + " in dimens.xml");
-                }
-            }
-
-
         } catch (DocumentException e) {
             e.printStackTrace();
         }

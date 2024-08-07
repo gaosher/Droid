@@ -17,7 +17,7 @@ public class BugReporter {
     public final static int VIEW_INCOMPLETE = 3;
     public final static int UNIT_ERROR = 4;
 
-    static int BUG_CNT = 0;
+    public static int BUG_CNT = 0;
 
     static boolean shouldBeEmpty = true;
 

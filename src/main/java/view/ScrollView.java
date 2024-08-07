@@ -35,6 +35,14 @@ public class ScrollView extends ViewGroup {
 
         child = Children.get(0);
 
+        if(child.isNormal){
+            child.onMeasure(MeasureSpec.EXACTLY, 0, MeasureSpec.EXACTLY, 0);
+            this.measuredHeight = child.measuredHeight + paddingTop + paddingBottom;
+            this.measuredWidth = child.measuredWidth + paddingLeft + paddingRight;
+            child.locateView(paddingLeft, paddingTop, paddingLeft + child.measuredWidth, paddingTop + child.measuredHeight);
+            return;
+        }
+
         LayoutParams child_lp = child.mLayoutParams;
 
         int width_padding = this.paddingLeft + this.paddingRight + child_lp.leftMargin + child_lp.rightMargin;
